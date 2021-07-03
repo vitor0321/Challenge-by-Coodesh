@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppThemeActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Set Style components android  -->
+        <item name="colorPrimary">@color/light_blue</item>
+        <item name="colorPrimaryDark">@color/dark_blue</item>
+        <item name="colorAccent">@color/light_orange</item>
+    </style>
+
+    <style name="LottieAnimationView" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:layout_width">0dp</item>
+        <item name="lottie_autoPlay">true</item>
+        <item name="lottie_loop">true</item>
+        <item name="lottie_speed">2</item>
+    </style>
+</resources>
