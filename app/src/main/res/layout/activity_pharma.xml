@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".PharmaActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ViewFlipper
-        android:id="@+id/view_flipper_pharma"
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="components"
+            type="com.example.pharmainc.ui.dataBinding.ItemComponentsData" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/container_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:context=".ui.activity.PharmaActivity">
+        app:startDestination="@id/main_activity_nav_host">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/view_take_photo_splash"
-            style="@style/LottieAnimationView"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/main_activity_nav_host"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_rawRes="@raw/animation_initial" />
+            android:layout="@layout/fragment_home"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_graph"
+            tools:layout="@layout/fragment_home" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/image_view_logo_pharma"
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottom_app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_pharma_logo_round"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="bottom"
+            android:visibility="@{components.appBar ? View.VISIBLE : View.GONE}"
+            >
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_nav_main_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:visibility="@{components.bottomNavigation ? View.VISIBLE : View.GONE}"
+                app:menu="@menu/menu_bottom_navigation" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycle_view_list_pharma"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </ViewFlipper>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.bottomappbar.BottomAppBar>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
