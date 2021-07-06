@@ -8,4 +8,16 @@
     <color name="light_orange">#FCAF17</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Toast  -->
+    <color name="light_blue_toast">#00AFAD</color>
+    <color name="white_toast">#FFFFFFFF</color>
+
+    <!-- Text Input Edit Text  -->
+    <color name="blue_dark_input_edit_text">#003461</color>
+    <color name="red_error_input_edit_text">#FF0015</color>
+
+    <!-- App Compat Text View  -->
+    <color name="blue_dark_compat_text_view">#003461</color>
+
 </resources>

@@ -3,12 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/nav_homeFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/nav_homeFragment"
-        android:name="com.example.pharmainc.ui.fragment.HomeFragment"
-        android:label="fragment_home"
+        android:name="com.example.pharmainc.ui.fragment.home.HomeFragment"
+        android:label="@string/fragment_home"
         android:layout="@layout/fragment_home"
         tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.pharmainc.ui.fragment.splash.SplashFragment"
+        android:label="@string/fragment_splash"
+        android:layout="@layout/fragment_splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_nav_splashFragment_to_nav_homeFragment"
+            app:destination="@id/nav_homeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

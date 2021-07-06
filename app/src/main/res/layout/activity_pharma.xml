@@ -13,37 +13,82 @@
 
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/container_main"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:startDestination="@id/main_activity_nav_host">
+        android:layout_height="match_parent">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/main_activity_nav_host"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout="@layout/fragment_home"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/nav_graph"
-            tools:layout="@layout/fragment_home" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_pharma"
+            style="@style/TextViewStyle"
+            android:text="@string/app_name"
+            android:visibility="@{components.bottomNavigation ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottom_app_bar"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_edit_text_searching"
+            style="@style/TextInputLayoutStyle"
+            android:visibility="@{components.bottomNavigation ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toStartOf="@id/filter_image_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_pharma">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_searching"
+                style="@style/TextInputEditText"
+                android:drawableEnd="@drawable/ic_person_search"
+                android:hint="@string/searching"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/filter_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_filter_search"
+            android:visibility="@{components.bottomNavigation ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/input_edit_text_searching"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/input_edit_text_searching"
+            app:layout_constraintTop_toTopOf="@id/input_edit_text_searching" />
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/container_main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:visibility="@{components.appBar ? View.VISIBLE : View.GONE}"
-            >
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottom_nav_main_activity"
-                android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_edit_text_searching"
+            app:startDestination="@id/main_activity_nav_host">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/main_activity_nav_host"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout="@layout/fragment_home"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/nav_graph"
+                tools:layout="@layout/fragment_home" />
+
+            <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/bottom_app_bar"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:visibility="@{components.bottomNavigation ? View.VISIBLE : View.GONE}"
-                app:menu="@menu/menu_bottom_navigation" />
+                android:layout_gravity="bottom"
+                android:visibility="@{components.appBar ? View.VISIBLE : View.GONE}">
 
-        </com.google.android.material.bottomappbar.BottomAppBar>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/bottom_nav_main_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:visibility="@{components.bottomNavigation ? View.VISIBLE : View.GONE}"
+                    app:menu="@menu/menu_bottom_navigation" />
+
+            </com.google.android.material.bottomappbar.BottomAppBar>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

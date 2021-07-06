@@ -1,10 +1,22 @@
 <resources>
 
     <!-- Manifest -->
-    <string name="app_name">PharmaInc</string>
+    <string name="app_name">Pharma Inc</string>
 
     <!-- Menu  -->
     <string name="home_bottom">Home</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Pharma Activity  -->
+    <string name="searching">Searching</string>
+    <string name="failure_initialize_control">Failure Initialize Control</string>
+
+    <!-- Item Home Fragment  -->
+    <string name="title_patient">Ms</string>
+    <string name="email_patient">jacob_smith@gmail.com</string>
+    <string name="gender_patient_male">Male</string>
+
+    <!-- Navigation  -->
+    <string name="fragment_home">Fragment Home</string>
+    <string name="fragment_splash">Fragment Splash</string>
+
 </resources>

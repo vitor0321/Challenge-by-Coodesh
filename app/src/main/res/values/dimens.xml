@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Text View -->
+    <dimen name="text_size_20sp">20sp</dimen>
+    <dimen name="layout_margin_18dp">18dp</dimen>
+
+    <!-- Text Input Layout -->
+    <dimen name="layout_margin_8dp">8dp</dimen>
+    <dimen name="padding_bottom">16dp</dimen>
+    <dimen name="layout_width_0dp">0dp</dimen>
+    <dimen name="text_size_input_18sp">18sp</dimen>
+    <dimen name="box_stroke_width">1dp</dimen>
+    <dimen name="drawable_padding_8dp">8dp</dimen>
+
+    <!-- Shape Appearance Overlay -->
+    <dimen name="layout_margin_shape_8dp">8dp</dimen>
+
+    <!-- Lottie Animation View -->
+    <dimen name="layout_width_lottie">0dp</dimen>
+    <dimen name="lottie_speed_lottie_2">2</dimen>
+
+    <!-- Toast -->
+    <dimen name="corners_round_toast_100dp">100dp</dimen>
+    <dimen name="padding_toast">8dp</dimen>
+    <dimen name="margin_start_toast_image">8dp</dimen>
+    <dimen name="text_size_toast">16sp</dimen>
+
+    <!-- App Compat Text View -->
+    <dimen name="layout_margin_text_4dp">4dp</dimen>
+    <dimen name="text_size_24sp">24sp</dimen>
+
+    <!-- Card View Style -->
+    <dimen name="layout_margin_card_4dp">4dp</dimen>
+
+</resources>
