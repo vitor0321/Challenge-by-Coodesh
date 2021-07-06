@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppThemeActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Set Style components android  -->
+    <style name="AppThemeActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">@color/light_blue</item>
         <item name="colorPrimaryDark">@color/dark_blue</item>
         <item name="colorAccent">@color/light_orange</item>
         <item name="textInputStyle">@style/TextInputLayoutStyle</item>
         <item name="android:textViewStyle">@style/TextViewStyle</item>
         <item name="cardViewStyle">@style/CardViewStyle</item>
+        <item name="alertDialogStyle">@style/DialogButtonStyle</item>
 
     </style>
 
@@ -38,9 +38,8 @@
     <style name="TextViewStyle">
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:textColor">@color/blue_dark_input_edit_text</item>
+        <item name="android:textColor">@color/blue_light_input_edit_text</item>
         <item name="android:textSize">@dimen/text_size_20sp</item>
-        <item name="textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_margin">@dimen/layout_margin_18dp</item>
         <item name="android:gravity">center</item>
@@ -50,19 +49,16 @@
     <style name="TextInputEditText">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:textColor">@color/blue_dark_input_edit_text</item>
+        <item name="android:textColor">@color/blue_input_edit_text</item>
         <item name="editTextColor">@color/blue_dark_input_edit_text</item>
         <item name="errorTextColor">@color/red_error_input_edit_text</item>
     </style>
 
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-        <item name="colorAccent">@color/light_blue</item>
-        <item name="editTextColor">@color/orange</item>
         <item name="hintTextColor">@color/light_blue</item>
         <item name="android:textColorHint">@color/light_blue</item>
         <item name="android:layout_margin">@dimen/layout_margin_8dp</item>
         <item name="android:paddingBottom">@dimen/padding_bottom</item>
-        <item name="android:textColor">@color/orange</item>
         <item name="android:layout_width">@dimen/layout_width_0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_input_18sp</item>
@@ -77,6 +73,25 @@
         <item name="android:layout_width">@dimen/layout_width_lottie</item>
         <item name="lottie_autoPlay">true</item>
         <item name="lottie_loop">true</item>
-        <item name="lottie_speed">@dimen/lottie_speed_lottie_2</item>
+        <item name="lottie_speed">@dimen/lottie_speed_lottie</item>
+    </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textColor">@color/orange</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="buttonBarNegativeButtonStyle">@style/DialogButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/DialogButtonStyle</item>
+        <item name="windowFixedWidthMajor">98%</item>
+        <item name="windowFixedWidthMinor">90%</item>
+        <item name="android:textColorHint">@color/light_blue</item>
+    </style>
+
+    <style name="DialogButtonStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColor">@color/orange</item>
+    </style>
+
+    <style name="Widget.AppThemeActionBar.ButtonBar.Fullscreen" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="android:background">@color/light_blue</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
 </resources>

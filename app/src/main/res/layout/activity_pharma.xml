@@ -20,6 +20,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_pharma"
             style="@style/TextViewStyle"
+            app:fontFamily="@font/audiowide"
             android:text="@string/app_name"
             android:visibility="@{components.bottomNavigation ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +49,6 @@
             android:layout_height="0dp"
             android:src="@drawable/ic_filter_search"
             android:visibility="@{components.bottomNavigation ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="@id/input_edit_text_searching"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/input_edit_text_searching"
             app:layout_constraintTop_toTopOf="@id/input_edit_text_searching" />
@@ -84,7 +84,6 @@
                     android:id="@+id/bottom_nav_main_activity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
                     android:visibility="@{components.bottomNavigation ? View.VISIBLE : View.GONE}"
                     app:menu="@menu/menu_bottom_navigation" />
 

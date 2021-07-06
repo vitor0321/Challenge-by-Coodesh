@@ -14,8 +14,11 @@
     <color name="white_toast">#FFFFFFFF</color>
 
     <!-- Text Input Edit Text  -->
+    <color name="blue_light_input_edit_text">#00AFAD</color>
+    <color name="blue_input_edit_text">#0083CA</color>
     <color name="blue_dark_input_edit_text">#003461</color>
     <color name="red_error_input_edit_text">#FF0015</color>
+    <color name="mtrl_textinput_default_box_stroke_color">#0083CA</color>
 
     <!-- App Compat Text View  -->
     <color name="blue_dark_compat_text_view">#003461</color>

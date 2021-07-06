@@ -18,7 +18,7 @@
 
     <!-- Lottie Animation View -->
     <dimen name="layout_width_lottie">0dp</dimen>
-    <dimen name="lottie_speed_lottie_2">2</dimen>
+    <dimen name="lottie_speed_lottie">1</dimen>
 
     <!-- Toast -->
     <dimen name="corners_round_toast_100dp">100dp</dimen>

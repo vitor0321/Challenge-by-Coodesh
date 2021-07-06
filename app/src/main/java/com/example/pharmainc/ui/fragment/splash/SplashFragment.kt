@@ -8,10 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.pharmainc.R
-import com.example.pharmainc.constants.CHILD_FIRST
-import com.example.pharmainc.constants.CHILD_SECOND
-import com.example.pharmainc.constants.FALSE_MENU
-import com.example.pharmainc.constants.SPLASH_TIME_OUT
+import com.example.pharmainc.constants.*
 import com.example.pharmainc.databinding.FragmentSplashBinding
 import com.example.pharmainc.ui.fragment.base.BaseFragment
 import com.example.pharmainc.ui.model.ItemComponents
@@ -38,12 +35,8 @@ class SplashFragment : BaseFragment() {
         init()
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewFlipperControl(CHILD_FIRST)
-    }
-
     private fun init() {
+        viewFlipperControl(CHILD_FIRST)
         statusBarNavigation()
         Handler(Looper.getMainLooper()).postDelayed({
             viewFlipperControl(CHILD_SECOND)
@@ -51,7 +44,7 @@ class SplashFragment : BaseFragment() {
         Handler(Looper.getMainLooper()).postDelayed({
             navFragmentSplashToHome(controlNavigation)
             onDestroy()
-        }, SPLASH_TIME_OUT)
+        }, SPLASH_TIME_OUT_SECOND)
     }
 
     private fun viewFlipperControl(child: Int) {

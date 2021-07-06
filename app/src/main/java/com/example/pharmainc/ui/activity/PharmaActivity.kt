@@ -14,11 +14,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
-import kotlin.Exception
-import kotlin.Int
-import kotlin.apply
-import kotlin.getValue
-import kotlin.let
 
 class PharmaActivity : AppCompatActivity() {
 
@@ -37,6 +32,7 @@ class PharmaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _viewDataBinding = ActivityPharmaBinding.inflate(layoutInflater)
         viewDataBinding.lifecycleOwner = this
+        viewDataBinding.components = itemComponentsData
         setContentView(viewDataBinding.root)
         init()
     }
@@ -62,7 +58,7 @@ class PharmaActivity : AppCompatActivity() {
                 val navHostFragment = supportFragmentManager
                     .findFragmentById(R.id.main_activity_nav_host) as NavHostFragment
                 controller = navHostFragment.navController
-                controller.graph.setStartDestination(R.id.nav_homeFragment)
+                controller.graph.setStartDestination(R.id.splashFragment)
 
                 //background menu navigation
                 bottomNavMainActivity.background = null
