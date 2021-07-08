@@ -1,10 +1,12 @@
 package com.example.pharmainc.di
 
+import android.content.Context
 import androidx.fragment.app.FragmentActivity
 import com.example.pharmainc.ui.activity.PharmaActivity
 import com.example.pharmainc.ui.activity.PharmaViewModel
 import com.example.pharmainc.ui.dataBinding.ItemComponentsData
 import com.example.pharmainc.ui.dataBinding.ItemPatientData
+import com.example.pharmainc.ui.fragment.home.HomeAdapter
 import com.example.pharmainc.ui.fragment.home.HomeFragment
 import com.example.pharmainc.ui.fragment.home.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -26,8 +28,13 @@ val viewModelModulo = module(override = true) {
     viewModel<PharmaViewModel> { PharmaViewModel() }
     viewModel<HomeViewModel> { HomeViewModel() }
 }
+
+val adapterModulo = module(override = true){
+    factory<HomeAdapter>{ HomeAdapter(get<Context>()) }
+}
 val appModules = listOf(
     dataBindingModulo,
     uiModulo,
     viewModelModulo,
+    adapterModulo
 )

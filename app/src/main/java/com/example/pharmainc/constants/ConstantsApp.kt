@@ -13,6 +13,10 @@ const val CHILD_SECOND = 1
 const val SPLASH_TIME_OUT: Long = 2000
 const val SPLASH_TIME_OUT_SECOND: Long = 3500
 
+/*Retrofit*/
+private const val BASE_URL = "https://randomuser.me/api/"
+
+
 
 
 

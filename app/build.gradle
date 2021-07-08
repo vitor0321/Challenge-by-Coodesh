@@ -104,6 +104,14 @@ dependencies {
     //Material Dialogs
     implementation 'com.afollestad.material-dialogs:datetime:3.2.1'
 
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //Moshi
+    implementation("com.squareup.moshi:moshi-kotlin:1.9.2")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.9.2")
+
     //Leak Canary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 
