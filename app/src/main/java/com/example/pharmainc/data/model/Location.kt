@@ -1,4 +1,4 @@
-package com.example.pharmainc.data.responseClient
+package com.example.pharmainc.data.model
 
 import com.google.gson.annotations.SerializedName
 
