@@ -1,6 +1,6 @@
-package com.example.pharmainc.data.response
+package com.example.pharmainc.dataApi.response
 
-import com.example.pharmainc.data.model.*
+import com.example.pharmainc.dataApi.model.*
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

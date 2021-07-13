@@ -1,9 +1,11 @@
-package com.example.pharmainc.data.repository
+package com.example.pharmainc.dataApi.repository
 
-import com.example.pharmainc.data.ApiService
-import com.example.pharmainc.data.PatientResult
-import com.example.pharmainc.data.model.Result
-import com.example.pharmainc.data.response.PatientBodyResponse
+import com.example.pharmainc.dataApi.ApiService
+import com.example.pharmainc.dataApi.PatientResult
+import com.example.pharmainc.dataApi.model.CurrentPatientResponseApi
+import com.example.pharmainc.dataApi.model.Result
+import com.example.pharmainc.dataApi.response.PatientBodyResponse
+import com.example.pharmainc.ui.model.ItemPatient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

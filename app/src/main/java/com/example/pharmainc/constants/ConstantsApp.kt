@@ -13,8 +13,15 @@ const val CHILD_SECOND = 1
 const val SPLASH_TIME_OUT: Long = 2000
 const val SPLASH_TIME_OUT_SECOND: Long = 3500
 
+/*Home View Model*/
+const val ERROR_400 = 17563753
+const val ERROR_401 = 49884420
+const val ERROR_500 = 83356478
+
 /*Retrofit*/
-private const val BASE_URL = "https://randomuser.me/api/"
+const val BASE_URL = "https://randomuser.me/"
+
+
 
 
 

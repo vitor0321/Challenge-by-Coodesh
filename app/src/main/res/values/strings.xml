@@ -15,6 +15,11 @@
     <string name="email_patient">jacob_smith@gmail.com</string>
     <string name="gender_patient_male">Male</string>
 
+    <!-- Home Fragment  -->
+    <string name="error_api_400_generic">Error API 400 Generic</string>
+    <string name="error_api_401">Error API 401</string>
+    <string name="error_api_500_generic">Error API 500 Generic</string>
+
     <!-- Navigation  -->
     <string name="fragment_home">Fragment Home</string>
     <string name="fragment_splash">Fragment Splash</string>

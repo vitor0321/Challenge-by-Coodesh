@@ -1,6 +1,6 @@
-package com.example.pharmainc.data
+package com.example.pharmainc.dataApi
 
-import com.example.pharmainc.data.response.PatientBodyResponse
+import com.example.pharmainc.dataApi.response.PatientBodyResponse
 import retrofit2.Call
 import retrofit2.http.GET
 

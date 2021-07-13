@@ -2,6 +2,7 @@ package com.example.pharmainc.di
 
 import android.content.Context
 import androidx.fragment.app.FragmentActivity
+import com.example.pharmainc.dataApi.repository.PatientApiDataSource
 import com.example.pharmainc.ui.activity.PharmaActivity
 import com.example.pharmainc.ui.activity.PharmaViewModel
 import com.example.pharmainc.ui.dataBinding.ItemComponentsData
@@ -26,15 +27,20 @@ val uiModulo = module(override = true) {
 
 val viewModelModulo = module(override = true) {
     viewModel<PharmaViewModel> { PharmaViewModel() }
-    viewModel<HomeViewModel> { HomeViewModel() }
+    viewModel<HomeViewModel> { HomeViewModel(get<PatientApiDataSource>()) }
 }
 
-val adapterModulo = module(override = true){
-    factory<HomeAdapter>{ HomeAdapter(get<Context>()) }
+val adapterModulo = module(override = true) {
+    factory<HomeAdapter> { HomeAdapter(get<Context>()) }
+}
+
+val apiSourceModulo = module(override = true) {
+    factory<PatientApiDataSource> { PatientApiDataSource() }
 }
 val appModules = listOf(
     dataBindingModulo,
     uiModulo,
     viewModelModulo,
-    adapterModulo
+    adapterModulo,
+    apiSourceModulo
 )

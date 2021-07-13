@@ -1,4 +1,4 @@
-package com.example.pharmainc.data.model
+package com.example.pharmainc.dataApi.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -11,8 +11,4 @@ data class Location(
     val state: String,
     @SerializedName("postcode")
     val postcode: String,
-    @SerializedName("coordinates")
-    val coordinates: Coordinates,
-    @SerializedName("timezone")
-    val timezone: Timezone
 )

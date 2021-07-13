@@ -5,7 +5,7 @@ import com.example.pharmainc.ui.model.ItemPatient
 
 class ItemPatientData(
     private var patient: ItemPatient = ItemPatient(),
-    val id: MutableLiveData<Int> = MutableLiveData<Int>().also {
+    val id: MutableLiveData<String> = MutableLiveData<String>().also {
         it.value = patient.id
     },
     val title: MutableLiveData<String> = MutableLiveData<String>().also {
@@ -26,14 +26,23 @@ class ItemPatientData(
     val birthdate: MutableLiveData<String> = MutableLiveData<String>().also {
         it.value = patient.birthdate
     },
-    val phone: MutableLiveData<Int> = MutableLiveData<Int>().also {
+    val phone: MutableLiveData<String> = MutableLiveData<String>().also {
         it.value = patient.phone
     },
     val nationality: MutableLiveData<String> = MutableLiveData<String>().also {
         it.value = patient.nationality
     },
-    val address: MutableLiveData<String> = MutableLiveData<String>().also {
-        it.value = patient.address
+    val street: MutableLiveData<String> = MutableLiveData<String>().also {
+        it.value = patient.street
+    },
+    val city: MutableLiveData<String> = MutableLiveData<String>().also {
+        it.value = patient.city
+    },
+    val state: MutableLiveData<String> = MutableLiveData<String>().also {
+        it.value = patient.state
+    },
+    val email: MutableLiveData<String> = MutableLiveData<String>().also {
+        it.value = patient.email
     }
 ) {
     fun setItemPatientData(patient: ItemPatient?) {
@@ -47,7 +56,9 @@ class ItemPatientData(
         patient?.birthdate?.let { birthdate.postValue(this.patient.birthdate) }
         patient?.phone?.let { phone.postValue(this.patient.phone) }
         patient?.nationality?.let { nationality.postValue(this.patient.nationality) }
-        patient?.address?.let { address.postValue(this.patient.address) }
-
+        patient?.street?.let { street.postValue(this.patient.street) }
+        patient?.city?.let { city.postValue(this.patient.city) }
+        patient?.state?.let { state.postValue(this.patient.state) }
+        patient?.email?.let { email.postValue(this.patient.email) }
     }
 }

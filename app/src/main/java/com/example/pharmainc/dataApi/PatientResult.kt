@@ -1,6 +1,6 @@
-package com.example.pharmainc.data
+package com.example.pharmainc.dataApi
 
-import com.example.pharmainc.data.model.Result
+import com.example.pharmainc.dataApi.model.Result
 
 sealed class PatientResult {
     class Success(val patient: List<Result>) : PatientResult()
