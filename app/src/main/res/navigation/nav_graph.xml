@@ -7,14 +7,14 @@
 
     <fragment
         android:id="@+id/nav_homeFragment"
-        android:name="com.example.pharmainc.ui.fragment.home.HomeFragment"
+        android:name="com.example.pharmainc.presentation.ui.fragment.home.HomeFragment"
         android:label="@string/fragment_home"
         android:layout="@layout/fragment_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.pharmainc.ui.fragment.splash.SplashFragment"
+        android:name="com.example.pharmainc.presentation.ui.fragment.splash.SplashFragment"
         android:label="@string/fragment_splash"
         android:layout="@layout/fragment_splash"
         tools:layout="@layout/fragment_splash">

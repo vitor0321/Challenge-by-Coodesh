@@ -12,7 +12,7 @@
             type="android.view.View.OnClickListener" />
         <variable
             name="itemHome"
-            type="com.example.pharmainc.ui.dataBinding.ItemPatientData" />
+            type="com.example.pharmainc.presentation.dataBinding.data.PatientData" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -29,7 +29,7 @@
                 android:id="@+id/image_patient"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@{itemHome.image}"
+                app:upLoadImage="@{itemHome.image}"
                 style="@style/ShapeAppearanceOverlay"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -81,11 +81,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="normal"
-                android:text="@{itemHome.email}"
+                android:text="@{itemHome.phone}"
                 app:layout_constraintBottom_toTopOf="@id/gender_patient_text_view"
                 app:layout_constraintStart_toEndOf="@id/image_patient"
                 app:layout_constraintTop_toBottomOf="@id/title_patient_text_view"
-                tools:text="@string/email_patient" />
+                tools:text="@tools:sample/us_phones" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/gender_patient_text_view"

@@ -1,7 +1,7 @@
 package com.example.pharmainc
 
 import android.app.Application
-import com.example.pharmainc.di.appModules
+import com.example.pharmainc.presentation.di.appModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

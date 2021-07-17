@@ -16,7 +16,7 @@
         android:theme="@style/Theme.PharmaInc"
         tools:replace="android:appComponentFactory"
         tools:targetApi="p">
-        <activity android:name=".ui.activity.PharmaActivity">
+        <activity android:name="com.example.pharmainc.presentation.ui.activity.PharmaActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -13,7 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".ui.fragment.splash.SplashFragment">
+        tools:context=".presentation.ui.fragment.splash.SplashFragment">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/view_take_photo_splash"

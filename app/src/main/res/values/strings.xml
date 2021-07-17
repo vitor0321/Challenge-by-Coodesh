@@ -12,7 +12,6 @@
 
     <!-- Item Home Fragment  -->
     <string name="title_patient">Ms</string>
-    <string name="email_patient">jacob_smith@gmail.com</string>
     <string name="gender_patient_male">Male</string>
 
     <!-- Home Fragment  -->

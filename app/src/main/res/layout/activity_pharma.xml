@@ -9,7 +9,7 @@
 
         <variable
             name="components"
-            type="com.example.pharmainc.ui.dataBinding.ItemComponentsData" />
+            type="com.example.pharmainc.presentation.dataBinding.data.ItemComponentsData" />
 
     </data>
 
