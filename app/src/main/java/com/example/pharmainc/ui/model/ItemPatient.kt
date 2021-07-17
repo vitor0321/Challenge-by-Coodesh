@@ -1,7 +1,7 @@
 package com.example.pharmainc.ui.model
 
 data class ItemPatient(
-    val id: String = "",
+    val idName: String = "",
     val title: String = "",
     val name: String = "",
     val lastName: String = "",
@@ -11,7 +11,9 @@ data class ItemPatient(
     val phone: String = "",
     val nationality: String = "",
     val street: String = "",
+    val numberStreet: Int? = null,
     val city: String = "",
     val state: String = "",
-    val email: String= ""
+    val country: String = "",
+    val email: String = ""
 )

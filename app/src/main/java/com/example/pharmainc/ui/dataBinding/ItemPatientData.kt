@@ -5,8 +5,8 @@ import com.example.pharmainc.ui.model.ItemPatient
 
 class ItemPatientData(
     private var patient: ItemPatient = ItemPatient(),
-    val id: MutableLiveData<String> = MutableLiveData<String>().also {
-        it.value = patient.id
+    val idName: MutableLiveData<String> = MutableLiveData<String>().also {
+        it.value = patient.idName
     },
     val title: MutableLiveData<String> = MutableLiveData<String>().also {
         it.value = patient.title
@@ -41,13 +41,16 @@ class ItemPatientData(
     val state: MutableLiveData<String> = MutableLiveData<String>().also {
         it.value = patient.state
     },
+    val country: MutableLiveData<String> = MutableLiveData<String>().also {
+        it.value = patient.country
+    },
     val email: MutableLiveData<String> = MutableLiveData<String>().also {
         it.value = patient.email
     }
 ) {
     fun setItemPatientData(patient: ItemPatient?) {
         patient?.let { this.patient = patient }
-        patient?.id?.let { id.postValue(this.patient.id) }
+        patient?.idName?.let { idName.postValue(this.patient.idName) }
         patient?.title?.let { title.postValue(this.patient.title) }
         patient?.name?.let { name.postValue(this.patient.name) }
         patient?.lastName?.let { lastName.postValue(this.patient.lastName) }
@@ -59,6 +62,7 @@ class ItemPatientData(
         patient?.street?.let { street.postValue(this.patient.street) }
         patient?.city?.let { city.postValue(this.patient.city) }
         patient?.state?.let { state.postValue(this.patient.state) }
+        patient?.country?.let { state.postValue(this.patient.country) }
         patient?.email?.let { email.postValue(this.patient.email) }
     }
 }

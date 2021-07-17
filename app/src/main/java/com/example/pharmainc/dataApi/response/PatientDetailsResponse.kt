@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class PatientDetailsResponse(
+data class  PatientDetailsResponse(
     @Json(name = "gender")
     val gender: String,
     @Json(name = "name")
@@ -14,8 +14,6 @@ data class PatientDetailsResponse(
     val location: Location,
     @Json(name = "email")
     val email: String,
-    @Json(name = "login")
-    val login: Login,
     @Json(name = "dob")
     val dob: Dob,
     @Json(name = "registered")
@@ -36,7 +34,6 @@ data class PatientDetailsResponse(
         name = this.name,
         location = this.location,
         email = this.email,
-        login = this.login,
         dob = this.dob,
         registered = this.registered,
         phone = this.phone,

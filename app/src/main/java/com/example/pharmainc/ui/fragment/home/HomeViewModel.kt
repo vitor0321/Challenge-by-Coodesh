@@ -6,6 +6,7 @@ import com.example.pharmainc.constants.ERROR_400
 import com.example.pharmainc.constants.ERROR_401
 import com.example.pharmainc.constants.ERROR_500
 import com.example.pharmainc.dataApi.PatientResult
+import com.example.pharmainc.dataApi.model.Result
 import com.example.pharmainc.dataApi.repository.PatientRepository
 
 class HomeViewModel(
@@ -16,17 +17,17 @@ class HomeViewModel(
         getPatient()
     }
 
-    val errorLiveData: MutableLiveData<Int> = MutableLiveData()
+    val errorLiveData: MutableLiveData<Pair<Int?, List<Result>?>> = MutableLiveData()
 
     private fun getPatient() {
         apiRepository.getPatient { result: PatientResult ->
             when (result) {
-                is PatientResult.Success -> result.patient
+                is PatientResult.Success -> Pair(null, result.patient)
                 is PatientResult.ApiError -> when (result.statusCode) {
-                    401 -> errorLiveData.value = ERROR_401
-                    else -> errorLiveData.value = ERROR_400
+                    401 -> errorLiveData.value = Pair(ERROR_401, null)
+                    else -> errorLiveData.value = Pair(ERROR_400, null)
                 }
-                is PatientResult.ServerError -> errorLiveData.value = ERROR_500
+                is PatientResult.ServerError -> errorLiveData.value = Pair(ERROR_500, null)
             }
         }
     }

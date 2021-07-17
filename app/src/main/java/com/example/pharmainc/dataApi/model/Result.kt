@@ -18,9 +18,6 @@ data class Result(
     @SerializedName("email")
     val email: String,
     @Url
-    @SerializedName("login")
-    val login: Login,
-    @Url
     @SerializedName("dob")
     val dob: Dob,
     @Url

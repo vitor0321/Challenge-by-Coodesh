@@ -6,5 +6,5 @@ data class Street(
     @SerializedName("number")
     val number: Int,
     @SerializedName("name")
-    val name: String
+    val name: String,
 )
