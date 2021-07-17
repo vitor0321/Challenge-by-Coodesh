@@ -1,5 +1,6 @@
 package com.example.pharmainc.presentation.ui.fragment.home
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmainc.databinding.ItemHomeFragmentBinding
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
 import com.example.pharmainc.domain.model.Patient
+import java.text.SimpleDateFormat
 
 class HomeAdapter(
     private val context: Context,
@@ -36,11 +38,11 @@ class HomeAdapter(
     inner class ViewHolder(private val viewDataBinding: ItemHomeFragmentBinding) :
         RecyclerView.ViewHolder(viewDataBinding.root), View.OnClickListener {
 
-        private lateinit var itemPhoto: Patient
+        private lateinit var itemPatient: Patient
 
         override fun onClick(view: View?) {
-            if (::itemPhoto.isInitialized) {
-                onItemClickListener(itemPhoto)
+            if (::itemPatient.isInitialized) {
+                onItemClickListener(itemPatient)
             }
         }
 
@@ -49,7 +51,7 @@ class HomeAdapter(
         }
 
         fun bind(item: Patient) {
-            this.itemPhoto = item
+            this.itemPatient = item
             viewDataBinding.itemHome = PatientData(item)
         }
     }

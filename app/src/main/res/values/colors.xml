@@ -22,5 +22,6 @@
 
     <!-- App Compat Text View  -->
     <color name="blue_dark_compat_text_view">#003461</color>
+    <color name="blue_text_view">#0083CA</color>
 
 </resources>
