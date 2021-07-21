@@ -4,6 +4,8 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 
 @BindingAdapter("upLoadImage")
-fun ImageView.upLoadImageAdapter(photo: String) {
-    upLoadImage(photo)
+fun ImageView.upLoadImageAdapter(photo: String?) {
+    photo?.let {
+        upLoadImage(photo)
+    }
 }

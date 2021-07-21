@@ -6,6 +6,7 @@ import com.example.pharmainc.network.mapper.ResultNetworkMapper
 import com.example.pharmainc.network.repository.PatientApiDataSource
 import com.example.pharmainc.presentation.dataBinding.data.ItemComponentsData
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
+import com.example.pharmainc.presentation.navigation.Navigation
 import com.example.pharmainc.presentation.ui.activity.PharmaActivity
 import com.example.pharmainc.presentation.ui.activity.PharmaViewModel
 import com.example.pharmainc.presentation.ui.fragment.home.HomeAdapter
@@ -13,7 +14,6 @@ import com.example.pharmainc.presentation.ui.fragment.home.HomeFragment
 import com.example.pharmainc.presentation.ui.fragment.home.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-
 
 val dataBindingModulo = module(override = true) {
     single<ItemComponentsData> { ItemComponentsData() }
@@ -30,8 +30,8 @@ val viewModelModulo = module(override = true) {
     viewModel<PharmaViewModel> { PharmaViewModel() }
     viewModel<HomeViewModel> {
         HomeViewModel(
-            get<PatientApiDataSource>(),
-            get<ResultNetworkMapper>()
+            apiRepository = get<PatientApiDataSource>(),
+            mapper = get<ResultNetworkMapper>()
         )
     }
 }
@@ -46,6 +46,7 @@ val apiSourceModulo = module(override = true) {
 
 val mapperModulo = module(override = true) {
     single<ResultNetworkMapper> { ResultNetworkMapper() }
+    single<Navigation> { Navigation }
 }
 val appModules = listOf(
     dataBindingModulo,

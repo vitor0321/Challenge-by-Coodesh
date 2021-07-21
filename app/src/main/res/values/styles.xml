@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppThemeActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="AppThemeActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/light_blue</item>
         <item name="colorPrimaryDark">@color/dark_blue</item>
         <item name="colorAccent">@color/light_orange</item>
@@ -9,12 +9,10 @@
         <item name="android:textViewStyle">@style/TextViewStyle</item>
         <item name="cardViewStyle">@style/CardViewStyle</item>
         <item name="alertDialogStyle">@style/DialogButtonStyle</item>
-
     </style>
 
     <style name="ShapeAppearanceOverlay">
-        <item name="android:layout_margin">@dimen/layout_margin_shape_8dp</item>
-
+        <item name="android:layout_margin">@dimen/layout_margin_shape</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
@@ -23,13 +21,13 @@
 
     <style name="CardViewStyle">
         <item name="cardBackgroundColor">@android:color/transparent</item>
-        <item name="android:layout_margin">@dimen/layout_margin_card_4dp</item>
+        <item name="android:layout_margin">@dimen/layout_margin_card</item>
         <item name="android:orientation">vertical</item>
     </style>
 
     <style name="AppCompatTextView">
-        <item name="android:layout_margin">@dimen/layout_margin_text_4dp</item>
-        <item name="android:textSize">@dimen/text_size_20sp</item>
+        <item name="android:textSize">@dimen/compat_text_view_size</item>
+        <item name="android:layout_marginStart">@dimen/layout_margin</item>
         <item name="android:textColor">@color/blue_dark_compat_text_view</item>
 
     </style>
@@ -38,9 +36,9 @@
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textColor">@color/blue_light_input_edit_text</item>
-        <item name="android:textSize">@dimen/text_size_20sp</item>
+        <item name="android:textSize">@dimen/text_view_size</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:layout_margin">@dimen/layout_margin_18dp</item>
+        <item name="android:layout_margin">@dimen/layout_style_text_margin</item>
         <item name="android:gravity">center</item>
 
     </style>
@@ -56,15 +54,15 @@
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="hintTextColor">@color/light_blue</item>
         <item name="android:textColorHint">@color/light_blue</item>
-        <item name="android:layout_margin">@dimen/layout_margin_8dp</item>
+        <item name="android:layout_margin">@dimen/layout_margin</item>
         <item name="android:paddingBottom">@dimen/padding_bottom</item>
-        <item name="android:layout_width">@dimen/layout_width_0dp</item>
+        <item name="android:layout_width">@dimen/layout_width</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/text_size_input_18sp</item>
+        <item name="android:textSize">@dimen/text_size_input</item>
         <item name="layout_constraintVertical_bias">0.0</item>
         <item name="boxStrokeColor">@color/mtrl_textinput_default_box_stroke_color</item>
         <item name="boxStrokeWidth">@dimen/box_stroke_width</item>
-        <item name="android:drawablePadding">@dimen/drawable_padding_8dp</item>
+        <item name="android:drawablePadding">@dimen/drawable_padding_input</item>
         <item name="android:text">@color/blue</item>
     </style>
 

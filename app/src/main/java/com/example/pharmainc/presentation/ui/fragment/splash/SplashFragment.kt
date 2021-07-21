@@ -10,9 +10,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.pharmainc.R
 import com.example.pharmainc.presentation.constants.*
 import com.example.pharmainc.databinding.FragmentSplashBinding
-import com.example.pharmainc.presentation.ui.fragment.base.BaseFragment
 import com.example.pharmainc.domain.model.ItemComponents
-import com.example.pharmainc.presentation.navigation.Navigation.navFragmentSplashToHome
+import com.example.pharmainc.presentation.navigation.Navigation
+import com.example.pharmainc.presentation.ui.fragment.base.BaseFragment
+import org.koin.android.ext.android.inject
 import java.lang.Boolean.FALSE
 
 class SplashFragment : BaseFragment() {
@@ -21,6 +22,7 @@ class SplashFragment : BaseFragment() {
     private val viewDataBinding get() = _viewDataBinding!!
 
     private val controlNavigation by lazy { findNavController() }
+    private val navigation: Navigation by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,12 +40,15 @@ class SplashFragment : BaseFragment() {
     private fun init() {
         viewFlipperControl(CHILD_FIRST)
         statusBarNavigation()
+        controlTimeNavigation()
+    }
+
+    private fun controlTimeNavigation() {
         Handler(Looper.getMainLooper()).postDelayed({
             viewFlipperControl(CHILD_SECOND)
         }, SPLASH_TIME_OUT)
         Handler(Looper.getMainLooper()).postDelayed({
-            navFragmentSplashToHome(controlNavigation)
-            onDestroy()
+            navigation.navFragmentSplashToHome(controlNavigation)
         }, SPLASH_TIME_OUT_SECOND)
     }
 

@@ -4,12 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="androidx.appcompat.widget.AppCompatImageView" />
-        <import type="android.text.TextUtils"/>
+
+        <import type="android.text.TextUtils" />
 
         <variable
             name="clickCardView"
             type="android.view.View.OnClickListener" />
+
         <variable
             name="itemHome"
             type="com.example.pharmainc.presentation.dataBinding.data.PatientData" />
@@ -17,13 +20,13 @@
 
     <androidx.cardview.widget.CardView
         style="@style/CardViewStyle"
+        android:onClick="@{(view)-> clickCardView.onClick(view)}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="4dp">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_patient"
@@ -42,9 +45,10 @@
                 style="@style/AppCompatTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/allerta"
+                android:textSize="@dimen/text_view_size_18sp"
                 android:text="@{itemHome.title}"
-                app:layout_constraintBottom_toTopOf="@id/email_patient_text_view"
-                app:layout_constraintEnd_toStartOf="@id/first_name_patient_text_view"
+                app:layout_constraintBottom_toTopOf="@id/first_name_patient_text_view"
                 app:layout_constraintStart_toEndOf="@id/image_patient"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/title_patient" />
@@ -54,11 +58,12 @@
                 style="@style/AppCompatTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/allerta"
                 android:text="@{itemHome.name}"
-                app:layout_constraintBottom_toBottomOf="@id/title_patient_text_view"
+                android:textSize="@dimen/text_view_size_18sp"
+                app:layout_constraintStart_toEndOf="@id/image_patient"
                 app:layout_constraintEnd_toStartOf="@id/last_name_patient_text_view"
-                app:layout_constraintStart_toEndOf="@id/title_patient_text_view"
-                app:layout_constraintTop_toTopOf="@id/title_patient_text_view"
+                app:layout_constraintTop_toBottomOf="@id/title_patient_text_view"
                 tools:text="@tools:sample/first_names" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -66,45 +71,51 @@
                 style="@style/AppCompatTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/allerta"
+                android:textSize="@dimen/text_view_size_18sp"
                 android:text="@{itemHome.lastName}"
-                app:layout_constraintBottom_toBottomOf="@id/title_patient_text_view"
+                app:layout_constraintBottom_toBottomOf="@id/first_name_patient_text_view"
                 app:layout_constraintStart_toEndOf="@id/first_name_patient_text_view"
-                app:layout_constraintTop_toTopOf="@id/title_patient_text_view"
+                app:layout_constraintTop_toTopOf="@id/first_name_patient_text_view"
                 tools:text="@tools:sample/last_names" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/email_patient_text_view"
+                android:id="@+id/phone_patient_text_view"
                 style="@style/AppCompatTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="normal"
-                android:textColor="@color/blue_text_view"
+                android:fontFamily="@font/aldrich"
                 android:text="@{itemHome.phone}"
+                android:textColor="@color/blue_light_text_view"
+                android:textSize="@dimen/text_view_size_18sp"
+                android:textStyle="normal"
                 app:layout_constraintBottom_toTopOf="@id/gender_patient_text_view"
                 app:layout_constraintStart_toEndOf="@id/image_patient"
-                app:layout_constraintTop_toBottomOf="@id/title_patient_text_view"
                 tools:text="@tools:sample/us_phones" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/gender_patient_text_view"
                 style="@style/AppCompatTextView"
                 android:layout_width="wrap_content"
-                android:textColor="@color/blue_text_view"
+                android:fontFamily="@font/aldrich"
+                android:textColor="@color/blue_light_text_view"
                 android:layout_height="wrap_content"
                 android:text="@{itemHome.gender}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/image_patient"
-                app:layout_constraintTop_toBottomOf="@id/email_patient_text_view"
-                tools:text="@string/gender_patient_male" />
+                tools:text="@tools:sample/lorem" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/birthdate_patient_text_view"
                 style="@style/AppCompatTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/blue_text_view"
+                android:layout_marginEnd="@dimen/compat_text_view_size"
+                android:fontFamily="@font/aldrich"
                 android:text="@{itemHome.birthdate}"
+                android:textColor="@color/blue_light_text_view"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/email_patient_text_view"
                 tools:text="@tools:sample/date/ddmmyy" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

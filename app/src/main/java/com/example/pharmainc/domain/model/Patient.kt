@@ -5,6 +5,7 @@ data class Patient(
     val title: String = "",
     val name: String = "",
     val lastName: String = "",
+    val email: String = "",
     val image: String = "",
     val gender: String = "",
     val birthdate: String = "",

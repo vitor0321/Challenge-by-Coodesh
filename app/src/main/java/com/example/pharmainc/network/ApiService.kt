@@ -1,13 +1,12 @@
 package com.example.pharmainc.network
 
+import com.example.pharmainc.presentation.constants.BASE_URL
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 object ApiService {
-
-    private const val BASE_URL = "https://randomuser.me/"
 
     private fun initRetrofit(): Retrofit {
         return Retrofit.Builder()
@@ -24,5 +23,4 @@ object ApiService {
 
     val service: RandomPatientService =
         initRetrofit().create(RandomPatientService::class.java)
-
 }

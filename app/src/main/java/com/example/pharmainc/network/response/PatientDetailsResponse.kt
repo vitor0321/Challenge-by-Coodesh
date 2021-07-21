@@ -10,10 +10,10 @@ data class  PatientDetailsResponse(
     val gender: String,
     @Json(name = "name")
     val name: Name,
-    @Json(name = "location")
-    val location: Location,
     @Json(name = "email")
     val email: String,
+    @Json(name = "location")
+    val location: Location,
     @Json(name = "dob")
     val dob: Dob,
     @Json(name = "phone")

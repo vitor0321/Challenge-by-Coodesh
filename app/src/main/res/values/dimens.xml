@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Text View -->
-    <dimen name="text_size_20sp">20sp</dimen>
-    <dimen name="layout_margin_18dp">18dp</dimen>
-
     <!-- Text Input Layout -->
-    <dimen name="layout_margin_8dp">8dp</dimen>
+    <dimen name="layout_margin">8dp</dimen>
     <dimen name="padding_bottom">16dp</dimen>
-    <dimen name="layout_width_0dp">0dp</dimen>
-    <dimen name="text_size_input_18sp">18sp</dimen>
+    <dimen name="layout_width">0dp</dimen>
+    <dimen name="text_size_input">18sp</dimen>
     <dimen name="box_stroke_width">1dp</dimen>
-    <dimen name="drawable_padding_8dp">8dp</dimen>
+    <dimen name="drawable_padding_input">8dp</dimen>
 
     <!-- Shape Appearance Overlay -->
-    <dimen name="layout_margin_shape_8dp">8dp</dimen>
+    <dimen name="layout_margin_shape">4dp</dimen>
 
     <!-- Lottie Animation View -->
     <dimen name="layout_width_lottie">0dp</dimen>
@@ -29,8 +25,22 @@
     <!-- App Compat Text View -->
     <dimen name="layout_margin_text_4dp">4dp</dimen>
     <dimen name="text_size_24sp">24sp</dimen>
+    <dimen name="text_view_size_18sp">18sp</dimen>
+    <dimen name="compat_text_view_size">16sp</dimen>
+    <dimen name="layout_margin_start">8sp</dimen>
+    <dimen name="text_view_size">20sp</dimen>
+    <dimen name="layout_style_text_margin">18dp</dimen>
+    <dimen name="text_view_margin_bottom_16dp">16dp</dimen>
+    <dimen name="text_view_margin_bottom_30dp">30dp</dimen>
+    <dimen name="text_view_margin_top_30dp">30dp</dimen>
+    <dimen name="text_view_layout_marginStart">4dp</dimen>
+    <dimen name="text_view_layout_marginEnd">4dp</dimen>
 
     <!-- Card View Style -->
-    <dimen name="layout_margin_card_4dp">4dp</dimen>
+    <dimen name="layout_margin_card">4dp</dimen>
+    <dimen name="padding_constraint_4dp">4dp</dimen>
+
+    <!-- Image Button -->
+    <dimen name="layout_margin_image_button">12dp</dimen>
 
 </resources>

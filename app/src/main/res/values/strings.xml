@@ -22,5 +22,8 @@
     <!-- Navigation  -->
     <string name="fragment_home">Fragment Home</string>
     <string name="fragment_splash">Fragment Splash</string>
+    <string name="fragment_bottom_sheet">Fragment Bottom Sheet</string>
+    <string name="fragment_details">DetailsFragment</string>
+
 
 </resources>

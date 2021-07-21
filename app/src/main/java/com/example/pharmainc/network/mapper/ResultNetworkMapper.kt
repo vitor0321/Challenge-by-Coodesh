@@ -14,6 +14,7 @@ class ResultNetworkMapper : ResultMapper<Result, Patient> {
             title = entityApi.name.title,
             name = entityApi.name.first,
             lastName = entityApi.name.last,
+            email = entityApi.email,
             image = entityApi.picture.large,
             gender = entityApi.gender,
             birthdate = valueDate,

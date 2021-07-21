@@ -2,6 +2,7 @@ package com.example.pharmainc.presentation.ui.fragment.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
 import com.example.pharmainc.domain.model.Patient
 import com.example.pharmainc.network.PatientResult
 import com.example.pharmainc.network.mapper.ResultNetworkMapper
@@ -9,10 +10,11 @@ import com.example.pharmainc.network.repository.PatientRepository
 import com.example.pharmainc.presentation.constants.ERROR_400
 import com.example.pharmainc.presentation.constants.ERROR_401
 import com.example.pharmainc.presentation.constants.ERROR_500
+import com.example.pharmainc.presentation.navigation.Navigation
 
 class HomeViewModel(
     private val apiRepository: PatientRepository,
-    private val mapper: ResultNetworkMapper
+    private val mapper: ResultNetworkMapper,
 ) : ViewModel() {
 
     init {

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="androidx.appcompat.widget.AppCompatImageView" />
+
+        <import type="androidx.appcompat.widget.AppCompatTextView" />
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="clickCloseBottomSheet"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="itemPatient"
+            type="com.example.pharmainc.presentation.dataBinding.data.PatientData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:focusable="false"
+        android:focusableInTouchMode="true">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_line_horizontal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.08" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guide_line_horizontal" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_patient"
+            style="@style/ShapeAppearanceOverlay"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="@id/guide_line_horizontal"
+            app:layout_constraintEnd_toEndOf="@id/guide_line_vertical"
+            app:layout_constraintStart_toStartOf="@id/guide_line_vertical"
+            app:layout_constraintTop_toTopOf="@id/guide_line_horizontal"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+            app:upLoadImage="@{itemPatient.image}"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/close_sheet_image_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/layout_margin_image_button"
+            android:background="@drawable/md_transparent"
+            android:onClick="@{clickCloseBottomSheet}"
+            android:src="@drawable/ic_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guide_line_horizontal" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_line_vertical"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title_patient_text_view"
+            style="@style/AppCompatTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/layout_style_text_margin"
+            android:fontFamily="@font/allerta"
+            android:text="@{itemPatient.title}"
+            android:textSize="@dimen/text_view_size"
+            app:layout_constraintEnd_toEndOf="@id/guide_line_vertical"
+            app:layout_constraintStart_toStartOf="@id/guide_line_vertical"
+            app:layout_constraintTop_toBottomOf="@id/image_patient"
+            tools:text="@string/title_patient" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/first_name_patient_text_view"
+            style="@style/AppCompatTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/text_view_layout_marginEnd"
+            android:fontFamily="@font/allerta"
+            android:text="@{itemPatient.name}"
+            android:textSize="@dimen/text_view_size"
+            app:layout_constraintEnd_toStartOf="@id/guide_line_vertical"
+            app:layout_constraintTop_toBottomOf="@id/title_patient_text_view"
+            tools:text="@tools:sample/first_names" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/last_name_patient_text_view"
+            style="@style/AppCompatTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/text_view_layout_marginStart"
+            android:fontFamily="@font/allerta"
+            android:text="@{itemPatient.lastName}"
+            android:textSize="@dimen/text_view_size"
+            app:layout_constraintTop_toBottomOf="@id/title_patient_text_view"
+            app:layout_constraintStart_toEndOf="@id/guide_line_vertical"
+            tools:text="@tools:sample/last_names" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/email_patient_text_view"
+            style="@style/AppCompatTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/allerta"
+            android:text="@{itemPatient.email}"
+            android:textColor="@color/blue_text_view"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="@id/guide_line_vertical"
+            app:layout_constraintStart_toStartOf="@id/guide_line_vertical"
+            app:layout_constraintTop_toBottomOf="@id/first_name_patient_text_view"
+            tools:text="@tools:sample/full_names" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/gender_patient_text_view"
+            style="@style/AppCompatTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_style_text_margin"
+            android:fontFamily="@font/allerta"
+            android:text="@{itemPatient.gender}"
+            android:textColor="@color/blue_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/email_patient_text_view"
+            tools:text="@string/gender_patient_male" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/birthdate_patient_text_view"
+            style="@style/AppCompatTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/allerta"
+            android:text="@{itemPatient.birthdate}"
+            android:textColor="@color/blue_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/gender_patient_text_view"
+            tools:text="@tools:sample/date/ddmmyy" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/phone_patient_text_view"
+            style="@style/AppCompatTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/allerta"
+            android:text="@{itemPatient.phone}"
+            android:textColor="@color/blue_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/birthdate_patient_text_view"
+            tools:text="@tools:sample/us_phones" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/nat_patient_text_view"
+            style="@style/AppCompatTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/allerta"
+            android:text="@{itemPatient.nationality}"
+            android:textColor="@color/blue_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/phone_patient_text_view"
+            tools:text="@tools:sample/lorem" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/street_patient_text_view"
+            style="@style/AppCompatTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_style_text_margin"
+            android:fontFamily="@font/allerta"
+            android:text="@{itemPatient.street}"
+            android:textColor="@color/blue_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nat_patient_text_view"
+            tools:text="@tools:sample/lorem" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/number_house_patient_text_view"
+            style="@style/AppCompatTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_style_text_margin"
+            android:fontFamily="@font/allerta"
+            android:text="@{String.valueOf(itemPatient.numberHouse)}"
+            android:textColor="@color/blue_text_view"
+            app:layout_constraintStart_toEndOf="@id/street_patient_text_view"
+            app:layout_constraintTop_toBottomOf="@id/nat_patient_text_view"
+            tools:text="@tools:sample/us_zipcodes" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/city_patient_text_view"
+            style="@style/AppCompatTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/allerta"
+            android:text="@{itemPatient.city}"
+            android:textColor="@color/blue_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/street_patient_text_view"
+            tools:text="@tools:sample/cities" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/state_patient_text_view"
+            style="@style/AppCompatTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/allerta"
+            android:text="@{itemPatient.state}"
+            android:textColor="@color/blue_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/city_patient_text_view"
+            tools:text="@tools:sample/cities" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/country_patient_text_view"
+            style="@style/AppCompatTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/allerta"
+            android:text="@{itemPatient.country}"
+            android:textColor="@color/blue_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/state_patient_text_view"
+            tools:text="@tools:sample/cities" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/id_patient_text_view"
+            style="@style/AppCompatTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/allerta"
+            android:text="@{itemPatient.idName}"
+            android:textColor="@color/blue_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/country_patient_text_view"
+            tools:text="@tools:sample/cities" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

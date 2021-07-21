@@ -17,6 +17,9 @@ class PatientData(
     val lastName: MutableLiveData<String> = MutableLiveData<String>().also {
         it.value = patient.lastName
     },
+    val email: MutableLiveData<String> = MutableLiveData<String>().also {
+        it.value = patient.email
+    },
     val image: MutableLiveData<String> = MutableLiveData<String>().also {
         it.value = patient.image
     },
@@ -35,6 +38,9 @@ class PatientData(
     val street: MutableLiveData<String> = MutableLiveData<String>().also {
         it.value = patient.street
     },
+    val numberHouse: MutableLiveData<Int> = MutableLiveData<Int>().also {
+        it.value = patient.numberHouse
+    },
     val city: MutableLiveData<String> = MutableLiveData<String>().also {
         it.value = patient.city
     },
@@ -51,12 +57,14 @@ class PatientData(
         patient?.title?.let { title.postValue(this.patient.title) }
         patient?.name?.let { name.postValue(this.patient.name) }
         patient?.lastName?.let { lastName.postValue(this.patient.lastName) }
+        patient?.email?.let { email.postValue(this.patient.email) }
         patient?.image?.let { image.postValue(this.patient.image) }
         patient?.gender?.let { gender.postValue(this.patient.gender) }
         patient?.birthdate?.let { birthdate.postValue(this.patient.birthdate) }
         patient?.phone?.let { phone.postValue(this.patient.phone) }
         patient?.nationality?.let { nationality.postValue(this.patient.nationality) }
         patient?.street?.let { street.postValue(this.patient.street) }
+        patient?.numberHouse?.let { numberHouse.postValue(this.patient.numberHouse) }
         patient?.city?.let { city.postValue(this.patient.city) }
         patient?.state?.let { state.postValue(this.patient.state) }
         patient?.country?.let { country.postValue(this.patient.country) }

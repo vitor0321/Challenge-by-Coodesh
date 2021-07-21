@@ -10,7 +10,8 @@
         android:name="com.example.pharmainc.presentation.ui.fragment.home.HomeFragment"
         android:label="@string/fragment_home"
         android:layout="@layout/fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+    </fragment>
 
     <fragment
         android:id="@+id/splashFragment"
@@ -28,4 +29,5 @@
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
     </fragment>
+
 </navigation>

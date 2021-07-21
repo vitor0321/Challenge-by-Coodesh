@@ -23,5 +23,10 @@
     <!-- App Compat Text View  -->
     <color name="blue_dark_compat_text_view">#003461</color>
     <color name="blue_text_view">#0083CA</color>
+    <color name="blue_light_text_view">#00AFAD</color>
+    <color name="orange_light_text_view">#FCAF17</color>
+
+    <!-- Bottom Sheet  -->
+    <color name="transparent">#00FCAF17</color>
 
 </resources>

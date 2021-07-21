@@ -1,15 +1,13 @@
 package com.example.pharmainc.presentation.ui.fragment.home
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmainc.databinding.ItemHomeFragmentBinding
-import com.example.pharmainc.presentation.dataBinding.data.PatientData
 import com.example.pharmainc.domain.model.Patient
-import java.text.SimpleDateFormat
+import com.example.pharmainc.presentation.dataBinding.data.PatientData
 
 class HomeAdapter(
     private val context: Context,
