@@ -38,14 +38,14 @@ class SplashFragment : BaseFragment() {
     }
 
     private fun init() {
-        viewFlipperControl(CHILD_FIRST)
+        viewFlipperControl(CHILD_FIRST_SPLASH)
         statusBarNavigation()
         controlTimeNavigation()
     }
 
     private fun controlTimeNavigation() {
         Handler(Looper.getMainLooper()).postDelayed({
-            viewFlipperControl(CHILD_SECOND)
+            viewFlipperControl(CHILD_SECOND_SPLASH)
         }, SPLASH_TIME_OUT)
         Handler(Looper.getMainLooper()).postDelayed({
             navigation.navFragmentSplashToHome(controlNavigation)
@@ -54,8 +54,8 @@ class SplashFragment : BaseFragment() {
 
     private fun viewFlipperControl(child: Int) {
         when (child) {
-            CHILD_FIRST -> viewDataBinding.run { viewFlipperSplash.displayedChild = CHILD_FIRST }
-            CHILD_SECOND -> viewDataBinding.run { viewFlipperSplash.displayedChild = CHILD_SECOND }
+            CHILD_FIRST_SPLASH -> viewDataBinding.run { viewFlipperSplash.displayedChild = CHILD_FIRST_SPLASH }
+            CHILD_SECOND_SPLASH -> viewDataBinding.run { viewFlipperSplash.displayedChild = CHILD_SECOND_SPLASH }
         }
     }
 

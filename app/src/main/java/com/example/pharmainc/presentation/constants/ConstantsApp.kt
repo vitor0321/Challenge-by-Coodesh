@@ -10,10 +10,14 @@ const val TRUE = true
 const val FALSE = true
 
 /*View Flipper*/
+const val CHILD_FIRST_SPLASH = 0
+const val CHILD_SECOND_SPLASH = 1
 const val CHILD_FIRST = 0
 const val CHILD_SECOND = 1
 const val SPLASH_TIME_OUT: Long = 2000
 const val SPLASH_TIME_OUT_SECOND: Long = 3500
+const val PROGRESS_BAR_VISIBLE = true
+const val PROGRESS_BAR_INVISIBLE = false
 
 /*Home View Model*/
 const val ERROR_400 = 17563753
@@ -25,6 +29,8 @@ const val BOTTOM_SHEET = "BOTTOM_SHEET"
 
 /*Retrofit*/
 const val BASE_URL = "https://randomuser.me/"
+
+
 
 
 

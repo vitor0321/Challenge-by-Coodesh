@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pharmainc.R
@@ -27,6 +28,8 @@ class HomeFragment : BaseFragment() {
     private var _viewDataBinding: FragmentHomeBinding? = null
     private val viewDataBinding get() = _viewDataBinding!!
 
+    private lateinit var patient: Patient
+    private lateinit var listPatient: List<Patient>
     private val adapterHome: HomeAdapter by inject()
     private val viewModel: HomeViewModel by viewModel {
         parametersOf(findNavController())
@@ -48,6 +51,11 @@ class HomeFragment : BaseFragment() {
         init()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewFlipperControl(CHILD_FIRST, PROGRESS_BAR_VISIBLE)
+    }
+
     private fun init() {
         statusBarNavigation()
         initRecycleView()
@@ -59,14 +67,15 @@ class HomeFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(context)
             this.adapter = adapterHome
             adapterHome.onItemClickListener = { itemPatient ->
-                setDataPatient(itemPatient)
+                patient = itemPatient
+                setDataPatient()
                 navToBottomSheet()
             }
         }
     }
 
-    private fun setDataPatient(itemPatient: Patient) {
-        itemPatientData.setItemPatientData(itemPatient)
+    private fun setDataPatient() {
+        itemPatientData.setItemPatientData(patient)
     }
 
     private fun navToBottomSheet() {
@@ -79,16 +88,50 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun initObserver() {
-        viewModel.returnApiLiveData.observe(viewLifecycleOwner) { errorApi(it) }
+        viewModel.returnApiLiveData.observe(viewLifecycleOwner) { responseApi(it) }
     }
 
-    private fun errorApi(responseApi: Pair<Int?, List<Patient>?>) {
-        when (responseApi.first) {
+    private fun responseApi(responseApi: Pair<Int?, List<Patient>?>) {
+        setErrorApi(responseApi.first)
+        responseApi.second?.let { listPatient ->
+            setListPatient(listPatient)
+            upDateAdapterListPatient()
+            viewFlipperControl(CHILD_SECOND, PROGRESS_BAR_INVISIBLE)
+        }
+    }
+
+    private fun setErrorApi(responseApi: Int?) {
+        when (responseApi) {
             ERROR_400 -> toast(getString(R.string.error_api_400_generic))
             ERROR_401 -> toast(getString(R.string.error_api_401))
             ERROR_500 -> toast(getString(R.string.error_api_500_generic))
         }
-        responseApi.second?.let { listPatient -> adapterHome.update(listPatient) }
+    }
+
+    @JvmName("setListPatient1")
+    private fun setListPatient(listPatient: List<Patient>) {
+        this.listPatient = listPatient
+    }
+
+    private fun upDateAdapterListPatient() {
+        adapterHome.update(listPatient)
+    }
+
+    private fun viewFlipperControl(child: Int, visible: Boolean) {
+        when {
+            child == CHILD_FIRST && visible == PROGRESS_BAR_VISIBLE -> {
+                viewDataBinding.run {
+                    viewFlipperHome.displayedChild = CHILD_FIRST
+                    progressFlowHome.isVisible = PROGRESS_BAR_VISIBLE
+                }
+            }
+            child == CHILD_SECOND && visible == PROGRESS_BAR_INVISIBLE -> {
+                viewDataBinding.run {
+                    viewFlipperHome.displayedChild = CHILD_SECOND
+                    progressFlowHome.isVisible = PROGRESS_BAR_INVISIBLE
+                }
+            }
+        }
     }
 
     private fun statusBarNavigation() {

@@ -11,6 +11,10 @@
         <item name="alertDialogStyle">@style/DialogButtonStyle</item>
     </style>
 
+    <style name="ProgressBar" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:indeterminateTint">@color/orange</item>
+    </style>
+
     <style name="ShapeAppearanceOverlay">
         <item name="android:layout_margin">@dimen/layout_margin_shape</item>
     </style>
