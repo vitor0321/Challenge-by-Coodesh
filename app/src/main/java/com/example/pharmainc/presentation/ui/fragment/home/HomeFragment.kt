@@ -1,12 +1,14 @@
 package com.example.pharmainc.presentation.ui.fragment.home
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmainc.R
 import com.example.pharmainc.databinding.FragmentHomeBinding
 import com.example.pharmainc.domain.model.ItemComponents
@@ -21,7 +23,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
-
 
 class HomeFragment : BaseFragment() {
 
@@ -53,38 +54,60 @@ class HomeFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        viewFlipperControl(CHILD_FIRST, PROGRESS_BAR_VISIBLE)
+        viewFlipperControl(CHILD_FIRST)
     }
 
     private fun init() {
-        statusBarNavigation()
+        statusBarNavigation(TRUE)
         initRecycleView()
         initObserver()
+        getPatientFromApi()
+    }
+
+    private fun getPatientFromApi() {
+        viewModel.getPatient()
     }
 
     private fun initRecycleView() {
-        viewDataBinding.recyclerviewItemHome.run {
-            layoutManager = LinearLayoutManager(context)
-            this.adapter = adapterHome
-            adapterHome.onItemClickListener = { itemPatient ->
-                patient = itemPatient
-                setDataPatient()
-                navToBottomSheet()
+        viewDataBinding.apply {
+            recyclerviewItemHome.run {
+                layoutManager = LinearLayoutManager(context)
+                this.adapter = adapterHome
+                adapterHome.onItemClickListener = { itemPatient ->
+                    patient = itemPatient
+                    setDataPatient()
+                    navToBottomSheet()
+                }
+                onScrollListener(this)
             }
         }
+    }
+
+    private fun onScrollListener(recyclerView1: RecyclerView) {
+        viewDataBinding.recyclerviewItemHome.addOnScrollListener(object :
+            RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0) {
+                    val visibleItemCount: Int =
+                        (recyclerView1.layoutManager as LinearLayoutManager).childCount
+                    val totalItemCount: Int =
+                        (recyclerView1.layoutManager as LinearLayoutManager).itemCount
+                    val pastVisibleItems: Int =
+                        (recyclerView1.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                    if (visibleItemCount + pastVisibleItems >= totalItemCount) {
+                        loadingRecycle(View.VISIBLE)
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            getPatientFromApi()
+                            loadingRecycle(View.GONE)
+                        }, LOADING_TIME_OUT)
+                    }
+                }
+            }
+        })
     }
 
     private fun setDataPatient() {
         itemPatientData.setItemPatientData(patient)
-    }
-
-    private fun navToBottomSheet() {
-        activity?.let { activity ->
-            BottomSheetFragment.newInstance().apply {
-                listenerNote = this
-            }
-                .show(activity.supportFragmentManager, BOTTOM_SHEET)
-        }
     }
 
     private fun initObserver() {
@@ -96,15 +119,50 @@ class HomeFragment : BaseFragment() {
         responseApi.second?.let { listPatient ->
             setListPatient(listPatient)
             upDateAdapterListPatient()
-            viewFlipperControl(CHILD_SECOND, PROGRESS_BAR_INVISIBLE)
+            viewFlipperControl(CHILD_SECOND)
         }
     }
 
     private fun setErrorApi(responseApi: Int?) {
         when (responseApi) {
-            ERROR_400 -> toast(getString(R.string.error_api_400_generic))
-            ERROR_401 -> toast(getString(R.string.error_api_401))
-            ERROR_500 -> toast(getString(R.string.error_api_500_generic))
+            ERROR_400 -> {
+                toast(getString(R.string.error_api_400_generic))
+                messageError(View.VISIBLE)
+                statusBarNavigation(FALSE)
+            }
+            ERROR_401 -> {
+                toast(getString(R.string.error_api_401))
+                messageError(View.VISIBLE)
+                statusBarNavigation(FALSE)
+            }
+            ERROR_500 -> {
+                toast(getString(R.string.error_api_500_generic))
+                messageError(View.VISIBLE)
+                statusBarNavigation(FALSE)
+            }
+        }
+    }
+
+    private fun messageError(status: Int) {
+        when (status) {
+            View.VISIBLE -> viewDataBinding.errorMessage.visibility = View.VISIBLE
+            View.GONE -> viewDataBinding.errorMessage.visibility = View.GONE
+        }
+    }
+
+    private fun loadingRecycle(status: Int) {
+        when (status) {
+            View.VISIBLE -> viewDataBinding.loadingViewRecycler.visibility = View.VISIBLE
+            View.GONE -> viewDataBinding.loadingViewRecycler.visibility = View.GONE
+        }
+    }
+
+    private fun navToBottomSheet() {
+        activity?.let { activity ->
+            BottomSheetFragment.newInstance().apply {
+                listenerSheet = this
+            }
+                .show(activity.supportFragmentManager, BOTTOM_SHEET)
         }
     }
 
@@ -117,27 +175,30 @@ class HomeFragment : BaseFragment() {
         adapterHome.update(listPatient)
     }
 
-    private fun viewFlipperControl(child: Int, visible: Boolean) {
-        when {
-            child == CHILD_FIRST && visible == PROGRESS_BAR_VISIBLE -> {
-                viewDataBinding.run {
-                    viewFlipperHome.displayedChild = CHILD_FIRST
-                    progressFlowHome.isVisible = PROGRESS_BAR_VISIBLE
-                }
+    private fun viewFlipperControl(child: Int) {
+        when (child) {
+            CHILD_FIRST -> {
+                messageError(View.GONE)
+                viewDataBinding.viewFlipperHome.displayedChild = CHILD_FIRST
             }
-            child == CHILD_SECOND && visible == PROGRESS_BAR_INVISIBLE -> {
-                viewDataBinding.run {
-                    viewFlipperHome.displayedChild = CHILD_SECOND
-                    progressFlowHome.isVisible = PROGRESS_BAR_INVISIBLE
-                }
+            CHILD_SECOND -> {
+                messageError(View.GONE)
+                statusBarNavigation(TRUE)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    viewDataBinding.viewFlipperHome.displayedChild = CHILD_SECOND
+                }, LOADING_TIME_OUT)
             }
         }
     }
 
-    private fun statusBarNavigation() {
+    private fun statusBarNavigation(bottom: Boolean) {
         statusAppBarNavigationBase(
             menu = TRUE_MENU,
-            components = ItemComponents(appBar = TRUE, bottomNavigation = TRUE, actionBar = FALSE),
+            components = ItemComponents(
+                appBar = bottom,
+                bottomNavigation = bottom,
+                actionBar = FALSE
+            ),
             barColor = R.color.light_blue
         )
     }

@@ -6,39 +6,54 @@
     android:layout_height="match_parent"
     tools:context=".presentation.ui.fragment.home.HomeFragment">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_patient_home"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:foregroundTintMode="@color/orange"
+    <com.example.pharmainc.presentation.widget.ErrorView
+        android:id="@+id/error_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ViewFlipper
-            android:id="@+id/view_flipper_home"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+    <ViewFlipper
+        android:id="@+id/view_flipper_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".presentation.ui.fragment.home.HomeFragment">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/view_animation_loading"
+            style="@style/LottieAnimationView"
+            android:layout_height="70dp"
+            android:layout_width="70dp"
+            android:layout_gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:context=".presentation.ui.fragment.home.HomeFragment">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:lottie_rawRes="@raw/splash_login" />
 
-            <ProgressBar
-                android:id="@+id/progress_flow_home"
-                style="@style/ProgressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_item_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_home_fragment" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview_item_home"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_home_fragment" />
-        </ViewFlipper>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </ViewFlipper>
+
+    <com.example.pharmainc.presentation.widget.LoadingView
+        android:id="@+id/loading_view_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_marginBottom="@dimen/layout_margin_bottom_loading"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

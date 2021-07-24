@@ -1,13 +1,16 @@
 package com.example.pharmainc.presentation.ui.activity
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.pharmainc.R
 import com.example.pharmainc.databinding.ActivityPharmaBinding
+import com.example.pharmainc.presentation.constants.GENDER_DIALOG
 import com.example.pharmainc.presentation.dataBinding.data.ItemComponentsData
+import com.example.pharmainc.presentation.ui.fragment.dialog.GenderDialog
 import com.example.photoday.ui.toast.Toast.toast
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -40,6 +43,7 @@ class PharmaActivity : AppCompatActivity() {
     private fun init() {
         initializeControl()
         initObserve()
+        filterGenderPatient()
     }
 
     private fun initObserve() {
@@ -75,6 +79,15 @@ class PharmaActivity : AppCompatActivity() {
                 messageToast(R.string.failure_initialize_control)
             }
 
+        }
+    }
+
+    private fun filterGenderPatient() {
+        viewDataBinding.apply {
+            clickFilterGender = View.OnClickListener {
+                GenderDialog.newInstance()
+                    .show(supportFragmentManager, GENDER_DIALOG)
+            }
         }
     }
 

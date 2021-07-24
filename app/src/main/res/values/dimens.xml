@@ -40,7 +40,24 @@
     <dimen name="layout_margin_card">4dp</dimen>
     <dimen name="padding_constraint_4dp">4dp</dimen>
 
+    <!-- Button Dialog-->
+    <dimen name="layout_margin_button">8dp</dimen>
+    <dimen name="text_button">20sp</dimen>
+
     <!-- Image Button -->
     <dimen name="layout_margin_image_button">12dp</dimen>
+    <dimen name="check_box_layout_width">250dp</dimen>
+
+    <!-- Home Fragment -->
+    <dimen name="layout_margin_bottom_loading">55dp</dimen>
+
+    <!-- View Loading -->
+    <dimen name="layout_height_loading">60dp</dimen>
+    <dimen name="layout_width_loading">60dp</dimen>
+
+    <!-- View Error -->
+    <dimen name="layout_width_image">70dp</dimen>
+    <dimen name="layout_height_image">70dp</dimen>
+    <dimen name="margin_top_text_error">16dp</dimen>
 
 </resources>

@@ -1,12 +1,12 @@
 package com.example.pharmainc.presentation.ui.fragment.bottomSheet
 
-import android.R
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.pharmainc.R
 import com.example.pharmainc.databinding.FragmentBottomSheetBinding
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -20,7 +20,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     private var _viewDataBinding: FragmentBottomSheetBinding? = null
     private val viewDataBinding get() = _viewDataBinding!!
 
-    var listenerNote: BottomSheetFragment? = null
+    var listenerSheet: BottomSheetFragment? = null
     private val itemPatientData: PatientData by inject {
         parametersOf(this)
     }
@@ -65,7 +65,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     override fun onDestroy() {
         super.onDestroy()
         this._viewDataBinding = null
-        this.listenerNote = null
+        this.listenerSheet = null
     }
 
     companion object {

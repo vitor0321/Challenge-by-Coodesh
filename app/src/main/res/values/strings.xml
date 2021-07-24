@@ -25,5 +25,17 @@
     <string name="fragment_bottom_sheet">Fragment Bottom Sheet</string>
     <string name="fragment_details">DetailsFragment</string>
 
+    <!-- Gender Dialog  -->
+    <string name="cancel">Cancel</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="ok">OK</string>
+
+    <!-- View Loading -->
+    <string name="loading_more">Loading more...</string>
+
+    <!-- View Error -->
+    <string name="error_api">Ahhhh Too bad!!\nSomething annoying happened, try again.</string>
+
 
 </resources>

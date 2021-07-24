@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="checkGender"
+            type="com.example.pharmainc.presentation.dataBinding.data.ItemCheckGenderData" />
+
+        <variable
+            name="viewModel"
+            type="com.example.pharmainc.presentation.ui.fragment.home.HomeViewModel" />
+
+        <variable
+            name="okButton"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="cancelButton"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/checkbox_male"
+            android:layout_width="@dimen/check_box_layout_width"
+            android:layout_height="wrap_content"
+            android:checked="@={checkGender.male}"
+            android:text="@string/male"
+            android:textSize="@dimen/text_view_size_18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/checkbox_female"
+            android:layout_width="@dimen/check_box_layout_width"
+            android:layout_height="wrap_content"
+            android:checked="@={checkGender.female}"
+            android:text="@string/female"
+            android:textSize="@dimen/text_view_size_18sp"
+            app:layout_constraintStart_toStartOf="@id/checkbox_male"
+            app:layout_constraintTop_toBottomOf="@id/checkbox_male" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_cancel"
+            style="@style/AppCompatButtonTransparent"
+            android:onClick="@{cancelButton}"
+            android:text="@string/cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/button_ok"
+            app:layout_constraintTop_toBottomOf="@id/checkbox_female" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_ok"
+            style="@style/AppCompatButtonTransparent"
+            android:onClick="@{okButton}"
+            android:text="@string/ok"
+            app:layout_constraintEnd_toStartOf="@id/button_cancel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkbox_female" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -15,6 +15,15 @@
         <item name="android:indeterminateTint">@color/orange</item>
     </style>
 
+    <style name="AppCompatButtonTransparent" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:fontFamily">@font/button_font_allerta</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/orange</item>
+        <item name="android:textSize">@dimen/text_button</item>
+    </style>
+
     <style name="ShapeAppearanceOverlay">
         <item name="android:layout_margin">@dimen/layout_margin_shape</item>
     </style>

@@ -8,6 +8,10 @@
         <import type="android.view.View" />
 
         <variable
+            name="clickFilterGender"
+            type="android.view.View.OnClickListener" />
+
+        <variable
             name="components"
             type="com.example.pharmainc.presentation.dataBinding.data.ItemComponentsData" />
 
@@ -31,7 +35,7 @@
             android:id="@+id/input_edit_text_searching"
             style="@style/TextInputLayoutStyle"
             android:visibility="@{components.bottomNavigation ? View.VISIBLE : View.GONE}"
-            app:layout_constraintEnd_toStartOf="@id/filter_image_view"
+            app:layout_constraintEnd_toStartOf="@id/filter_gender_image_view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_pharma">
 
@@ -44,10 +48,11 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/filter_image_view"
+            android:id="@+id/filter_gender_image_view"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:src="@drawable/ic_filter_search"
+            android:onClick="@{clickFilterGender}"
             android:visibility="@{components.bottomNavigation ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/input_edit_text_searching"
