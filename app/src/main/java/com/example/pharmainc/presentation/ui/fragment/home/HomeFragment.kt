@@ -17,8 +17,8 @@ import com.example.pharmainc.domain.model.Patient
 import com.example.pharmainc.presentation.constants.*
 import com.example.pharmainc.presentation.dataBinding.data.ItemCheckGenderData
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
+import com.example.pharmainc.presentation.ui.bottomSheet.BottomSheetFragment
 import com.example.pharmainc.presentation.ui.fragment.base.BaseFragment
-import com.example.pharmainc.presentation.bottomSheet.BottomSheetFragment
 import com.example.photoday.ui.toast.Toast.toast
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -29,16 +29,15 @@ import org.koin.core.parameter.parametersOf
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
 
-
 class HomeFragment : BaseFragment() {
 
     private var _viewDataBinding: FragmentHomeBinding? = null
     private val viewDataBinding get() = _viewDataBinding!!
 
     private lateinit var patient: Patient
+    private var itemCheckGenderData: ItemCheckGenderData? = null
     private var listPatient: MutableList<Patient> = mutableListOf()
     private val adapterHome: HomeAdapter by inject()
-    private var itemCheckGenderData: ItemCheckGenderData? = null
     private val viewModel: HomeViewModel by viewModel {
         parametersOf(findNavController())
     }
@@ -90,7 +89,7 @@ class HomeFragment : BaseFragment() {
                     setDataPatient()
                     navToBottomSheet()
                 }
-                onScrollListener(this)
+                onScrollListener()
             }
         }
     }
@@ -162,31 +161,33 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun onScrollListener(recyclerView: RecyclerView) {
+    private fun onScrollListener() {
         viewDataBinding.recyclerviewItemHome.addOnScrollListener(object :
             RecyclerView.OnScrollListener() {
             override fun onScrolled(recycler: RecyclerView, dx: Int, dy: Int) {
-                val visibleItemCount: Int =
-                    (recyclerView.layoutManager as LinearLayoutManager).childCount
-                val totalItemCount: Int =
-                    (recyclerView.layoutManager as LinearLayoutManager).itemCount
-                val pastVisibleItems: Int =
-                    (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
                 when {
-                    dy > 0 -> {
-                        when {
-                            visibleItemCount + pastVisibleItems >= totalItemCount -> {
-                                loadingRecycle(View.VISIBLE)
-                                Handler(Looper.getMainLooper()).postDelayed({
-                                    getPatientFromApi()
-                                    loadingRecycle(View.GONE)
-                                }, LOADING_TIME_OUT)
-                            }
-                        }
-                    }
+                    dy > 0 -> scrollLoading(recycler)
                 }
             }
         })
+    }
+
+    private fun scrollLoading(recyclerView: RecyclerView) {
+        val visibleItemCount: Int =
+            (recyclerView.layoutManager as LinearLayoutManager).childCount
+        val totalItemCount: Int =
+            (recyclerView.layoutManager as LinearLayoutManager).itemCount
+        val pastVisibleItems: Int =
+            (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+        when {
+            visibleItemCount + pastVisibleItems >= totalItemCount -> {
+                loadingRecycle(View.VISIBLE)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    getPatientFromApi()
+                    loadingRecycle(View.GONE)
+                }, LOADING_TIME_OUT)
+            }
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

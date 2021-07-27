@@ -10,7 +10,7 @@ class ResultNetworkMapper : ResultMapper<Result, Patient> {
     override fun mapFromEntityApi(entityApi: Result): Patient {
         val valueDate: String = changeDate(entityApi.dob.date)
         return Patient(
-            idIdentification = entityApi.id.name,
+            idIdentification = entityApi.id.value,
             title = entityApi.name.title,
             name = entityApi.name.first,
             lastName = entityApi.name.last,

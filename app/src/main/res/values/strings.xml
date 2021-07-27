@@ -7,7 +7,7 @@
     <string name="home_bottom">Home</string>
 
     <!-- Pharma Activity  -->
-    <string name="searching">Searching</string>
+    <string name="searching">Searching Nationality</string>
     <string name="failure_initialize_control">Failure Initialize Control</string>
 
     <!-- Item Home Fragment  -->

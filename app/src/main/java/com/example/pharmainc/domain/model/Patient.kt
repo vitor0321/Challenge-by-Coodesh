@@ -1,7 +1,7 @@
 package com.example.pharmainc.domain.model
 
 data class Patient(
-    val idIdentification: String = "",
+    val idIdentification: String? = "",
     val title: String = "",
     val name: String = "",
     val lastName: String = "",

@@ -1,4 +1,4 @@
-package com.example.pharmainc.presentation.ui
+package com.example.pharmainc.presentation.extensions
 
 import com.example.pharmainc.domain.model.Patient
 import com.example.pharmainc.presentation.constants.*
@@ -38,3 +38,4 @@ private fun getListWithGender(
     }
     return patientList
 }
+

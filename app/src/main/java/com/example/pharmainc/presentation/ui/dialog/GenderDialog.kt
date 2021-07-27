@@ -1,4 +1,4 @@
-package com.example.pharmainc.presentation.dialog
+package com.example.pharmainc.presentation.ui.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater

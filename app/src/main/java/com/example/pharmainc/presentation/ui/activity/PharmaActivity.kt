@@ -10,14 +10,13 @@ import com.example.pharmainc.R
 import com.example.pharmainc.databinding.ActivityPharmaBinding
 import com.example.pharmainc.presentation.constants.GENDER_DIALOG
 import com.example.pharmainc.presentation.dataBinding.data.ItemComponentsData
-import com.example.pharmainc.presentation.dialog.GenderDialog
+import com.example.pharmainc.presentation.ui.dialog.GenderDialog
 import com.example.photoday.ui.toast.Toast.toast
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
-
 
 class PharmaActivity : AppCompatActivity() {
 
@@ -45,6 +44,7 @@ class PharmaActivity : AppCompatActivity() {
         initializeControl()
         initObserve()
         filterGenderPatient()
+        filterNationality()
     }
 
     private fun initObserve() {
@@ -92,11 +92,13 @@ class PharmaActivity : AppCompatActivity() {
         }
     }
 
-    private fun messageToast(message: Int?) {
-        message?.let { messageInt ->
-            val messageToast = this.getString(messageInt)
-            toast(messageToast)
+    private fun filterNationality() {
+        viewDataBinding.apply {
         }
+    }
+
+    private fun messageToast(message: Int) {
+        toast(this.getString(message))
     }
 
     override fun onDestroy() {

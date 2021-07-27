@@ -1,4 +1,4 @@
-package com.example.pharmainc.presentation.bottomSheet
+package com.example.pharmainc.presentation.ui.bottomSheet
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
