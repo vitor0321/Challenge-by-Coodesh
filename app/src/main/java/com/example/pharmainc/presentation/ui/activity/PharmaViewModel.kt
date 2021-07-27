@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pharmainc.domain.model.ItemComponents
 
-class PharmaViewModel() : ViewModel() {
+class PharmaViewModel : ViewModel() {
 
     val component: LiveData<ItemComponents> get() = _component
     private var _component: MutableLiveData<ItemComponents> =
@@ -17,5 +17,4 @@ class PharmaViewModel() : ViewModel() {
             field = value
             _component.value = value
         }
-
 }

@@ -9,10 +9,6 @@
             type="com.example.pharmainc.presentation.dataBinding.data.ItemCheckGenderData" />
 
         <variable
-            name="viewModel"
-            type="com.example.pharmainc.presentation.ui.fragment.home.HomeViewModel" />
-
-        <variable
             name="okButton"
             type="android.view.View.OnClickListener" />
 

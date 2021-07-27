@@ -11,4 +11,10 @@ class ItemCheckGenderData(
     val male: MutableLiveData<Boolean> = MutableLiveData<Boolean>().also {
         it.value = checkGender.male
     }
-)
+) {
+    fun setCheckGenderData(checkGender: ItemCheckGender) {
+        this.checkGender = checkGender
+        female.postValue(this.checkGender.female)
+        male.postValue(this.checkGender.male)
+    }
+}

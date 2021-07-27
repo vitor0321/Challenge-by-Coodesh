@@ -1,4 +1,4 @@
-package com.example.pharmainc
+package com.example.pharmainc.presentation
 
 import android.app.Application
 import com.example.pharmainc.presentation.di.appModules

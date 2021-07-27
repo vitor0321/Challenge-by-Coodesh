@@ -18,6 +18,7 @@ import org.koin.core.parameter.parametersOf
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
 
+
 class PharmaActivity : AppCompatActivity() {
 
     private var _viewDataBinding: ActivityPharmaBinding? = null

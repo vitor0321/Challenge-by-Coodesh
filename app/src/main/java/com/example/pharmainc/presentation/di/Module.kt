@@ -36,7 +36,7 @@ val viewModelModulo = module(override = true) {
         HomeViewModel(
             apiRepository = get<PatientApiDataSource>(),
             mapper = get<ResultNetworkMapper>(),
-            checkGender = get<ItemCheckGenderData>()
+            checkGenderData = get<ItemCheckGenderData>()
         )
     }
 }

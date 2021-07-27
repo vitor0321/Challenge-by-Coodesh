@@ -3,11 +3,11 @@ package com.example.pharmainc.presentation.constants
 /*Toast*/
 const val EMPTY = ""
 
-/*Menu*/
+/*Common*/
 const val FALSE_MENU = false
 const val TRUE_MENU = true
 const val TRUE = true
-const val FALSE = false
+val NULL = null
 
 /*View Flipper*/
 const val CHILD_FIRST_SPLASH = 0
@@ -25,6 +25,12 @@ const val ERROR_400 = 17563753
 const val ERROR_401 = 49884420
 const val ERROR_500 = 83356478
 const val LOADING_TIME_OUT: Long = 1800
+
+/*Home Fragment*/
+const val FEMALE = "female"
+const val MALE = "male"
+const val FALSE_GENDER = false
+const val TRUE_GENDER = true
 
 /*Bottom Sheet*/
 const val BOTTOM_SHEET = "BOTTOM_SHEET"

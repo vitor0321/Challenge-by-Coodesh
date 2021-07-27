@@ -11,18 +11,24 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmainc.R
 import com.example.pharmainc.databinding.FragmentHomeBinding
+import com.example.pharmainc.domain.eventBus.MessageEventGender
 import com.example.pharmainc.domain.model.ItemComponents
 import com.example.pharmainc.domain.model.Patient
 import com.example.pharmainc.presentation.constants.*
+import com.example.pharmainc.presentation.dataBinding.data.ItemCheckGenderData
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
 import com.example.pharmainc.presentation.ui.fragment.base.BaseFragment
 import com.example.pharmainc.presentation.ui.fragment.bottomSheet.BottomSheetFragment
 import com.example.photoday.ui.toast.Toast.toast
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
+
 
 class HomeFragment : BaseFragment() {
 
@@ -30,8 +36,9 @@ class HomeFragment : BaseFragment() {
     private val viewDataBinding get() = _viewDataBinding!!
 
     private lateinit var patient: Patient
-    private lateinit var listPatient: List<Patient>
+    private var listPatient: MutableList<Patient> = mutableListOf()
     private val adapterHome: HomeAdapter by inject()
+    private var itemCheckGenderData: ItemCheckGenderData? = null
     private val viewModel: HomeViewModel by viewModel {
         parametersOf(findNavController())
     }
@@ -49,7 +56,14 @@ class HomeFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
+        initEventBus()
         init()
+    }
+
+    private fun initEventBus() {
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this)
+        }
     }
 
     override fun onResume() {
@@ -64,9 +78,7 @@ class HomeFragment : BaseFragment() {
         getPatientFromApi()
     }
 
-    private fun getPatientFromApi() {
-        viewModel.getPatient()
-    }
+    private fun getPatientFromApi() = viewModel.getPatient()
 
     private fun initRecycleView() {
         viewDataBinding.apply {
@@ -83,43 +95,40 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun onScrollListener(recyclerView1: RecyclerView) {
-        viewDataBinding.recyclerviewItemHome.addOnScrollListener(object :
-            RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0) {
-                    val visibleItemCount: Int =
-                        (recyclerView1.layoutManager as LinearLayoutManager).childCount
-                    val totalItemCount: Int =
-                        (recyclerView1.layoutManager as LinearLayoutManager).itemCount
-                    val pastVisibleItems: Int =
-                        (recyclerView1.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-                    if (visibleItemCount + pastVisibleItems >= totalItemCount) {
-                        loadingRecycle(View.VISIBLE)
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            getPatientFromApi()
-                            loadingRecycle(View.GONE)
-                        }, LOADING_TIME_OUT)
-                    }
-                }
-            }
-        })
-    }
-
-    private fun setDataPatient() {
-        itemPatientData.setItemPatientData(patient)
-    }
+    private fun setDataPatient() = itemPatientData.setItemPatientData(patient)
 
     private fun initObserver() {
         viewModel.returnApiLiveData.observe(viewLifecycleOwner) { responseApi(it) }
+        viewModel.returnCheckBoxGender.observe(viewLifecycleOwner) { upDateAdapterListPatient(it) }
+
     }
 
     private fun responseApi(responseApi: Pair<Int?, List<Patient>?>) {
         setErrorApi(responseApi.first)
         responseApi.second?.let { listPatient ->
-            setListPatient(listPatient)
-            upDateAdapterListPatient()
+            listPatient.map {
+                this.listPatient.add(it)
+            }
+            viewModel.checkBoxGender(this.listPatient)
             viewFlipperControl(CHILD_SECOND)
+        }
+    }
+
+    private fun upDateAdapterListPatient(listPatient: List<Patient>) {
+        adapterHome.update(listPatient)
+    }
+
+    private fun messageError(status: Int) {
+        when (status) {
+            View.VISIBLE -> viewDataBinding.errorMessage.visibility = View.VISIBLE
+            View.GONE -> viewDataBinding.errorMessage.visibility = View.GONE
+        }
+    }
+
+    private fun loadingRecycle(status: Int) {
+        when (status) {
+            View.VISIBLE -> viewDataBinding.loadingViewRecycler.visibility = View.VISIBLE
+            View.GONE -> viewDataBinding.loadingViewRecycler.visibility = View.GONE
         }
     }
 
@@ -140,39 +149,11 @@ class HomeFragment : BaseFragment() {
                 messageError(View.VISIBLE)
                 statusBarNavigation(FALSE)
             }
-        }
-    }
-
-    private fun messageError(status: Int) {
-        when (status) {
-            View.VISIBLE -> viewDataBinding.errorMessage.visibility = View.VISIBLE
-            View.GONE -> viewDataBinding.errorMessage.visibility = View.GONE
-        }
-    }
-
-    private fun loadingRecycle(status: Int) {
-        when (status) {
-            View.VISIBLE -> viewDataBinding.loadingViewRecycler.visibility = View.VISIBLE
-            View.GONE -> viewDataBinding.loadingViewRecycler.visibility = View.GONE
-        }
-    }
-
-    private fun navToBottomSheet() {
-        activity?.let { activity ->
-            BottomSheetFragment.newInstance().apply {
-                listenerSheet = this
+            NULL -> {
+                messageError(View.GONE)
+                statusBarNavigation(TRUE)
             }
-                .show(activity.supportFragmentManager, BOTTOM_SHEET)
         }
-    }
-
-    @JvmName("setListPatient1")
-    private fun setListPatient(listPatient: List<Patient>) {
-        this.listPatient = listPatient
-    }
-
-    private fun upDateAdapterListPatient() {
-        adapterHome.update(listPatient)
     }
 
     private fun viewFlipperControl(child: Int) {
@@ -191,6 +172,48 @@ class HomeFragment : BaseFragment() {
         }
     }
 
+    private fun onScrollListener(recyclerView: RecyclerView) {
+        viewDataBinding.recyclerviewItemHome.addOnScrollListener(object :
+            RecyclerView.OnScrollListener() {
+            override fun onScrolled(recycler: RecyclerView, dx: Int, dy: Int) {
+                val visibleItemCount: Int =
+                    (recyclerView.layoutManager as LinearLayoutManager).childCount
+                val totalItemCount: Int =
+                    (recyclerView.layoutManager as LinearLayoutManager).itemCount
+                val pastVisibleItems: Int =
+                    (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                when {
+                    dy > 0 -> {
+                        when {
+                            visibleItemCount + pastVisibleItems >= totalItemCount -> {
+                                loadingRecycle(View.VISIBLE)
+                                Handler(Looper.getMainLooper()).postDelayed({
+                                    getPatientFromApi()
+                                    loadingRecycle(View.GONE)
+                                }, LOADING_TIME_OUT)
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(checkGender: MessageEventGender) {
+        itemCheckGenderData?.setCheckGenderData(checkGender.message)
+        viewModel.checkBoxGender(this.listPatient)
+    }
+
+    private fun navToBottomSheet() {
+        activity?.let { activity ->
+            BottomSheetFragment.newInstance().apply {
+                listenerSheet = this
+            }
+                .show(activity.supportFragmentManager, BOTTOM_SHEET)
+        }
+    }
+
     private fun statusBarNavigation(bottom: Boolean) {
         statusAppBarNavigationBase(
             menu = TRUE_MENU,
@@ -203,8 +226,14 @@ class HomeFragment : BaseFragment() {
         )
     }
 
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        EventBus.getDefault().unregister(this)
         this._viewDataBinding = null
     }
 }
