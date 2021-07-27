@@ -10,7 +10,7 @@ import com.example.pharmainc.presentation.dataBinding.data.PatientData
 import com.example.pharmainc.presentation.navigation.Navigation
 import com.example.pharmainc.presentation.ui.activity.PharmaActivity
 import com.example.pharmainc.presentation.ui.activity.PharmaViewModel
-import com.example.pharmainc.presentation.ui.fragment.dialog.GenderDialog
+import com.example.pharmainc.presentation.dialog.GenderDialog
 import com.example.pharmainc.presentation.ui.fragment.home.HomeAdapter
 import com.example.pharmainc.presentation.ui.fragment.home.HomeFragment
 import com.example.pharmainc.presentation.ui.fragment.home.HomeViewModel

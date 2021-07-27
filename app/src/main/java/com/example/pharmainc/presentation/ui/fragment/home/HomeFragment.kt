@@ -18,7 +18,7 @@ import com.example.pharmainc.presentation.constants.*
 import com.example.pharmainc.presentation.dataBinding.data.ItemCheckGenderData
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
 import com.example.pharmainc.presentation.ui.fragment.base.BaseFragment
-import com.example.pharmainc.presentation.ui.fragment.bottomSheet.BottomSheetFragment
+import com.example.pharmainc.presentation.bottomSheet.BottomSheetFragment
 import com.example.photoday.ui.toast.Toast.toast
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -134,37 +134,27 @@ class HomeFragment : BaseFragment() {
 
     private fun setErrorApi(responseApi: Int?) {
         when (responseApi) {
-            ERROR_400 -> {
-                toast(getString(R.string.error_api_400_generic))
-                messageError(View.VISIBLE)
-                statusBarNavigation(FALSE)
-            }
-            ERROR_401 -> {
-                toast(getString(R.string.error_api_401))
-                messageError(View.VISIBLE)
-                statusBarNavigation(FALSE)
-            }
-            ERROR_500 -> {
-                toast(getString(R.string.error_api_500_generic))
-                messageError(View.VISIBLE)
-                statusBarNavigation(FALSE)
-            }
-            NULL -> {
-                messageError(View.GONE)
-                statusBarNavigation(TRUE)
-            }
+            ERROR_400 -> setViews(getString(R.string.error_api_400_generic), View.VISIBLE, FALSE)
+            ERROR_401 -> setViews(getString(R.string.error_api_401), View.VISIBLE, FALSE)
+            ERROR_500 -> setViews(getString(R.string.error_api_500_generic), View.VISIBLE, FALSE)
+            NULL -> setViews(NULL, View.GONE, TRUE)
         }
+    }
+
+    private fun setViews(toast: String?, messageError: Int?, statusBar: Boolean?) {
+        toast?.let { toast(toast) }
+        messageError?.let { messageError(messageError) }
+        statusBar?.let { statusBarNavigation(statusBar) }
     }
 
     private fun viewFlipperControl(child: Int) {
         when (child) {
             CHILD_FIRST -> {
-                messageError(View.GONE)
+                setViews(NULL, View.GONE, TRUE)
                 viewDataBinding.viewFlipperHome.displayedChild = CHILD_FIRST
             }
             CHILD_SECOND -> {
-                messageError(View.GONE)
-                statusBarNavigation(TRUE)
+                setViews(NULL, View.GONE, TRUE)
                 Handler(Looper.getMainLooper()).postDelayed({
                     viewDataBinding.viewFlipperHome.displayedChild = CHILD_SECOND
                 }, LOADING_TIME_OUT)

@@ -10,7 +10,7 @@ import com.example.pharmainc.R
 import com.example.pharmainc.databinding.ActivityPharmaBinding
 import com.example.pharmainc.presentation.constants.GENDER_DIALOG
 import com.example.pharmainc.presentation.dataBinding.data.ItemComponentsData
-import com.example.pharmainc.presentation.ui.fragment.dialog.GenderDialog
+import com.example.pharmainc.presentation.dialog.GenderDialog
 import com.example.photoday.ui.toast.Toast.toast
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
