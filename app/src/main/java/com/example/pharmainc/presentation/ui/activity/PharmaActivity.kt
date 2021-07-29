@@ -1,17 +1,22 @@
 package com.example.pharmainc.presentation.ui.activity
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.pharmainc.R
 import com.example.pharmainc.databinding.ActivityPharmaBinding
+import com.example.pharmainc.domain.eventBus.MessageEventSearch
 import com.example.pharmainc.presentation.constants.GENDER_DIALOG
 import com.example.pharmainc.presentation.dataBinding.data.ItemComponentsData
 import com.example.pharmainc.presentation.ui.dialog.GenderDialog
 import com.example.photoday.ui.toast.Toast.toast
+import org.greenrobot.eventbus.EventBus
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -64,20 +69,14 @@ class PharmaActivity : AppCompatActivity() {
                     .findFragmentById(R.id.main_activity_nav_host) as NavHostFragment
                 controller = navHostFragment.navController
                 controller.graph.setStartDestination(R.id.splashFragment)
-
-                //background menu navigation
                 bottomNavMainActivity.background = null
-                /*Action Bar Gone*/
                 supportActionBar?.hide()
                 controller.addOnDestinationChangedListener { _, _, _ ->
-                    /* change the fragment title as it is in the nav_graph Label */
                     title = null
                 }
-
-                /* control all bottom navigation navigation */
                 bottomNavMainActivity.setupWithNavController(controller)
             } catch (e: Exception) {
-                messageToast(R.string.failure_initialize_control)
+                R.string.failure_initialize_control.messageToast()
             }
 
         }
@@ -94,11 +93,29 @@ class PharmaActivity : AppCompatActivity() {
 
     private fun filterNationality() {
         viewDataBinding.apply {
+            val searching = editTextSearching
+            searching.afterTextChanged {
+                EventBus.getDefault().post(MessageEventSearch(it))
+            }
         }
     }
 
-    private fun messageToast(message: Int) {
-        toast(this.getString(message))
+    private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+        this.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(editable: Editable?) {
+                afterTextChanged.invoke(editable.toString())
+            }
+        })
+    }
+
+    private fun Int.messageToast() {
+        toast(getString(this))
     }
 
     override fun onDestroy() {

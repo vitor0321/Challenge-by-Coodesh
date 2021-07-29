@@ -11,7 +11,7 @@ import com.example.pharmainc.presentation.dataBinding.data.PatientData
 
 class HomeAdapter(
     private val context: Context,
-    private val items: MutableList<Patient> = mutableListOf(),
+    private var items: MutableList<Patient> = mutableListOf(),
     var onItemClickListener: (selectItem: Patient) -> Unit = {}
 ) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
@@ -26,6 +26,11 @@ class HomeAdapter(
     }
 
     override fun getItemCount(): Int = items.size
+
+    fun filterList(listFilter: MutableList<Patient>){
+        items = listFilter
+        notifyDataSetChanged()
+    }
 
     fun update(newItem: List<Patient>) {
         this.items.clear()

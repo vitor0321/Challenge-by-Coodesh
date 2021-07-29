@@ -13,7 +13,6 @@ import org.greenrobot.eventbus.EventBus
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-
 class GenderDialog : DialogFragment() {
     private var _viewDataBinding: DialogGenderBinding? = null
     private val viewDataBinding get() = _viewDataBinding!!
@@ -45,7 +44,6 @@ class GenderDialog : DialogFragment() {
         viewDataBinding.apply {
             cancelButton = View.OnClickListener { dismiss() }
             okButton = View.OnClickListener {
-
                 val message = MessageEventGender(ItemCheckGender(
                     female = checkboxFemale.isChecked,
                     male = checkboxFemale.isChecked
@@ -54,7 +52,6 @@ class GenderDialog : DialogFragment() {
                 dismiss()
             }
         }
-
     }
 
     override fun onDestroy() {

@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.pharmainc.R
-import com.example.pharmainc.presentation.constants.*
 import com.example.pharmainc.databinding.FragmentSplashBinding
 import com.example.pharmainc.domain.model.ItemComponents
+import com.example.pharmainc.presentation.constants.*
 import com.example.pharmainc.presentation.navigation.Navigation
 import com.example.pharmainc.presentation.ui.fragment.base.BaseFragment
 import org.koin.android.ext.android.inject
@@ -38,24 +38,28 @@ class SplashFragment : BaseFragment() {
     }
 
     private fun init() {
-        viewFlipperControl(CHILD_FIRST_SPLASH)
+        CHILD_FIRST_SPLASH.viewFlipperControl()
         statusBarNavigation()
         controlTimeNavigation()
     }
 
     private fun controlTimeNavigation() {
         Handler(Looper.getMainLooper()).postDelayed({
-            viewFlipperControl(CHILD_SECOND_SPLASH)
+            CHILD_SECOND_SPLASH.viewFlipperControl()
         }, SPLASH_TIME_OUT)
         Handler(Looper.getMainLooper()).postDelayed({
             navigation.navFragmentSplashToHome(controlNavigation)
         }, SPLASH_TIME_OUT_SECOND)
     }
 
-    private fun viewFlipperControl(child: Int) {
-        when (child) {
-            CHILD_FIRST_SPLASH -> viewDataBinding.run { viewFlipperSplash.displayedChild = CHILD_FIRST_SPLASH }
-            CHILD_SECOND_SPLASH -> viewDataBinding.run { viewFlipperSplash.displayedChild = CHILD_SECOND_SPLASH }
+    private fun Int.viewFlipperControl() {
+        when (this) {
+            CHILD_FIRST_SPLASH -> viewDataBinding.run {
+                viewFlipperSplash.displayedChild = CHILD_FIRST_SPLASH
+            }
+            CHILD_SECOND_SPLASH -> viewDataBinding.run {
+                viewFlipperSplash.displayedChild = CHILD_SECOND_SPLASH
+            }
         }
     }
 

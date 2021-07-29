@@ -94,6 +94,19 @@
                 tools:text="@tools:sample/us_phones" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/nat_patient_text_view"
+                style="@style/AppCompatTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/compat_text_view_size"
+                android:fontFamily="@font/aldrich"
+                android:text="@{itemHome.nationality}"
+                android:textColor="@color/blue_light_text_view"
+                app:layout_constraintBottom_toBottomOf="@id/phone_patient_text_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="@tools:sample/lorem" />
+
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/gender_patient_text_view"
                 style="@style/AppCompatTextView"
                 android:layout_width="wrap_content"

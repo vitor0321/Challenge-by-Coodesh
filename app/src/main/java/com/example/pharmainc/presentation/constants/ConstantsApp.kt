@@ -25,6 +25,10 @@ const val ERROR_400 = 17563753
 const val ERROR_401 = 49884420
 const val ERROR_500 = 83356478
 const val LOADING_TIME_OUT: Long = 1800
+const val ACTIVE = true
+const val INACTIVE = false
+const val SHOW = 0
+const val HIDE = 8
 
 /*Home Fragment*/
 const val FEMALE = "female"

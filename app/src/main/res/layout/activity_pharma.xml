@@ -68,31 +68,45 @@
             app:layout_constraintTop_toBottomOf="@id/input_edit_text_searching"
             app:startDestination="@id/main_activity_nav_host">
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/main_activity_nav_host"
-                android:name="androidx.navigation.fragment.NavHostFragment"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout="@layout/fragment_home"
-                app:defaultNavHost="true"
-                app:navGraph="@navigation/nav_graph"
-                tools:layout="@layout/fragment_home" />
+                android:layout_height="match_parent">
 
-            <com.google.android.material.bottomappbar.BottomAppBar
-                android:id="@+id/bottom_app_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:visibility="@{components.appBar ? View.VISIBLE : View.GONE}">
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/main_activity_nav_host"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/bottom_app_bar"
+                    android:layout="@layout/fragment_home"
+                    app:defaultNavHost="true"
+                    app:navGraph="@navigation/nav_graph"
+                    tools:layout="@layout/fragment_home" />
 
-                <com.google.android.material.bottomnavigation.BottomNavigationView
-                    android:id="@+id/bottom_nav_main_activity"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.bottomappbar.BottomAppBar
+                    android:id="@+id/bottom_app_bar"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="@{components.bottomNavigation ? View.VISIBLE : View.GONE}"
-                    app:menu="@menu/menu_bottom_navigation" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/main_activity_nav_host"
+                    android:layout_gravity="bottom"
+                    android:visibility="@{components.appBar ? View.VISIBLE : View.GONE}"
+                    tools:ignore="BottomAppBar">
 
-            </com.google.android.material.bottomappbar.BottomAppBar>
+                    <com.google.android.material.bottomnavigation.BottomNavigationView
+                        android:id="@+id/bottom_nav_main_activity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="@{components.bottomNavigation ? View.VISIBLE : View.GONE}"
+                        app:menu="@menu/menu_bottom_navigation" />
+
+                </com.google.android.material.bottomappbar.BottomAppBar>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

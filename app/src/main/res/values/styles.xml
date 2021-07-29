@@ -9,10 +9,17 @@
         <item name="android:textViewStyle">@style/TextViewStyle</item>
         <item name="cardViewStyle">@style/CardViewStyle</item>
         <item name="alertDialogStyle">@style/DialogButtonStyle</item>
+        <item name="android:checkboxStyle">@style/CheckBox</item>
     </style>
 
     <style name="ProgressBar" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:indeterminateTint">@color/orange</item>
+    </style>
+
+    <style name="CheckBox" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textSize">@dimen/text_view_size_18sp</item>
+        <item name="android:layout_width">@dimen/check_box_layout_width</item>
     </style>
 
     <style name="AppCompatButtonTransparent" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
@@ -20,7 +27,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:fontFamily">@font/button_font_allerta</item>
         <item name="android:background">@android:color/transparent</item>
-        <item name="android:textColor">@color/orange</item>
+        <item name="android:textColor">@color/light_blue</item>
         <item name="android:textSize">@dimen/text_button</item>
     </style>
 
@@ -59,8 +66,9 @@
     <style name="TextInputEditText">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
+        <item name="android:fontFamily">@font/allerta</item>
+        <item name="android:textSize">@dimen/text_size_input</item>
         <item name="android:textColor">@color/blue_input_edit_text</item>
-        <item name="editTextColor">@color/blue_dark_input_edit_text</item>
         <item name="errorTextColor">@color/red_error_input_edit_text</item>
     </style>
 

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmainc.R
 import com.example.pharmainc.databinding.FragmentHomeBinding
 import com.example.pharmainc.domain.eventBus.MessageEventGender
+import com.example.pharmainc.domain.eventBus.MessageEventSearch
 import com.example.pharmainc.domain.model.ItemComponents
 import com.example.pharmainc.domain.model.Patient
 import com.example.pharmainc.presentation.constants.*
@@ -28,6 +29,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
+import java.util.*
 
 class HomeFragment : BaseFragment() {
 
@@ -35,6 +37,7 @@ class HomeFragment : BaseFragment() {
     private val viewDataBinding get() = _viewDataBinding!!
 
     private lateinit var patient: Patient
+    private var searchingNat: String = EMPTY
     private var itemCheckGenderData: ItemCheckGenderData? = null
     private var listPatient: MutableList<Patient> = mutableListOf()
     private val adapterHome: HomeAdapter by inject()
@@ -67,11 +70,11 @@ class HomeFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        viewFlipperControl(CHILD_FIRST)
+        CHILD_FIRST.viewFlipperControl()
     }
 
     private fun init() {
-        statusBarNavigation(TRUE)
+        TRUE.statusBarNavigation()
         initRecycleView()
         initObserver()
         getPatientFromApi()
@@ -97,35 +100,44 @@ class HomeFragment : BaseFragment() {
     private fun setDataPatient() = itemPatientData.setItemPatientData(patient)
 
     private fun initObserver() {
-        viewModel.returnApiLiveData.observe(viewLifecycleOwner) { responseApi(it) }
-        viewModel.returnCheckBoxGender.observe(viewLifecycleOwner) { upDateAdapterListPatient(it) }
-
+        viewModel.apiLiveData.observe(viewLifecycleOwner) { it.responseApi() }
+        viewModel.checkBoxGenderLiveData.observe(viewLifecycleOwner) { it.upDateAdapterListPatient() }
+        viewModel.filterLiveData.observe(viewLifecycleOwner) { it.upDateFilterList() }
+        //viewModel.loadingLiveData.observe(viewLifecycleOwner) { it.loadingRecycle() }
     }
 
-    private fun responseApi(responseApi: Pair<Int?, List<Patient>?>) {
-        setErrorApi(responseApi.first)
-        responseApi.second?.let { listPatient ->
+    private fun Pair<Int?, List<Patient>?>.responseApi() {
+        setErrorApi(this.first)
+        this.second?.let { listPatient ->
             listPatient.map {
-                this.listPatient.add(it)
+                this@HomeFragment.listPatient.add(it)
             }
-            viewModel.checkBoxGender(this.listPatient)
-            viewFlipperControl(CHILD_SECOND)
+            viewModel.checkBoxGender(this@HomeFragment.listPatient)
+            CHILD_SECOND.viewFlipperControl()
         }
     }
 
-    private fun upDateAdapterListPatient(listPatient: List<Patient>) {
-        adapterHome.update(listPatient)
+    private fun List<Patient>.upDateAdapterListPatient() {
+        adapterHome.update(this)
     }
 
-    private fun messageError(status: Int) {
-        when (status) {
+    private fun List<Patient>.upDateFilterList() {
+        val patientList: MutableList<Patient> = mutableListOf()
+        this.map {
+            patientList.add(it)
+        }
+        adapterHome.filterList(patientList)
+    }
+
+    private fun Int.viewError() {
+        when (this) {
             View.VISIBLE -> viewDataBinding.errorMessage.visibility = View.VISIBLE
             View.GONE -> viewDataBinding.errorMessage.visibility = View.GONE
         }
     }
 
-    private fun loadingRecycle(status: Int) {
-        when (status) {
+    private fun Int.loadingRecycle() {
+        when (this) {
             View.VISIBLE -> viewDataBinding.loadingViewRecycler.visibility = View.VISIBLE
             View.GONE -> viewDataBinding.loadingViewRecycler.visibility = View.GONE
         }
@@ -133,21 +145,21 @@ class HomeFragment : BaseFragment() {
 
     private fun setErrorApi(responseApi: Int?) {
         when (responseApi) {
-            ERROR_400 -> setViews(getString(R.string.error_api_400_generic), View.VISIBLE, FALSE)
-            ERROR_401 -> setViews(getString(R.string.error_api_401), View.VISIBLE, FALSE)
-            ERROR_500 -> setViews(getString(R.string.error_api_500_generic), View.VISIBLE, FALSE)
+            ERROR_400 -> setViews(R.string.error_api_400_generic, View.VISIBLE, FALSE)
+            ERROR_401 -> setViews(R.string.error_api_401, View.VISIBLE, FALSE)
+            ERROR_500 -> setViews(R.string.error_api_500_generic, View.VISIBLE, FALSE)
             NULL -> setViews(NULL, View.GONE, TRUE)
         }
     }
 
-    private fun setViews(toast: String?, messageError: Int?, statusBar: Boolean?) {
-        toast?.let { toast(toast) }
-        messageError?.let { messageError(messageError) }
-        statusBar?.let { statusBarNavigation(statusBar) }
+    private fun setViews(messageError: Int?, viewError: Int?, statusBar: Boolean?) {
+        messageError?.let { messageError.messageToast() }
+        viewError?.let { viewError.viewError() }
+        statusBar?.let { statusBar.statusBarNavigation() }
     }
 
-    private fun viewFlipperControl(child: Int) {
-        when (child) {
+    private fun Int.viewFlipperControl() {
+        when (this) {
             CHILD_FIRST -> {
                 setViews(NULL, View.GONE, TRUE)
                 viewDataBinding.viewFlipperHome.displayedChild = CHILD_FIRST
@@ -165,26 +177,26 @@ class HomeFragment : BaseFragment() {
         viewDataBinding.recyclerviewItemHome.addOnScrollListener(object :
             RecyclerView.OnScrollListener() {
             override fun onScrolled(recycler: RecyclerView, dx: Int, dy: Int) {
-                when {
-                    dy > 0 -> scrollLoading(recycler)
+                when (searchingNat) {
+                    EMPTY -> recycler.scrollLoading()
                 }
             }
         })
     }
 
-    private fun scrollLoading(recyclerView: RecyclerView) {
+    private fun RecyclerView.scrollLoading() {
         val visibleItemCount: Int =
-            (recyclerView.layoutManager as LinearLayoutManager).childCount
+            (this.layoutManager as LinearLayoutManager).childCount
         val totalItemCount: Int =
-            (recyclerView.layoutManager as LinearLayoutManager).itemCount
+            (this.layoutManager as LinearLayoutManager).itemCount
         val pastVisibleItems: Int =
-            (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+            (this.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
         when {
             visibleItemCount + pastVisibleItems >= totalItemCount -> {
-                loadingRecycle(View.VISIBLE)
+                View.VISIBLE.loadingRecycle()
                 Handler(Looper.getMainLooper()).postDelayed({
                     getPatientFromApi()
-                    loadingRecycle(View.GONE)
+                    View.GONE.loadingRecycle()
                 }, LOADING_TIME_OUT)
             }
         }
@@ -196,6 +208,12 @@ class HomeFragment : BaseFragment() {
         viewModel.checkBoxGender(this.listPatient)
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(search: MessageEventSearch) {
+        searchingNat = search.message
+        viewModel.filter(search.message, listPatient)
+    }
+
     private fun navToBottomSheet() {
         activity?.let { activity ->
             BottomSheetFragment.newInstance().apply {
@@ -205,16 +223,20 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun statusBarNavigation(bottom: Boolean) {
+    private fun Boolean.statusBarNavigation() {
         statusAppBarNavigationBase(
             menu = TRUE_MENU,
             components = ItemComponents(
-                appBar = bottom,
-                bottomNavigation = bottom,
+                appBar = this,
+                bottomNavigation = this,
                 actionBar = FALSE
             ),
             barColor = R.color.light_blue
         )
+    }
+
+    private fun Int.messageToast() {
+        toast(getString(this))
     }
 
     override fun onStop() {

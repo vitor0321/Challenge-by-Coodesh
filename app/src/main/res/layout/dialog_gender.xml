@@ -23,22 +23,20 @@
 
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/checkbox_male"
-            android:layout_width="@dimen/check_box_layout_width"
+            style="@style/CheckBox"
             android:layout_height="wrap_content"
             android:checked="@={checkGender.male}"
             android:text="@string/male"
-            android:textSize="@dimen/text_view_size_18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/checkbox_female"
-            android:layout_width="@dimen/check_box_layout_width"
+            style="@style/CheckBox"
             android:layout_height="wrap_content"
             android:checked="@={checkGender.female}"
             android:text="@string/female"
-            android:textSize="@dimen/text_view_size_18sp"
             app:layout_constraintStart_toStartOf="@id/checkbox_male"
             app:layout_constraintTop_toBottomOf="@id/checkbox_male" />
 

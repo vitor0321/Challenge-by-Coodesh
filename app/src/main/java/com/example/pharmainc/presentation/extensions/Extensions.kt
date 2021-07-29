@@ -2,28 +2,39 @@ package com.example.pharmainc.presentation.extensions
 
 import com.example.pharmainc.domain.model.Patient
 import com.example.pharmainc.presentation.constants.*
+import com.example.pharmainc.presentation.dataBinding.data.ItemCheckGenderData
 
 fun onClickedCheckBox(
     listPatient: List<Patient>,
-    female: Boolean?,
-    male: Boolean?
-): List<Patient> {
-    return when {
-        female == TRUE_GENDER && male != TRUE_GENDER ->
-            getListWithGender(listPatient, FEMALE, NULL)
-        female != TRUE_GENDER && male == TRUE_GENDER ->
-            getListWithGender(listPatient, MALE, NULL)
-        female == TRUE_GENDER && male == TRUE_GENDER ->
-            getListWithGender(listPatient, NULL, TRUE_GENDER)
-        else -> getListWithGender(listPatient, NULL, FALSE_GENDER)
+    checkGenderData: ItemCheckGenderData,
+    callbackList: (callBack: List<Patient>) -> Unit
+) {
+    val checkGender = checkGenderData.getCheckGenderData()
+    when {
+        checkGender?.female == TRUE_GENDER && checkGender.male != TRUE_GENDER ->
+            getListWithGender(listPatient, FEMALE, NULL) { list ->
+                callbackList(list)
+            }
+        checkGender?.female != TRUE_GENDER && checkGender?.male == TRUE_GENDER ->
+            getListWithGender(listPatient, MALE, NULL){ list ->
+                callbackList(list)
+            }
+        checkGender?.female == TRUE_GENDER && checkGender.male == TRUE_GENDER ->
+            getListWithGender(listPatient, NULL, TRUE_GENDER){ list ->
+                callbackList(list)
+            }
+        else -> getListWithGender(listPatient, NULL, FALSE_GENDER){ list ->
+            callbackList(list)
+        }
     }
 }
 
 private fun getListWithGender(
     listPatient: List<Patient>,
     gender: String?,
-    check: Boolean?
-): List<Patient> {
+    check: Boolean?,
+    callbackList: (callBack: List<Patient>) -> Unit
+) {
     val patientList: MutableList<Patient> = mutableListOf()
     listPatient.map { patient ->
         when (patient.gender) {
@@ -35,7 +46,7 @@ private fun getListWithGender(
                 }
             }
         }
+        callbackList(patientList)
     }
-    return patientList
 }
 

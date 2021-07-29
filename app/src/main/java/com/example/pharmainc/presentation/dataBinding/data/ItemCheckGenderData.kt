@@ -17,4 +17,11 @@ class ItemCheckGenderData(
         female.postValue(this.checkGender.female)
         male.postValue(this.checkGender.male)
     }
+
+    fun getCheckGenderData(): ItemCheckGender? {
+        return this.checkGender.copy(
+            female = female.value ?: return null,
+            male = male.value ?: return null
+        )
+    }
 }
