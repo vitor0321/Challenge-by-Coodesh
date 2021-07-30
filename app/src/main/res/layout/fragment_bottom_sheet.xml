@@ -39,7 +39,9 @@
             android:layout_height="0dp"
             android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guide_line_horizontal" />
+            app:layout_constraintTop_toBottomOf="@id/guide_line_horizontal"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="47dp" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_patient"
@@ -126,17 +128,29 @@
             app:layout_constraintTop_toBottomOf="@id/first_name_patient_text_view"
             tools:text="@tools:sample/full_names" />
 
+        <TextView
+            android:id="@+id/text_view_personal_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/AppCompatTextView"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="@dimen/layout_style_text_margin"
+            android:text="Personal Data:"
+            android:fontFamily="@font/aldrich"
+            app:layout_constraintTop_toBottomOf="@id/email_patient_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/gender_patient_text_view"
             style="@style/AppCompatTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/layout_style_text_margin"
             android:fontFamily="@font/allerta"
             android:text="@{itemPatient.gender}"
             android:textColor="@color/blue_text_view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/email_patient_text_view"
+            app:layout_constraintTop_toBottomOf="@id/text_view_personal_data"
             tools:text="@string/gender_patient_male" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -147,8 +161,8 @@
             android:fontFamily="@font/allerta"
             android:text="@{itemPatient.birthdate}"
             android:textColor="@color/blue_text_view"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/gender_patient_text_view"
+            app:layout_constraintStart_toEndOf="@id/gender_patient_text_view"
+            app:layout_constraintTop_toBottomOf="@id/text_view_personal_data"
             tools:text="@tools:sample/date/ddmmyy" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -171,21 +185,34 @@
             android:fontFamily="@font/allerta"
             android:text="@{itemPatient.nationality}"
             android:textColor="@color/blue_text_view"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/phone_patient_text_view"
+            app:layout_constraintStart_toEndOf="@id/phone_patient_text_view"
+            app:layout_constraintTop_toBottomOf="@id/birthdate_patient_text_view"
             tools:text="@tools:sample/lorem" />
+
+        <TextView
+            android:id="@+id/text_view_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/AppCompatTextView"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="@dimen/layout_style_text_margin"
+            android:text="Location:"
+            android:fontFamily="@font/aldrich"
+            app:layout_constraintTop_toBottomOf="@id/nat_patient_text_view"
+            app:layout_constraintBottom_toTopOf="@id/street_patient_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/street_patient_text_view"
             style="@style/AppCompatTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/layout_style_text_margin"
             android:fontFamily="@font/allerta"
             android:text="@{itemPatient.street}"
             android:textColor="@color/blue_text_view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nat_patient_text_view"
+            app:layout_constraintTop_toBottomOf="@id/text_view_location"
             tools:text="@tools:sample/lorem" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -193,12 +220,11 @@
             style="@style/AppCompatTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/layout_style_text_margin"
             android:fontFamily="@font/allerta"
             android:text="@{String.valueOf(itemPatient.numberHouse)}"
             android:textColor="@color/blue_text_view"
             app:layout_constraintStart_toEndOf="@id/street_patient_text_view"
-            app:layout_constraintTop_toBottomOf="@id/nat_patient_text_view"
+            app:layout_constraintTop_toTopOf="@id/street_patient_text_view"
             tools:text="@tools:sample/us_zipcodes" />
 
         <androidx.appcompat.widget.AppCompatTextView

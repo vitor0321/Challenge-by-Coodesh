@@ -47,7 +47,7 @@
 
     <style name="AppCompatTextView">
         <item name="android:textSize">@dimen/compat_text_view_size</item>
-        <item name="android:layout_marginStart">@dimen/layout_margin</item>
+        <item name="android:layout_marginStart">@dimen/layout_margin_start</item>
         <item name="android:textColor">@color/blue_dark_compat_text_view</item>
 
     </style>
