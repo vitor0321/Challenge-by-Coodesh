@@ -50,3 +50,22 @@ private fun getListWithGender(
     }
 }
 
+fun searchingNationality(
+    listPatient: List<Patient>,
+    searching: String,
+    checkGenderData: ItemCheckGenderData,
+    callbackList: (callBack: List<Patient>) -> Unit
+) {
+    val listFilter: MutableList<Patient> = mutableListOf()
+    for (item: Patient in listPatient) {
+        if (item.nationality.lowercase().contains(searching.lowercase())) {
+            listFilter.add(item)
+        }
+    }
+    onClickedCheckBox(listFilter, checkGenderData) {
+        callbackList(it)
+    }
+}
+
+
+

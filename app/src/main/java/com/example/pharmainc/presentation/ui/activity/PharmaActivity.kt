@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.pharmainc.R
 import com.example.pharmainc.databinding.ActivityPharmaBinding
 import com.example.pharmainc.domain.eventBus.MessageEventSearch
+import com.example.pharmainc.presentation.constants.EMPTY
 import com.example.pharmainc.presentation.constants.GENDER_DIALOG
 import com.example.pharmainc.presentation.dataBinding.data.ItemComponentsData
 import com.example.pharmainc.presentation.ui.dialog.GenderDialog
@@ -35,6 +36,7 @@ class PharmaActivity : AppCompatActivity() {
         parametersOf(this)
     }
     private lateinit var controller: NavController
+    private var searchingNat: String = EMPTY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,8 +87,12 @@ class PharmaActivity : AppCompatActivity() {
     private fun filterGenderPatient() {
         viewDataBinding.apply {
             clickFilterGender = View.OnClickListener {
-                GenderDialog.newInstance()
-                    .show(supportFragmentManager, GENDER_DIALOG)
+                when (searchingNat) {
+                    EMPTY -> {
+                        GenderDialog.newInstance()
+                            .show(supportFragmentManager, GENDER_DIALOG)
+                    }
+                }
             }
         }
     }
@@ -94,19 +100,18 @@ class PharmaActivity : AppCompatActivity() {
     private fun filterNationality() {
         viewDataBinding.apply {
             val searching = editTextSearching
-            searching.afterTextChanged {
-                EventBus.getDefault().post(MessageEventSearch(it))
+            searching.afterTextChanged { afterTextChanged ->
+                searchingNat = afterTextChanged
+                EventBus.getDefault().post(MessageEventSearch(afterTextChanged))
             }
         }
     }
 
     private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
         this.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(editable: Editable?) {
                 afterTextChanged.invoke(editable.toString())

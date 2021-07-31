@@ -9,6 +9,7 @@ import com.example.pharmainc.network.repository.PatientRepository
 import com.example.pharmainc.presentation.constants.*
 import com.example.pharmainc.presentation.dataBinding.data.ItemCheckGenderData
 import com.example.pharmainc.presentation.extensions.onClickedCheckBox
+import com.example.pharmainc.presentation.extensions.searchingNationality
 
 class HomeViewModel(
     private val apiRepository: PatientRepository,
@@ -25,29 +26,25 @@ class HomeViewModel(
     private val _filterLiveData = MutableLiveData<List<Patient>>()
     val filterLiveData: MutableLiveData<List<Patient>> get() = _filterLiveData
 
-    private val _loadingLiveData = MutableLiveData<Int>()
-    val loadingLiveData: MutableLiveData<Int> get() = _loadingLiveData
-
     private var controlApiLiveData: Boolean = ACTIVE
 
     fun getPatient() {
         when (controlApiLiveData) {
             ACTIVE -> {
-                controlAccessApi(INACTIVE)
+                INACTIVE.controlAccessApi()
                 apiRepository.getPatient { result: PatientResult ->
                     when (result) {
                         is PatientResult.Success -> {
                             mapper.fromEntityApiList(result.patient).apply {
                                 _apiLiveData.value = Pair(NULL, this)
-                                controlAccessApi(ACTIVE)
+                                ACTIVE.controlAccessApi()
                             }
                         }
                         is PatientResult.ApiError -> when (result.statusCode) {
                             401 -> _apiLiveData.value = Pair(ERROR_401, NULL)
                             else -> _apiLiveData.value = Pair(ERROR_400, NULL)
                         }
-                        is PatientResult.ServerError -> _apiLiveData.value =
-                            Pair(ERROR_500, NULL)
+                        is PatientResult.ServerError -> _apiLiveData.value = Pair(ERROR_500, NULL)
                     }
                 }
             }
@@ -56,41 +53,35 @@ class HomeViewModel(
 
     fun filter(searching: String, listPatient: List<Patient>) {
         searching.setSetting()
-        val listFilter: MutableList<Patient> = mutableListOf()
-        for (item: Patient in listPatient) {
-            if (item.nationality.lowercase().contains(searching.lowercase())) {
-                listFilter.add(item)
-            }
+        searchingNationality(listPatient, searching, checkGenderData) { list ->
+            _filterLiveData.value = list
         }
-        _filterLiveData.value = listFilter
     }
 
     private fun String.setSetting() {
-        _loadingLiveData.value = HIDE
         when {
-            this != EMPTY -> controlAccessApi(INACTIVE)
-            else -> controlAccessApi(ACTIVE)
+            this != EMPTY -> INACTIVE.controlAccessApi()
+            else -> ACTIVE.controlAccessApi()
         }
     }
 
     fun checkBoxGender(listPatient: List<Patient>) {
-        checkList(listPatient) { list ->
+        listPatient.checkList { list ->
             _checkBoxGenderLiveData.value = list
-            controlAccessApi(ACTIVE)
+            ACTIVE.controlAccessApi()
         }
     }
 
-    private fun checkList(
-        listPatient: List<Patient>,
+    private fun List<Patient>.checkList(
         callbackList: (callBack: List<Patient>) -> Unit
     ) {
-        onClickedCheckBox(listPatient, checkGenderData) { list ->
+        onClickedCheckBox(this, checkGenderData) { list ->
             callbackList(list)
         }
     }
 
-    private fun controlAccessApi(control: Boolean) {
-        controlApiLiveData = control
+    private fun Boolean.controlAccessApi() {
+        controlApiLiveData = this
     }
 }
 
