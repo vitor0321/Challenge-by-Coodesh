@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.pharmainc.databinding.DialogGenderBinding
-import com.example.pharmainc.domain.eventBus.MessageEventGender
-import com.example.pharmainc.domain.model.ItemCheckGender
+import com.example.pharmainc.presentation.eventBus.MessageEventGender
+import com.example.pharmainc.presentation.model.ItemCheckGender
 import com.example.pharmainc.presentation.dataBinding.data.ItemCheckGenderData
 import org.greenrobot.eventbus.EventBus
 import org.koin.android.ext.android.inject

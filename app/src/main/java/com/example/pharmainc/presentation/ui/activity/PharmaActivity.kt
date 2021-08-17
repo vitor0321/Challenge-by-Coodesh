@@ -11,7 +11,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.pharmainc.R
 import com.example.pharmainc.databinding.ActivityPharmaBinding
-import com.example.pharmainc.domain.eventBus.MessageEventSearch
+import com.example.pharmainc.presentation.eventBus.MessageEventSearch
 import com.example.pharmainc.presentation.constants.EMPTY
 import com.example.pharmainc.presentation.constants.GENDER_DIALOG
 import com.example.pharmainc.presentation.dataBinding.data.ItemComponentsData

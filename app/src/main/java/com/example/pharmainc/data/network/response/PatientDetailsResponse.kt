@@ -1,6 +1,6 @@
-package com.example.pharmainc.network.response
+package com.example.pharmainc.data.network.response
 
-import com.example.pharmainc.network.model.*
+import com.example.pharmainc.domain.model.modelnetworl.*
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

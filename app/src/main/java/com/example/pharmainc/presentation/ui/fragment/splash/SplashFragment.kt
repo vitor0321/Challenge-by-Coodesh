@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.pharmainc.R
 import com.example.pharmainc.databinding.FragmentSplashBinding
-import com.example.pharmainc.domain.model.ItemComponents
+import com.example.pharmainc.presentation.model.ItemComponents
 import com.example.pharmainc.presentation.constants.*
 import com.example.pharmainc.presentation.navigation.Navigation
 import com.example.pharmainc.presentation.ui.fragment.base.BaseFragment
@@ -65,12 +65,10 @@ class SplashFragment : BaseFragment() {
 
     private fun statusBarNavigation() {
         statusAppBarNavigationBase(
+            appBar = FALSE,
+            bottomNavigation = FALSE,
+            actionBar = FALSE,
             menu = FALSE_MENU,
-            components = ItemComponents(
-                appBar = FALSE,
-                bottomNavigation = FALSE,
-                actionBar = FALSE
-            ),
             barColor = R.color.white
         )
     }
@@ -79,5 +77,5 @@ class SplashFragment : BaseFragment() {
         super.onDestroy()
         _viewDataBinding = null
     }
-
 }
+

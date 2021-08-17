@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmainc.databinding.ItemHomeFragmentBinding
-import com.example.pharmainc.domain.model.Patient
+import com.example.pharmainc.presentation.model.Patient
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
 
 class HomeAdapter(

@@ -1,4 +1,4 @@
-package com.example.pharmainc.network.model
+package com.example.pharmainc.domain.model.modelnetworl
 
 
 import com.google.gson.annotations.SerializedName

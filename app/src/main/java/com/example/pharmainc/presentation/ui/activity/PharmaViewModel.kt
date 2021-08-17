@@ -3,7 +3,7 @@ package com.example.pharmainc.presentation.ui.activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.pharmainc.domain.model.ItemComponents
+import com.example.pharmainc.presentation.model.ItemComponents
 
 class PharmaViewModel : ViewModel() {
 

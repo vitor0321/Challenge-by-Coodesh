@@ -1,7 +1,7 @@
 package com.example.pharmainc.presentation.dataBinding.data
 
 import androidx.lifecycle.MutableLiveData
-import com.example.pharmainc.domain.model.Patient
+import com.example.pharmainc.presentation.model.Patient
 
 class PatientData(
     private var patient: Patient = Patient(),

@@ -1,9 +1,8 @@
-package com.example.pharmainc.network.mapper
+package com.example.pharmainc.domain.mapper
 
 import android.annotation.SuppressLint
-import com.example.pharmainc.domain.mapper.ResultMapper
-import com.example.pharmainc.domain.model.Patient
-import com.example.pharmainc.network.model.Result
+import com.example.pharmainc.presentation.model.Patient
+import com.example.pharmainc.domain.model.modelnetworl.Result
 import java.text.SimpleDateFormat
 
 class ResultNetworkMapper : ResultMapper<Result, Patient> {

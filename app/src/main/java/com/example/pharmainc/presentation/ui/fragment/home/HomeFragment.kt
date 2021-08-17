@@ -11,14 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmainc.R
 import com.example.pharmainc.databinding.FragmentHomeBinding
-import com.example.pharmainc.domain.eventBus.MessageEventGender
-import com.example.pharmainc.domain.eventBus.MessageEventSearch
-import com.example.pharmainc.domain.model.ItemComponents
-import com.example.pharmainc.domain.model.Patient
+import com.example.pharmainc.presentation.eventBus.MessageEventGender
+import com.example.pharmainc.presentation.eventBus.MessageEventSearch
+import com.example.pharmainc.presentation.model.ItemComponents
+import com.example.pharmainc.presentation.model.Patient
 import com.example.pharmainc.presentation.constants.*
 import com.example.pharmainc.presentation.dataBinding.data.ItemCheckGenderData
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
-import com.example.pharmainc.presentation.ui.bottomSheet.BottomSheetFragment
+import com.example.pharmainc.presentation.ui.fragment.bottomSheet.BottomSheetFragment
 import com.example.pharmainc.presentation.ui.fragment.base.BaseFragment
 import com.example.photoday.ui.toast.Toast.toast
 import org.greenrobot.eventbus.EventBus
@@ -36,14 +36,10 @@ class HomeFragment : BaseFragment() {
     private var _viewDataBinding: FragmentHomeBinding? = null
     private val viewDataBinding get() = _viewDataBinding!!
 
-    private lateinit var patient: Patient
     private var searchingNat: String = EMPTY
     private var itemCheckGenderData: ItemCheckGenderData? = null
-    private var listPatient: MutableList<Patient> = mutableListOf()
     private val adapterHome: HomeAdapter by inject()
-    private val viewModel: HomeViewModel by viewModel {
-        parametersOf(findNavController())
-    }
+    private val viewModel: HomeViewModel by viewModel()
     private val itemPatientData: PatientData by inject {
         parametersOf(this)
     }
@@ -58,8 +54,16 @@ class HomeFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        initEventBus()
         init()
+    }
+
+    private fun init() {
+        TRUE.statusBarNavigation()
+        CHILD_FIRST.viewFlipperControl()
+        initObserver()
+        initEventBus()
+        initRecycleView()
+        getPatientFromApi()
     }
 
     private fun initEventBus() {
@@ -68,19 +72,7 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        CHILD_FIRST.viewFlipperControl()
-    }
-
-    private fun init() {
-        TRUE.statusBarNavigation()
-        initRecycleView()
-        initObserver()
-        getPatientFromApi()
-    }
-
-    private fun getPatientFromApi() = viewModel.getPatient()
+    private fun getPatientFromApi() = viewModel.getPatients()
 
     private fun initRecycleView() {
         viewDataBinding.apply {
@@ -88,44 +80,36 @@ class HomeFragment : BaseFragment() {
                 layoutManager = LinearLayoutManager(context)
                 this.adapter = adapterHome
                 adapterHome.onItemClickListener = { itemPatient ->
-                    patient = itemPatient
-                    setDataPatient()
-                    navToBottomSheet()
+                    clickCardRecycleView(itemPatient)
                 }
                 onScrollListener()
             }
         }
     }
 
-    private fun setDataPatient() = itemPatientData.setItemPatientData(patient)
-
-    private fun initObserver() {
-        viewModel.apiLiveData.observe(viewLifecycleOwner) { it.responseApi() }
-        viewModel.checkBoxGenderLiveData.observe(viewLifecycleOwner) { it.upDateAdapterListPatient() }
-        viewModel.filterLiveData.observe(viewLifecycleOwner) { it.upDateFilterList() }
-        //viewModel.loadingLiveData.observe(viewLifecycleOwner) { it.loadingRecycle() }
+    private fun clickCardRecycleView(itemPatient: Patient) {
+        setDataPatient(itemPatient)
+        setDataPatient(itemPatient)
+        navToBottomSheet()
     }
 
-    private fun Pair<Int?, List<Patient>?>.responseApi() {
-        setErrorApi(this.first)
-        this.second?.let { listPatient ->
-            listPatient.map {
-                this@HomeFragment.listPatient.add(it)
-            }
-            viewModel.checkBoxGender(this@HomeFragment.listPatient)
-            CHILD_SECOND.viewFlipperControl()
-        }
+    private fun setDataPatient(patient: Patient) =
+        itemPatientData.setItemPatientData(patient)
+
+    private fun initObserver() {
+        viewModel.apiErrorLiveData.observe(viewLifecycleOwner) { it.setErrorApi() }
+        viewModel.apiListLiveData.observe(viewLifecycleOwner) { it.upDateAdapterListPatient() }
+        viewModel.filterLiveData.observe(viewLifecycleOwner) { it.upDateFilterList() }
     }
 
     private fun List<Patient>.upDateAdapterListPatient() {
         adapterHome.update(this)
+        CHILD_SECOND.viewFlipperControl()
     }
 
     private fun List<Patient>.upDateFilterList() {
         val patientList: MutableList<Patient> = mutableListOf()
-        this.map {
-            patientList.add(it)
-        }
+        this.map { patientList.add(it) }
         adapterHome.filterList(patientList)
     }
 
@@ -143,8 +127,8 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun setErrorApi(responseApi: Int?) {
-        when (responseApi) {
+    private fun Int?.setErrorApi() {
+        when (this) {
             ERROR_400 -> setViews(R.string.error_api_400_generic, View.VISIBLE, FALSE)
             ERROR_401 -> setViews(R.string.error_api_401, View.VISIBLE, FALSE)
             ERROR_500 -> setViews(R.string.error_api_500_generic, View.VISIBLE, FALSE)
@@ -177,8 +161,8 @@ class HomeFragment : BaseFragment() {
         viewDataBinding.recyclerviewItemHome.addOnScrollListener(object :
             RecyclerView.OnScrollListener() {
             override fun onScrolled(recycler: RecyclerView, dx: Int, dy: Int) {
-                when (searchingNat) {
-                    EMPTY -> recycler.scrollLoading()
+                if (searchingNat == EMPTY) {
+                    recycler.scrollLoading()
                 }
             }
         })
@@ -205,13 +189,13 @@ class HomeFragment : BaseFragment() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(checkGender: MessageEventGender) {
         itemCheckGenderData?.setCheckGenderData(checkGender.message)
-        viewModel.checkBoxGender(this.listPatient)
+        viewModel.checkBoxGender()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(search: MessageEventSearch) {
         searchingNat = search.message
-        viewModel.filter(search.message, listPatient)
+        viewModel.filter(search.message)
     }
 
     private fun navToBottomSheet() {
@@ -225,12 +209,10 @@ class HomeFragment : BaseFragment() {
 
     private fun Boolean.statusBarNavigation() {
         statusAppBarNavigationBase(
+            appBar = this,
+            bottomNavigation = this,
+            actionBar = FALSE,
             menu = TRUE_MENU,
-            components = ItemComponents(
-                appBar = this,
-                bottomNavigation = this,
-                actionBar = FALSE
-            ),
             barColor = R.color.light_blue
         )
     }

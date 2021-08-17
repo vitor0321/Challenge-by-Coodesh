@@ -1,4 +1,4 @@
-package com.example.pharmainc.network
+package com.example.pharmainc.data.network
 
 import com.example.pharmainc.presentation.constants.BASE_URL
 import com.squareup.moshi.Moshi

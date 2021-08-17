@@ -1,4 +1,4 @@
-package com.example.pharmainc.domain.model
+package com.example.pharmainc.presentation.model
 
 data class ItemComponents(
     val appBar: Boolean? = null,

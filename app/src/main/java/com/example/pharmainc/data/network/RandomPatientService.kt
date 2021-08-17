@@ -1,6 +1,6 @@
-package com.example.pharmainc.network
+package com.example.pharmainc.data.network
 
-import com.example.pharmainc.network.response.PatientBodyResponse
+import com.example.pharmainc.data.network.response.PatientBodyResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
