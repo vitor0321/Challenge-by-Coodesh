@@ -9,24 +9,23 @@ import com.example.pharmainc.presentation.constants.ACTIVE
 import com.example.pharmainc.presentation.constants.EMPTY
 import com.example.pharmainc.presentation.constants.ERROR_401
 import com.example.pharmainc.presentation.constants.INACTIVE
-import com.example.pharmainc.presentation.extensions.CheckListPatient
 import com.example.pharmainc.presentation.model.Patient
+import com.example.pharmainc.presentation.usecase.ClickedCheckBoxUseCase
+import com.example.pharmainc.presentation.usecase.SearchingNationalityUseCase
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val getPatientUseCase: GetPatientUseCase,
     private val mapper: ResultNetworkMapper,
-    private val checkListPatient: CheckListPatient,
+    private val searchingNationality: SearchingNationalityUseCase,
+    private val clickedCheckBox: ClickedCheckBoxUseCase
 ) : ViewModel() {
 
     private val _apiErrorLiveData = MutableLiveData<Int?>()
     val apiErrorLiveData: MutableLiveData<Int?> get() = _apiErrorLiveData
 
-    private val _apiListLiveData = MutableLiveData<List<Patient>>()
-    val apiListLiveData: MutableLiveData<List<Patient>> get() = _apiListLiveData
-
-    private val _filterLiveData = MutableLiveData<List<Patient>>()
-    val filterLiveData: MutableLiveData<List<Patient>> get() = _filterLiveData
+    private val _listPatientLiveData = MutableLiveData<List<Patient>>()
+    val listPatientLiveData: MutableLiveData<List<Patient>> get() = _listPatientLiveData
 
     private var controlApiLiveData: Boolean = ACTIVE
     private var listPatient: MutableList<Patient> = mutableListOf()
@@ -47,23 +46,33 @@ class HomeViewModel(
         }
     }
 
-    private fun setList(list: List<Patient>) {
-        list.map { patient ->
-            listPatient.add(patient)
-        }
-    }
-
-    fun filter(searching: String) {
+    fun filterSearching(searching: String) = viewModelScope.launch {
         searching.setSetting()
-        checkListPatient.searchingNationality(listPatient, searching) { list ->
-            _filterLiveData.value = list
+        searchingNationality.searchingNationality(listPatient, searching).run {
+            clickedCheckBox.onClickedCheckBox(this).run {
+                _listPatientLiveData.value = this
+            }
         }
     }
 
     fun checkBoxGender() {
-        listPatient.checkList { list ->
-            _apiListLiveData.value = list
+        checkListGender { list ->
+            _listPatientLiveData.value = list
             controlApiLiveData = ACTIVE
+        }
+    }
+
+    private fun checkListGender(
+        callbackList: (callBack: List<Patient>) -> Unit
+    ) = viewModelScope.launch {
+        clickedCheckBox.onClickedCheckBox(listPatient).run {
+            callbackList(this)
+        }
+    }
+
+    private fun setList(list: List<Patient>) {
+        list.map { patient ->
+            listPatient.add(patient)
         }
     }
 
@@ -71,14 +80,6 @@ class HomeViewModel(
         controlApiLiveData = when {
             this != EMPTY -> INACTIVE
             else -> ACTIVE
-        }
-    }
-
-    private fun List<Patient>.checkList(
-        callbackList: (callBack: List<Patient>) -> Unit
-    ) {
-        checkListPatient.onClickedCheckBox(this) { list ->
-            callbackList(list)
         }
     }
 }

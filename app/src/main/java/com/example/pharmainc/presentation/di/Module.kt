@@ -1,6 +1,5 @@
 package com.example.pharmainc.presentation.di
 
-import android.content.Context
 import androidx.fragment.app.FragmentActivity
 import com.example.pharmainc.data.repository.PatientApiDataSource
 import com.example.pharmainc.data.repository.PatientDataSource
@@ -11,7 +10,6 @@ import com.example.pharmainc.domain.usecase.GetPatientUseCaseImpl
 import com.example.pharmainc.presentation.dataBinding.data.ItemCheckGenderData
 import com.example.pharmainc.presentation.dataBinding.data.ItemComponentsData
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
-import com.example.pharmainc.presentation.extensions.CheckListPatient
 import com.example.pharmainc.presentation.navigation.Navigation
 import com.example.pharmainc.presentation.ui.activity.PharmaActivity
 import com.example.pharmainc.presentation.ui.activity.PharmaViewModel
@@ -20,6 +18,10 @@ import com.example.pharmainc.presentation.ui.fragment.base.BaseFragment
 import com.example.pharmainc.presentation.ui.fragment.home.HomeAdapter
 import com.example.pharmainc.presentation.ui.fragment.home.HomeFragment
 import com.example.pharmainc.presentation.ui.fragment.home.HomeViewModel
+import com.example.pharmainc.presentation.usecase.ClickedCheckBoxUseCase
+import com.example.pharmainc.presentation.usecase.ClickedCheckBoxUseCaseImpl
+import com.example.pharmainc.presentation.usecase.SearchingNationalityUseCase
+import com.example.pharmainc.presentation.usecase.SearchingNationalityUseCaseImpl
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -43,13 +45,14 @@ val viewModelModulo = module {
         HomeViewModel(
             getPatientUseCase = get<GetPatientUseCase>(),
             mapper = get<ResultNetworkMapper>(),
-            checkListPatient = get<CheckListPatient>()
+            searchingNationality = get<SearchingNationalityUseCase>(),
+            clickedCheckBox = get<ClickedCheckBoxUseCase>()
         )
     }
 }
 
 val adapterModulo = module {
-    factory<HomeAdapter> { HomeAdapter(get<Context>()) }
+    factory<HomeAdapter> { HomeAdapter() }
 }
 
 val apiSourceModulo = module {
@@ -66,11 +69,12 @@ val repositoryModulo = module {
 
 val useCaseModulo = module {
     single<GetPatientUseCase> { GetPatientUseCaseImpl(get<PatientRepository>()) }
+    single<ClickedCheckBoxUseCase> { ClickedCheckBoxUseCaseImpl(get<ItemCheckGenderData>()) }
+    single<SearchingNationalityUseCase> { SearchingNationalityUseCaseImpl() }
 }
 
 val mapperModulo = module {
     single<ResultNetworkMapper> { ResultNetworkMapper() }
-    single<CheckListPatient> { CheckListPatient(get<ItemCheckGenderData>()) }
     single<Navigation> { Navigation }
 }
 val appModules = listOf(

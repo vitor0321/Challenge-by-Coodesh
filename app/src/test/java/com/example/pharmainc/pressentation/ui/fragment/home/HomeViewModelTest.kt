@@ -5,7 +5,7 @@ import androidx.lifecycle.Observer
 import com.example.pharmainc.domain.mapper.ResultNetworkMapper
 import com.example.pharmainc.domain.model.modelnetworl.*
 import com.example.pharmainc.domain.usecase.GetPatientUseCase
-import com.example.pharmainc.presentation.extensions.CheckListPatient
+import com.example.pharmainc.presentation.usecase.SearchingNationalityUseCaseImpl
 import com.example.pharmainc.presentation.model.Patient
 import com.example.pharmainc.presentation.ui.fragment.home.HomeViewModel
 import com.nhaarman.mockitokotlin2.verify
@@ -31,7 +31,7 @@ class HomeViewModelTest {
     private val patientList = mutableListOf<Patient>()
     private val getPatientUseCase = mockk<GetPatientUseCase>()
     private val resultNetworkMapper = mockk<ResultNetworkMapper>()
-    private val checkListPatient = mockk<CheckListPatient>()
+    private val checkListPatient = mockk<SearchingNationalityUseCaseImpl>()
     private val patientResult = listOf(
         Result(
             gender = "gender 1",
@@ -96,7 +96,7 @@ class HomeViewModelTest {
                     }
                 }
             }
-            homeViewModel.apiListLiveData.observeForever(apiListLiveDataObserver)
+            homeViewModel.listPatientLiveData.observeForever(apiListLiveDataObserver)
 
             // Act
             homeViewModel.getPatients()

@@ -6,20 +6,18 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmainc.R
 import com.example.pharmainc.databinding.FragmentHomeBinding
-import com.example.pharmainc.presentation.eventBus.MessageEventGender
-import com.example.pharmainc.presentation.eventBus.MessageEventSearch
-import com.example.pharmainc.presentation.model.ItemComponents
-import com.example.pharmainc.presentation.model.Patient
 import com.example.pharmainc.presentation.constants.*
 import com.example.pharmainc.presentation.dataBinding.data.ItemCheckGenderData
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
-import com.example.pharmainc.presentation.ui.fragment.bottomSheet.BottomSheetFragment
+import com.example.pharmainc.presentation.eventBus.MessageEventGender
+import com.example.pharmainc.presentation.eventBus.MessageEventSearch
+import com.example.pharmainc.presentation.model.Patient
 import com.example.pharmainc.presentation.ui.fragment.base.BaseFragment
+import com.example.pharmainc.presentation.ui.fragment.bottomSheet.BottomSheetFragment
 import com.example.photoday.ui.toast.Toast.toast
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -29,7 +27,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
-import java.util.*
 
 class HomeFragment : BaseFragment() {
 
@@ -79,7 +76,7 @@ class HomeFragment : BaseFragment() {
             recyclerviewItemHome.run {
                 layoutManager = LinearLayoutManager(context)
                 this.adapter = adapterHome
-                adapterHome.onItemClickListener = { itemPatient ->
+                adapterHome.onClickListener = { itemPatient ->
                     clickCardRecycleView(itemPatient)
                 }
                 onScrollListener()
@@ -98,19 +95,12 @@ class HomeFragment : BaseFragment() {
 
     private fun initObserver() {
         viewModel.apiErrorLiveData.observe(viewLifecycleOwner) { it.setErrorApi() }
-        viewModel.apiListLiveData.observe(viewLifecycleOwner) { it.upDateAdapterListPatient() }
-        viewModel.filterLiveData.observe(viewLifecycleOwner) { it.upDateFilterList() }
+        viewModel.listPatientLiveData.observe(viewLifecycleOwner) { it.upDateAdapterListPatient() }
     }
 
     private fun List<Patient>.upDateAdapterListPatient() {
-        adapterHome.update(this)
+        adapterHome.submitList(this)
         CHILD_SECOND.viewFlipperControl()
-    }
-
-    private fun List<Patient>.upDateFilterList() {
-        val patientList: MutableList<Patient> = mutableListOf()
-        this.map { patientList.add(it) }
-        adapterHome.filterList(patientList)
     }
 
     private fun Int.viewError() {
@@ -195,7 +185,7 @@ class HomeFragment : BaseFragment() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(search: MessageEventSearch) {
         searchingNat = search.message
-        viewModel.filter(search.message)
+        viewModel.filterSearching(search.message)
     }
 
     private fun navToBottomSheet() {

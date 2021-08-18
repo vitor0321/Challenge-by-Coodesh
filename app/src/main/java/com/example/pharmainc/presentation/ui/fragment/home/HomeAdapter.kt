@@ -1,61 +1,64 @@
 package com.example.pharmainc.presentation.ui.fragment.home
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmainc.databinding.ItemHomeFragmentBinding
-import com.example.pharmainc.presentation.model.Patient
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
+import com.example.pharmainc.presentation.model.Patient
 
 class HomeAdapter(
-    private val context: Context,
-    private var items: MutableList<Patient> = mutableListOf(),
-    var onItemClickListener: (selectItem: Patient) -> Unit = {}
-) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+    var onClickListener: (patient: Patient) -> Unit = {}
+) : ListAdapter<Patient, HomeAdapter.PatientViewHolder>(DIFF_CALLBACK) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(context)
-        val viewDataBinding = ItemHomeFragmentBinding.inflate(inflater, parent, false)
-        return ViewHolder(viewDataBinding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PatientViewHolder {
+        return PatientViewHolder.create(parent)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(items[position])
+    override fun onBindViewHolder(holder: PatientViewHolder, position: Int) {
+        holder.bind(getItem(position), onClickListener)
     }
 
-    override fun getItemCount(): Int = items.size
+    class PatientViewHolder(
+        private val itemBinding: ItemHomeFragmentBinding
+    ) : RecyclerView.ViewHolder(itemBinding.root) {
 
-    fun filterList(listFilter: MutableList<Patient>){
-        items = listFilter
-        notifyDataSetChanged()
-    }
-
-    fun update(newItem: List<Patient>) {
-        this.items.clear()
-        this.items.addAll(newItem)
-        notifyDataSetChanged()
-    }
-
-    inner class ViewHolder(private val viewDataBinding: ItemHomeFragmentBinding) :
-        RecyclerView.ViewHolder(viewDataBinding.root), View.OnClickListener {
-
-        private lateinit var itemPatient: Patient
-
-        override fun onClick(view: View?) {
-            if (::itemPatient.isInitialized) {
-                onItemClickListener(itemPatient)
+        fun bind(patient: Patient, onClickListener: (Patient) -> Unit) {
+            itemBinding.run {
+                itemHome = PatientData(patient)
+                cardView.setOnClickListener {
+                    onClickListener(patient)
+                }
             }
         }
 
-        init {
-            viewDataBinding.clickCardView = this
+        companion object {
+            fun create(parent: ViewGroup): PatientViewHolder {
+                val itemBinding = ItemHomeFragmentBinding
+                    .inflate(LayoutInflater.from(parent.context), parent, false)
+                return PatientViewHolder(itemBinding)
+            }
         }
+    }
 
-        fun bind(item: Patient) {
-            this.itemPatient = item
-            viewDataBinding.itemHome = PatientData(item)
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Patient>() {
+            override fun areItemsTheSame(
+                oldItem: Patient,
+                newItem: Patient
+            ): Boolean {
+                return oldItem.idIdentification == newItem.idIdentification
+            }
+
+            override fun areContentsTheSame(
+                oldItem: Patient,
+                newItem: Patient
+            ): Boolean {
+                return oldItem.idIdentification == newItem.idIdentification
+            }
+
         }
     }
 }

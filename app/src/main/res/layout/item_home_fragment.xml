@@ -10,17 +10,13 @@
         <import type="android.text.TextUtils" />
 
         <variable
-            name="clickCardView"
-            type="android.view.View.OnClickListener" />
-
-        <variable
             name="itemHome"
             type="com.example.pharmainc.presentation.dataBinding.data.PatientData" />
     </data>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         style="@style/CardViewStyle"
-        android:onClick="@{(view)-> clickCardView.onClick(view)}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
