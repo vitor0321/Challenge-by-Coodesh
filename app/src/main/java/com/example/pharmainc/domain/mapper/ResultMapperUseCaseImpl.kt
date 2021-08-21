@@ -1,12 +1,14 @@
 package com.example.pharmainc.domain.mapper
 
 import android.annotation.SuppressLint
-import com.example.pharmainc.presentation.model.Patient
 import com.example.pharmainc.domain.model.modelnetworl.Result
+import com.example.pharmainc.presentation.model.Patient
 import java.text.SimpleDateFormat
+import kotlin.coroutines.suspendCoroutine
 
-class ResultNetworkMapper : ResultMapper<Result, Patient> {
-    override fun mapFromEntityApi(entityApi: Result): Patient {
+class ResultMapperUseCaseImpl : ResultMapperUseCase {
+
+    private fun mapFromEntityApi(entityApi: Result): Patient {
         val valueDate: String = changeDate(entityApi.dob.date)
         return Patient(
             idIdentification = entityApi.id.value,
@@ -27,8 +29,10 @@ class ResultNetworkMapper : ResultMapper<Result, Patient> {
         )
     }
 
-    fun fromEntityApiList(initial: List<Result>): List<Patient> {
-        return initial.map { mapFromEntityApi(it) }
+    override suspend fun fromEntityApiList(initial: List<Result>): List<Patient> {
+        return suspendCoroutine { continuation ->
+            continuation.resumeWith(kotlin.Result.success(initial.map { mapFromEntityApi(it) }))
+        }
     }
 
     @SuppressLint("SimpleDateFormat")

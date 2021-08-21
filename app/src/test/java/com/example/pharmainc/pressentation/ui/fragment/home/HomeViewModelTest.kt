@@ -2,18 +2,16 @@ package com.example.pharmainc.pressentation.ui.fragment.home
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.example.pharmainc.domain.mapper.ResultNetworkMapper
+import com.example.pharmainc.domain.mapper.ResultMapperUseCaseImpl
 import com.example.pharmainc.domain.model.modelnetworl.*
 import com.example.pharmainc.domain.usecase.GetPatientUseCase
 import com.example.pharmainc.presentation.model.Patient
 import com.example.pharmainc.presentation.ui.fragment.home.HomeViewModel
 import com.example.pharmainc.presentation.usecase.ClickedCheckBoxUseCase
 import com.example.pharmainc.presentation.usecase.SearchingNationalityUseCase
-import com.example.pharmainc.presentation.usecase.SearchingNationalityUseCaseImpl
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -39,7 +37,7 @@ class HomeViewModelTest {
     private lateinit var homeViewModel: HomeViewModel
     private val patientList = mutableListOf<Patient>()
 
-    private val mapper = ResultNetworkMapper()
+    private val mapper = ResultMapperUseCaseImpl()
     @Mock
     private lateinit var getPatientUseCase: GetPatientUseCase
     @Mock
