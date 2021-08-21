@@ -41,7 +41,7 @@ val uiModulo = module {
 }
 
 val viewModelModulo = module {
-    viewModel<PharmaViewModel> { PharmaViewModel() }
+    viewModel<PharmaViewModel> { PharmaViewModel(get<ItemComponentsData>()) }
     viewModel<HomeViewModel> {
         HomeViewModel(
             getPatientUseCase = get<GetPatientUseCase>(),

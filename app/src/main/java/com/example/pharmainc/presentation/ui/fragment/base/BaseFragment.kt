@@ -6,7 +6,8 @@ import com.example.pharmainc.presentation.model.ItemComponents
 import com.example.pharmainc.presentation.ui.activity.PharmaViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-open class BaseFragment:Fragment() {
+open class BaseFragment(
+):Fragment() {
     private val photoDayViewModel: PharmaViewModel by sharedViewModel()
 
     protected fun statusAppBarNavigationBase(

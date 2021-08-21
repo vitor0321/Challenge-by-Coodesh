@@ -36,6 +36,7 @@
 
     <!-- View Error -->
     <string name="error_api">Ahhhh Too bad!!\nSomething annoying happened, try again.</string>
+    <string name="title_data">Data</string>
 
 
 </resources>

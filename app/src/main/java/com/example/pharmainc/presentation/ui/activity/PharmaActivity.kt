@@ -11,18 +11,15 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.pharmainc.R
 import com.example.pharmainc.databinding.ActivityPharmaBinding
-import com.example.pharmainc.presentation.eventBus.MessageEventSearch
-import com.example.pharmainc.presentation.constants.EMPTY
 import com.example.pharmainc.presentation.constants.GENDER_DIALOG
 import com.example.pharmainc.presentation.dataBinding.data.ItemComponentsData
+import com.example.pharmainc.presentation.eventBus.MessageEventSearch
 import com.example.pharmainc.presentation.ui.dialog.GenderDialog
 import com.example.photoday.ui.toast.Toast.toast
 import org.greenrobot.eventbus.EventBus
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
-import java.lang.Boolean.FALSE
-import java.lang.Boolean.TRUE
 
 class PharmaActivity : AppCompatActivity() {
 
@@ -36,7 +33,6 @@ class PharmaActivity : AppCompatActivity() {
         parametersOf(this)
     }
     private lateinit var controller: NavController
-    private var searchingNat: String = EMPTY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,14 +51,14 @@ class PharmaActivity : AppCompatActivity() {
     }
 
     private fun initObserve() {
-        viewModel.component.observe(this, { components ->
-            when (components.actionBar) {
-                TRUE -> supportActionBar?.show()
-                FALSE -> supportActionBar?.hide()
-            }
-            itemComponentsData.setComponentsData(components)
-        })
+        viewModel.showActionBarLiveData.observe(this, { showActionBar() })
+        viewModel.hideActionBarLiveData.observe(this, { hideActionBar() })
+        viewModel.filterGenderLiveData.observe(this, { initGenderDialog() })
     }
+
+    private fun showActionBar() = supportActionBar?.show()
+
+    private fun hideActionBar() = supportActionBar?.hide()
 
     private fun initializeControl() {
         viewDataBinding.apply {
@@ -78,37 +74,34 @@ class PharmaActivity : AppCompatActivity() {
                 }
                 bottomNavMainActivity.setupWithNavController(controller)
             } catch (e: Exception) {
-                R.string.failure_initialize_control.messageToast()
+                messageToast(R.string.failure_initialize_control)
             }
-
         }
     }
 
     private fun filterGenderPatient() {
         viewDataBinding.apply {
-            clickFilterGender = View.OnClickListener {
-                when (searchingNat) {
-                    EMPTY -> {
-                        GenderDialog.newInstance()
-                            .show(supportFragmentManager, GENDER_DIALOG)
-                    }
-                }
-            }
+            clickFilterGender = View.OnClickListener { viewModel.clickFilterGender() }
         }
+    }
+
+    private fun initGenderDialog() {
+        GenderDialog.newInstance()
+            .show(supportFragmentManager, GENDER_DIALOG)
     }
 
     private fun filterNationality() {
         viewDataBinding.apply {
-            val searching = editTextSearching
-            searching.afterTextChanged { afterTextChanged ->
-                searchingNat = afterTextChanged
+            val textSearching = editTextSearching
+            afterTextChanged(textSearching) { afterTextChanged ->
+                viewModel.searchingNat(afterTextChanged)
                 EventBus.getDefault().post(MessageEventSearch(afterTextChanged))
             }
         }
     }
 
-    private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-        this.addTextChangedListener(object : TextWatcher {
+    private fun afterTextChanged(editText: EditText, afterTextChanged: (String) -> Unit) {
+        editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -119,8 +112,8 @@ class PharmaActivity : AppCompatActivity() {
         })
     }
 
-    private fun Int.messageToast() {
-        toast(getString(this))
+    private fun messageToast(message: Int) {
+        toast(getString(message))
     }
 
     override fun onDestroy() {
