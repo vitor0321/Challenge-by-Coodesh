@@ -2,6 +2,7 @@ package com.example.pharmainc.pressentation.ui.fragment.home
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import com.example.pharmainc.domain.mapper.ResultMapperUseCase
 import com.example.pharmainc.domain.mapper.ResultMapperUseCaseImpl
 import com.example.pharmainc.domain.model.modelnetworl.*
 import com.example.pharmainc.domain.usecase.GetPatientUseCase
@@ -37,7 +38,8 @@ class HomeViewModelTest {
     private lateinit var homeViewModel: HomeViewModel
     private val patientList = mutableListOf<Patient>()
 
-    private val mapper = ResultMapperUseCaseImpl()
+    @Mock
+    private lateinit var mapper : ResultMapperUseCase
     @Mock
     private lateinit var getPatientUseCase: GetPatientUseCase
     @Mock
