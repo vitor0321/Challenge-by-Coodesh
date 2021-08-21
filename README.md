@@ -58,7 +58,7 @@ Ele foi dividido em três partes:
 Além do desafio proposto com as telas, temos alguns diferenciais:
 - [x] Diferencial 1 -> Um filtro por Gênero na tabela;
 - [x] Diferencial 2 -> Buscador para poder filtrar por nacionalidade;
-- [x] Diferencial 3 -> Unit Tests da resposta da API para confirmar o recebimento correto da Lista de Paciente com o resultSuccess, ApiError e ServerError.  
+- [x] Diferencial 3 -> Escrever Unit Tests na Lista de Pacientes. Escolher a melhor abordagem e biblioteca;  
 
 ### O que foi usado?
 
