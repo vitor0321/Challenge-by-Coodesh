@@ -96,7 +96,7 @@ class HomeViewModelTest {
 
     @ExperimentalCoroutinesApi
     @Test
-    fun `when view model patientResultApi get success then sets apiLiveData`() {
+    fun `when view model patientResultApi get success then sets listPatientLiveData`() {
         runBlockingTest {
             //Arrange
             val resultSuccess = MockRepository(patientResult)
