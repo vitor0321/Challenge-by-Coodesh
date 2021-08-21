@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pharmainc.domain.mapper.ResultNetworkMapper
+import com.example.pharmainc.domain.mapper.ResultMapperUseCase
 import com.example.pharmainc.domain.usecase.GetPatientUseCase
 import com.example.pharmainc.presentation.constants.ACTIVE
 import com.example.pharmainc.presentation.constants.EMPTY
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val getPatientUseCase: GetPatientUseCase,
-    private val mapper: ResultNetworkMapper,
+    private val mapper: ResultMapperUseCase,
     private val searchingNationality: SearchingNationalityUseCase,
     private val clickedCheckBox: ClickedCheckBoxUseCase
 ) : ViewModel() {

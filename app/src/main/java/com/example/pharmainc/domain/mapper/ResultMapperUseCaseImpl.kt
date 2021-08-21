@@ -5,7 +5,7 @@ import com.example.pharmainc.presentation.model.Patient
 import com.example.pharmainc.domain.model.modelnetworl.Result
 import java.text.SimpleDateFormat
 
-class ResultNetworkMapper : ResultMapper<Result, Patient> {
+class ResultMapperUseCaseImpl : ResultMapper<Result, Patient>, ResultMapperUseCase {
     override fun mapFromEntityApi(entityApi: Result): Patient {
         val valueDate: String = changeDate(entityApi.dob.date)
         return Patient(
@@ -27,7 +27,7 @@ class ResultNetworkMapper : ResultMapper<Result, Patient> {
         )
     }
 
-    fun fromEntityApiList(initial: List<Result>): List<Patient> {
+    override fun fromEntityApiList(initial: List<Result>): List<Patient> {
         return initial.map { mapFromEntityApi(it) }
     }
 
