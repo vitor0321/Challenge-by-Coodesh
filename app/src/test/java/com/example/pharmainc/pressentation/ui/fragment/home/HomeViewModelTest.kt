@@ -2,8 +2,7 @@ package com.example.pharmainc.pressentation.ui.fragment.home
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.example.pharmainc.domain.mapper.ResultMapperUseCase
-import com.example.pharmainc.domain.mapper.ResultMapperUseCaseImpl
+import com.example.pharmainc.domain.mapper.ResultNetworkMapper
 import com.example.pharmainc.domain.model.modelnetworl.*
 import com.example.pharmainc.domain.usecase.GetPatientUseCase
 import com.example.pharmainc.presentation.model.Patient
@@ -38,15 +37,18 @@ class HomeViewModelTest {
     private lateinit var homeViewModel: HomeViewModel
     private val patientList = mutableListOf<Patient>()
 
-    @Mock
-    private lateinit var mapper : ResultMapperUseCase
+
+    private val mapper = ResultNetworkMapper()
     @Mock
     private lateinit var getPatientUseCase: GetPatientUseCase
+
     @Mock
     private lateinit var searchingNationality: SearchingNationalityUseCase
+
     @Mock
     private lateinit var clickedCheckBox: ClickedCheckBoxUseCase
 
+    @ExperimentalCoroutinesApi
     private val dispatcher = TestCoroutineDispatcher()
 
     private val patientResult = listOf(

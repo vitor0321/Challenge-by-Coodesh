@@ -56,8 +56,9 @@ class HomeAdapter(
                 oldItem: Patient,
                 newItem: Patient
             ): Boolean {
-                return oldItem == newItem
+                return oldItem.idIdentification == newItem.idIdentification
             }
+
         }
     }
 }
