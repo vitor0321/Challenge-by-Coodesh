@@ -119,9 +119,7 @@ class HomeFragment : BaseFragment() {
 
     private fun Int?.setErrorApi() {
         when (this) {
-            ERROR_400 -> setViews(R.string.error_api_400_generic, View.VISIBLE, FALSE)
             ERROR_401 -> setViews(R.string.error_api_401, View.VISIBLE, FALSE)
-            ERROR_500 -> setViews(R.string.error_api_500_generic, View.VISIBLE, FALSE)
             NULL -> setViews(NULL, View.GONE, TRUE)
         }
     }

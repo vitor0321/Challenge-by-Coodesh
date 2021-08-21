@@ -5,13 +5,22 @@ import androidx.lifecycle.Observer
 import com.example.pharmainc.domain.mapper.ResultNetworkMapper
 import com.example.pharmainc.domain.model.modelnetworl.*
 import com.example.pharmainc.domain.usecase.GetPatientUseCase
-import com.example.pharmainc.presentation.usecase.SearchingNationalityUseCaseImpl
 import com.example.pharmainc.presentation.model.Patient
 import com.example.pharmainc.presentation.ui.fragment.home.HomeViewModel
+import com.example.pharmainc.presentation.usecase.ClickedCheckBoxUseCase
+import com.example.pharmainc.presentation.usecase.SearchingNationalityUseCase
+import com.example.pharmainc.presentation.usecase.SearchingNationalityUseCaseImpl
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
 import io.mockk.mockk
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -29,40 +38,33 @@ class HomeViewModelTest {
 
     private lateinit var homeViewModel: HomeViewModel
     private val patientList = mutableListOf<Patient>()
-    private val getPatientUseCase = mockk<GetPatientUseCase>()
-    private val resultNetworkMapper = mockk<ResultNetworkMapper>()
-    private val checkListPatient = mockk<SearchingNationalityUseCaseImpl>()
+
+    private val mapper = ResultNetworkMapper()
+    @Mock
+    private lateinit var getPatientUseCase: GetPatientUseCase
+    @Mock
+    private lateinit var searchingNationality: SearchingNationalityUseCase
+    @Mock
+    private lateinit var clickedCheckBox: ClickedCheckBoxUseCase
+
+    private val dispatcher = TestCoroutineDispatcher()
+
     private val patientResult = listOf(
         Result(
-            gender = "gender 1",
-            name = Name(
-                title = "title 1",
-                first = "first 1",
-                last = "last 1"
-            ),
+            gender = "female",
+            name = Name(title = "Ms", first = "Heather", last = "Lucas"),
             location = Location(
-                street = Street(
-                    number = 1,
-                    name = "name 1",
-                ),
-                city = "city 1",
-                state = "state 1",
-                country = "country 1",
+                street = Street(number = 4150, name = "School Lane"),
+                city = "Sheffield",
+                state = "Northamptonshire",
+                country = "United Kingdom"
             ),
-            email = "email 1",
-            dob = Dob(
-                date = "1977-11-10T10:46:00.210Z",
-                age = 1
-            ),
-            phone = "phone 1",
-            id = Id(
-                name = "name 1",
-                value = "value 1"
-            ),
-            picture = Picture(
-                large = "large 1"
-            ),
-            nat = "nat 1"
+            email = "heather.lucas@example.com",
+            dob = Dob(date = "1963-11-26T11:32:31.190Z", age = 58),
+            phone = "016977 65304",
+            id = Id(name = "NINO", value = "JY 18 48 14 V"),
+            picture = Picture(large = "https://randomuser.me/api/portraits/women/92.jpg"),
+            nat = "GB"
         )
     )
 
@@ -72,30 +74,41 @@ class HomeViewModelTest {
     private fun instantiateViewModel(): HomeViewModel {
         return HomeViewModel(
             getPatientUseCase,
-            resultNetworkMapper,
-            checkListPatient
+            mapper,
+            searchingNationality,
+            clickedCheckBox
         )
     }
 
+    @ExperimentalCoroutinesApi
     @Before
     fun setup() {
-        this.homeViewModel = instantiateViewModel()
+        Dispatchers.setMain(dispatcher)
         MockitoAnnotations.initMocks(this)
+        this.homeViewModel = instantiateViewModel()
+    }
+
+    @ExperimentalCoroutinesApi
+    @After
+    fun tearDown(){
+        Dispatchers.resetMain()
     }
 
     @ExperimentalCoroutinesApi
     @Test
-    suspend fun `when view model patientResultApi get success then sets apiLiveData`() =
+    fun `when view model patientResultApi get success then sets apiLiveData`() {
         runBlockingTest {
             //Arrange
             val resultSuccess = MockRepository(patientResult)
             resultSuccess.invoke().apply {
-                resultNetworkMapper.fromEntityApiList(this).apply {
+                mapper.fromEntityApiList(this).apply {
                     this.map { patient ->
                         patientList.add(patient)
                     }
                 }
             }
+            whenever(getPatientUseCase.invoke()).thenReturn(patientResult)
+            whenever(clickedCheckBox.onClickedCheckBox(any())).thenReturn(patientList)
             homeViewModel.listPatientLiveData.observeForever(apiListLiveDataObserver)
 
             // Act
@@ -104,6 +117,7 @@ class HomeViewModelTest {
             //Assert
             verify(apiListLiveDataObserver).onChanged(patientList)
         }
+    }
 }
 
 class MockRepository(private val patientRepository: List<Result>) : GetPatientUseCase {

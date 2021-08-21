@@ -1,5 +1,6 @@
 package com.example.pharmainc.presentation.ui.fragment.home
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,10 +23,10 @@ class HomeViewModel(
 ) : ViewModel() {
 
     private val _apiErrorLiveData = MutableLiveData<Int?>()
-    val apiErrorLiveData: MutableLiveData<Int?> get() = _apiErrorLiveData
+    val apiErrorLiveData: LiveData<Int?> get() = _apiErrorLiveData
 
     private val _listPatientLiveData = MutableLiveData<List<Patient>>()
-    val listPatientLiveData: MutableLiveData<List<Patient>> get() = _listPatientLiveData
+    val listPatientLiveData: LiveData<List<Patient>> get() = _listPatientLiveData
 
     private var controlApiLiveData: Boolean = ACTIVE
     private var listPatient: MutableList<Patient> = mutableListOf()
