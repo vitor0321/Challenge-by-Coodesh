@@ -24,7 +24,7 @@ const val GENDER_DIALOG = "GENDER_DIALOG"
 const val ERROR_400 = 17563753
 const val ERROR_401 = 49884420
 const val ERROR_500 = 83356478
-const val LOADING_TIME_OUT: Long = 1800
+const val LOADING_TIME_OUT: Long = 1500
 const val ACTIVE = true
 const val INACTIVE = false
 

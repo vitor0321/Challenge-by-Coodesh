@@ -37,7 +37,7 @@ class PharmaViewModel(
     private fun supportActionBar(itemComponents: ItemComponents) {
         when (itemComponents.actionBar) {
             TRUE -> _showActionBarLiveData.value = TRUE
-            FALSE -> _showActionBarLiveData.value = FALSE
+            FALSE -> _hideActionBarLiveData.value = FALSE
         }
     }
 

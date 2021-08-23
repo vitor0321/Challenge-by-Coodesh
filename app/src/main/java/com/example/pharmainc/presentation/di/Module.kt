@@ -4,8 +4,8 @@ import androidx.fragment.app.FragmentActivity
 import com.example.pharmainc.data.repository.PatientApiDataSource
 import com.example.pharmainc.data.repository.PatientDataSource
 import com.example.pharmainc.data.repository.PatientRepository
-import com.example.pharmainc.domain.mapper.ResultMapperUseCaseImpl
 import com.example.pharmainc.domain.mapper.ResultMapperUseCase
+import com.example.pharmainc.domain.mapper.ResultMapperUseCaseImpl
 import com.example.pharmainc.domain.usecase.GetPatientUseCase
 import com.example.pharmainc.domain.usecase.GetPatientUseCaseImpl
 import com.example.pharmainc.presentation.dataBinding.data.ItemCheckGenderData

@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.pharmainc.R
 import com.example.pharmainc.databinding.FragmentSplashBinding
-import com.example.pharmainc.presentation.model.ItemComponents
 import com.example.pharmainc.presentation.constants.*
 import com.example.pharmainc.presentation.navigation.Navigation
 import com.example.pharmainc.presentation.ui.fragment.base.BaseFragment
@@ -38,22 +37,22 @@ class SplashFragment : BaseFragment() {
     }
 
     private fun init() {
-        CHILD_FIRST_SPLASH.viewFlipperControl()
+        viewFlipperControl(CHILD_FIRST_SPLASH)
         statusBarNavigation()
         controlTimeNavigation()
     }
 
     private fun controlTimeNavigation() {
         Handler(Looper.getMainLooper()).postDelayed({
-            CHILD_SECOND_SPLASH.viewFlipperControl()
+            viewFlipperControl(CHILD_SECOND_SPLASH)
         }, SPLASH_TIME_OUT)
         Handler(Looper.getMainLooper()).postDelayed({
             navigation.navFragmentSplashToHome(controlNavigation)
         }, SPLASH_TIME_OUT_SECOND)
     }
 
-    private fun Int.viewFlipperControl() {
-        when (this) {
+    private fun viewFlipperControl(child: Int) {
+        when (child) {
             CHILD_FIRST_SPLASH -> viewDataBinding.run {
                 viewFlipperSplash.displayedChild = CHILD_FIRST_SPLASH
             }
