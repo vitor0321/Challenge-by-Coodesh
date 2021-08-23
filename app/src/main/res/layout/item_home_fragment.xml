@@ -24,6 +24,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guide_line_vertical"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.55" />
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_patient"
                 android:layout_width="100dp"
@@ -44,8 +51,8 @@
                 android:fontFamily="@font/allerta"
                 android:textSize="@dimen/text_view_size_18sp"
                 android:text="@{itemHome.title}"
+                app:layout_constraintStart_toEndOf="@+id/image_patient"
                 app:layout_constraintBottom_toTopOf="@id/first_name_patient_text_view"
-                app:layout_constraintStart_toEndOf="@id/image_patient"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/title_patient" />
 
@@ -58,7 +65,6 @@
                 android:text="@{itemHome.name}"
                 android:textSize="@dimen/text_view_size_18sp"
                 app:layout_constraintStart_toEndOf="@id/image_patient"
-                app:layout_constraintEnd_toStartOf="@id/last_name_patient_text_view"
                 app:layout_constraintTop_toBottomOf="@id/title_patient_text_view"
                 tools:text="@tools:sample/first_names" />
 
@@ -70,8 +76,9 @@
                 android:fontFamily="@font/allerta"
                 android:textSize="@dimen/text_view_size_18sp"
                 android:text="@{itemHome.lastName}"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/first_name_patient_text_view"
-                app:layout_constraintStart_toEndOf="@id/first_name_patient_text_view"
+                app:layout_constraintStart_toStartOf="@+id/guide_line_vertical"
                 app:layout_constraintTop_toTopOf="@id/first_name_patient_text_view"
                 tools:text="@tools:sample/last_names" />
 

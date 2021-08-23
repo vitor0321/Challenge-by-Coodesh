@@ -83,15 +83,13 @@ class HomeFragment : BaseFragment() {
     private fun getPatientFromApi() = viewModel.getPatients()
 
     private fun initRecycleView() {
-        viewDataBinding.apply {
-            recyclerviewItemHome.run {
-                layoutManager = LinearLayoutManager(context)
-                this.adapter = adapterHome
-                adapterHome.onClickListener = { itemPatient ->
-                    clickCardRecycleView(itemPatient)
-                }
-                onScrollListener()
+        viewDataBinding.recyclerviewItemHome.run {
+            layoutManager = LinearLayoutManager(context)
+            this.adapter = adapterHome
+            adapterHome.onClickListener = { itemPatient ->
+                clickCardRecycleView(itemPatient)
             }
+            onScrollListener()
         }
     }
 
