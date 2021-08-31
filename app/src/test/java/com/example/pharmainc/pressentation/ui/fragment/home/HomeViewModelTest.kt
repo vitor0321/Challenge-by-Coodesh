@@ -5,11 +5,13 @@ import androidx.lifecycle.Observer
 import com.example.pharmainc.domain.mapper.ResultMapperUseCase
 import com.example.pharmainc.domain.model.modelnetworl.*
 import com.example.pharmainc.domain.usecase.GetPatientUseCase
+import com.example.pharmainc.presentation.constants.EMPTY
 import com.example.pharmainc.presentation.model.Patient
 import com.example.pharmainc.presentation.ui.fragment.home.HomeViewModel
 import com.example.pharmainc.presentation.usecase.ClickedCheckBoxUseCase
 import com.example.pharmainc.presentation.usecase.SearchingNationalityUseCase
 import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.Dispatchers
@@ -111,6 +113,8 @@ class HomeViewModelTest {
             }
             whenever(getPatientUseCase.invoke()).thenReturn(patientResult)
             whenever(clickedCheckBox.onClickedCheckBox(any())).thenReturn(patientList)
+            whenever(searchingNationality.searchingNationality(any(), eq(EMPTY))).thenReturn(patientList)
+
             homeViewModel.listPatientLiveData.observeForever(apiListLiveDataObserver)
 
             // Act

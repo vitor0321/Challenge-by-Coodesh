@@ -28,7 +28,7 @@ class PatientApiDataSource : PatientDataSource {
                                 count++
                                 patientList.add(patient)
                             }
-                            continuation.resumeWith(kotlin.Result.success(patientList))
+                            continuation.resumeWith( kotlin.Result.success(patientList))
                         }
                     }
                 }
