@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.fragment.home.HomeFragment">
+    tools:context=".presentation.ui.fragment.home.view.HomeFragment">
 
     <com.example.pharmainc.presentation.widget.ErrorView
         android:id="@+id/error_message"
@@ -24,7 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".presentation.ui.fragment.home.HomeFragment">
+        tools:context=".presentation.ui.fragment.home.view.HomeFragment">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/view_animation_loading"

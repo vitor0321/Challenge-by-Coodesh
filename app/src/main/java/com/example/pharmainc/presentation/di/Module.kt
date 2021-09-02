@@ -1,6 +1,7 @@
 package com.example.pharmainc.presentation.di
 
 import androidx.fragment.app.FragmentActivity
+import com.example.pharmainc.common.viewModel.Dispatcher
 import com.example.pharmainc.data.repository.PatientApiDataSource
 import com.example.pharmainc.data.repository.PatientDataSource
 import com.example.pharmainc.data.repository.PatientRepository
@@ -16,9 +17,11 @@ import com.example.pharmainc.presentation.ui.activity.PharmaActivity
 import com.example.pharmainc.presentation.ui.activity.PharmaViewModel
 import com.example.pharmainc.presentation.ui.dialog.GenderDialog
 import com.example.pharmainc.presentation.ui.fragment.base.BaseFragment
-import com.example.pharmainc.presentation.ui.fragment.home.HomeAdapter
-import com.example.pharmainc.presentation.ui.fragment.home.HomeFragment
-import com.example.pharmainc.presentation.ui.fragment.home.HomeViewModel
+import com.example.pharmainc.presentation.ui.fragment.home.PatientHandler
+import com.example.pharmainc.presentation.ui.fragment.home.data.PatientsDataDispatcher
+import com.example.pharmainc.presentation.ui.fragment.home.view.HomeAdapter
+import com.example.pharmainc.presentation.ui.fragment.home.view.HomeFragment
+import com.example.pharmainc.presentation.ui.fragment.home.viewModel.HomeViewModel
 import com.example.pharmainc.presentation.usecase.ClickedCheckBoxUseCase
 import com.example.pharmainc.presentation.usecase.ClickedCheckBoxUseCaseImpl
 import com.example.pharmainc.presentation.usecase.SearchingNationalityUseCase
@@ -27,21 +30,21 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val dataBindingModulo = module {
-    single<ItemComponentsData> { ItemComponentsData() }
     single<PatientData> { PatientData() }
+    single<ItemComponentsData> { ItemComponentsData() }
     single<ItemCheckGenderData> { ItemCheckGenderData() }
 }
 
 val uiModulo = module {
-    factory<FragmentActivity> { FragmentActivity() }
-    factory<PharmaActivity> { PharmaActivity() }
+    factory<HomeAdapter> { HomeAdapter() }
     factory<HomeFragment> { HomeFragment() }
     factory<GenderDialog> { GenderDialog() }
     factory<BaseFragment> { BaseFragment() }
+    factory<PharmaActivity> { PharmaActivity() }
+    factory<FragmentActivity> { FragmentActivity() }
 }
 
 val viewModelModulo = module {
-    viewModel<PharmaViewModel> { PharmaViewModel(get<ItemComponentsData>()) }
     viewModel<HomeViewModel> {
         HomeViewModel(
             getPatientUseCase = get<GetPatientUseCase>(),
@@ -50,20 +53,21 @@ val viewModelModulo = module {
             clickedCheckBox = get<ClickedCheckBoxUseCase>()
         )
     }
+    viewModel<PharmaViewModel> { PharmaViewModel(get<ItemComponentsData>()) }
 }
 
-val adapterModulo = module {
-    factory<HomeAdapter> { HomeAdapter() }
+val dispatcherModulo = module {
 }
 
 val useCaseModulo = module {
     single<GetPatientUseCase> { GetPatientUseCaseImpl(get<PatientRepository>()) }
+    single<ResultMapperUseCase> { ResultMapperUseCaseImpl() }
     single<ClickedCheckBoxUseCase> { ClickedCheckBoxUseCaseImpl(get<ItemCheckGenderData>()) }
     single<SearchingNationalityUseCase> { SearchingNationalityUseCaseImpl() }
+
     single<PatientDataSource> { PatientApiDataSource() }
-    single<ResultMapperUseCase> { ResultMapperUseCaseImpl() }
-    factory<PatientApiDataSource> { PatientApiDataSource() }
     single<PatientRepository> { PatientRepository(get<PatientDataSource>()) }
+    factory<PatientApiDataSource> { PatientApiDataSource() }
 }
 
 val navModulo = module {
@@ -73,7 +77,7 @@ val appModules = listOf(
     dataBindingModulo,
     uiModulo,
     viewModelModulo,
-    adapterModulo,
+    dispatcherModulo,
     useCaseModulo,
     navModulo
 )

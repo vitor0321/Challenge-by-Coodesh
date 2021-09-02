@@ -1,12 +1,17 @@
-package com.example.pharmainc.presentation.ui.fragment.home
+package com.example.pharmainc.presentation.ui.fragment.home.view
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmainc.R
+import com.example.pharmainc.common.viewModel.observe
 import com.example.pharmainc.databinding.FragmentHomeBinding
 import com.example.pharmainc.presentation.constants.*
 import com.example.pharmainc.presentation.dataBinding.data.ItemCheckGenderData
@@ -15,7 +20,11 @@ import com.example.pharmainc.presentation.eventBus.MessageEventGender
 import com.example.pharmainc.presentation.eventBus.MessageEventSearch
 import com.example.pharmainc.presentation.model.Patient
 import com.example.pharmainc.presentation.ui.fragment.base.BaseFragment
-import com.example.pharmainc.presentation.ui.fragment.bottomSheet.BottomSheetFragment
+import com.example.pharmainc.presentation.ui.fragment.detail.DetailFragment
+import com.example.pharmainc.presentation.ui.fragment.home.PatientHandler
+import com.example.pharmainc.presentation.ui.fragment.home.action.PatientActionDispatcher
+import com.example.pharmainc.presentation.ui.fragment.home.data.PatientsDataDispatcher
+import com.example.pharmainc.presentation.ui.fragment.home.viewModel.HomeViewModel
 import com.example.photoday.ui.toast.Toast.toast
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -26,7 +35,7 @@ import org.koin.core.parameter.parametersOf
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(), PatientHandler {
 
     private var _viewDataBinding: FragmentHomeBinding? = null
     private val viewDataBinding get() = _viewDataBinding!!
@@ -43,6 +52,10 @@ class HomeFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         _viewDataBinding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        viewModel.actions.observe(viewLifecycleOwner, PatientActionDispatcher(this))
+        viewModel.data.observe(viewLifecycleOwner, PatientsDataDispatcher(this))
+
         return viewDataBinding.root
     }
 
@@ -52,26 +65,44 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun init() {
-        statusBarNavigation(TRUE)
-        viewModel.viewFlipperControl(CHILD_FIRST)
-        initObserver()
+        setView(GONE, CHILD_FIRST, GONE, TRUE)
         initEventBus()
         initRecycleView()
-        getPatientFromApi()
     }
 
-    private fun initObserver() {
-        viewModel.apiErrorLiveData.observe(viewLifecycleOwner) { setErrorView() }
-        viewModel.loadingRecycle.observe(viewLifecycleOwner) { loadingRecycle(it) }
-        viewModel.childLiveData.observe(viewLifecycleOwner) { child(it) }
-        viewModel.listPatientLiveData.observe(viewLifecycleOwner) { upDateAdapterListPatient(it) }
+    override fun goToDetail(data: Patient) {
+        itemPatientData.setItemPatientData(data)
+        activity?.let { activity ->
+            DetailFragment.newInstance().apply {
+                listenerSheet = this
+            }
+                .show(activity.supportFragmentManager, BOTTOM_SHEET)
+        }
     }
 
-    private fun setErrorView() {
-        viewDataBinding.errorMessage.visibility = View.VISIBLE
-        viewDataBinding.viewAnimationLoading.visibility = View.GONE
+    override fun bindData(data: List<Patient>) {
+        adapterHome.submitList(data)
+        Handler(Looper.getMainLooper()).postDelayed({
+            setView(GONE, CHILD_SECOND, GONE, TRUE)
+        }, LOADING_TIME_OUT)
+    }
+
+    override fun showLoading() {
+        setView(VISIBLE, CHILD_SECOND, GONE, TRUE)
+    }
+
+    override fun showError() {
+        setView(GONE, CHILD_SECOND, VISIBLE, FALSE)
         messageToast(R.string.error_api_401)
-        statusBarNavigation(FALSE)
+    }
+
+    private fun setView(loading: Int, child: Int,error: Int, statusBar: Boolean) {
+        viewDataBinding.apply {
+            loadingViewRecycler.visibility = loading
+            viewFlipperHome.displayedChild = child
+            errorMessage.visibility = error
+        }
+        statusBarNavigation(statusBar)
     }
 
     private fun initEventBus() {
@@ -80,36 +111,15 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun getPatientFromApi() = viewModel.getPatients()
-
     private fun initRecycleView() {
         viewDataBinding.recyclerviewItemHome.run {
             layoutManager = LinearLayoutManager(context)
             this.adapter = adapterHome
             adapterHome.onClickListener = { itemPatient ->
-                clickCardRecycleView(itemPatient)
+                viewModel.goToDetail(itemPatient)
             }
             onScrollListener()
         }
-    }
-
-    private fun clickCardRecycleView(itemPatient: Patient) {
-        setDataPatient(itemPatient)
-        navToBottomSheet()
-    }
-
-    private fun setDataPatient(patient: Patient) =
-        itemPatientData.setItemPatientData(patient)
-
-    private fun upDateAdapterListPatient(listPatient: List<Patient>) {
-        adapterHome.submitList(listPatient)
-        viewModel.viewFlipperControl(CHILD_SECOND)
-    }
-
-    private fun child(child: Int) {
-        viewDataBinding.viewFlipperHome.displayedChild = child
-        viewDataBinding.errorMessage.visibility= View.INVISIBLE
-        statusBarNavigation(TRUE)
     }
 
     private fun onScrollListener() {
@@ -132,10 +142,6 @@ class HomeFragment : BaseFragment() {
         viewModel.scrollLoading(visibleItemCount, totalItemCount, pastVisibleItems)
     }
 
-    private fun loadingRecycle(status: Int) {
-        viewDataBinding.loadingViewRecycler.visibility = status
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(checkGender: MessageEventGender) {
         itemCheckGenderData?.setCheckGenderData(checkGender.message)
@@ -145,15 +151,6 @@ class HomeFragment : BaseFragment() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(search: MessageEventSearch) {
         viewModel.filterSearching(search.message)
-    }
-
-    private fun navToBottomSheet() {
-        activity?.let { activity ->
-            BottomSheetFragment.newInstance().apply {
-                listenerSheet = this
-            }
-                .show(activity.supportFragmentManager, BOTTOM_SHEET)
-        }
     }
 
     private fun statusBarNavigation(statusBar: Boolean) {

@@ -1,4 +1,4 @@
-package com.example.pharmainc.presentation.ui.fragment.home
+package com.example.pharmainc.presentation.ui.fragment.home.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

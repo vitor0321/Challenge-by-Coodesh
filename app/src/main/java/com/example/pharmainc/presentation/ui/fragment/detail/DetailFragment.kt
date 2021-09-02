@@ -1,4 +1,4 @@
-package com.example.pharmainc.presentation.ui.fragment.bottomSheet
+package com.example.pharmainc.presentation.ui.fragment.detail
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.pharmainc.R
-import com.example.pharmainc.databinding.FragmentBottomSheetBinding
+import com.example.pharmainc.databinding.FragmentDetailBinding
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -15,12 +15,12 @@ import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
 
-class BottomSheetFragment : BottomSheetDialogFragment() {
+class DetailFragment : BottomSheetDialogFragment() {
 
-    private var _viewDataBinding: FragmentBottomSheetBinding? = null
+    private var _viewDataBinding: FragmentDetailBinding? = null
     private val viewDataBinding get() = _viewDataBinding!!
 
-    var listenerSheet: BottomSheetFragment? = null
+    var listenerSheet: DetailFragment? = null
     private val itemPatientData: PatientData by inject {
         parametersOf(this)
     }
@@ -29,7 +29,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _viewDataBinding = FragmentBottomSheetBinding.inflate(inflater, container, false)
+        _viewDataBinding = FragmentDetailBinding.inflate(inflater, container, false)
         this.viewDataBinding.itemPatient = itemPatientData
         viewDataBinding.root.setBackgroundColor(resources.getColor(R.color.transparent))
         return viewDataBinding.root
@@ -69,6 +69,6 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     companion object {
-        fun newInstance() = BottomSheetFragment()
+        fun newInstance() = DetailFragment()
     }
 }
