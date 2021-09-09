@@ -1,4 +1,4 @@
-package com.example.pharmainc.common.viewModel
+package com.example.pharmainc.presentation.common.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

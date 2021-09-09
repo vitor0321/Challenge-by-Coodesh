@@ -1,4 +1,4 @@
-package com.example.pharmainc.data.repository
+package com.example.pharmainc.data.network.webservice
 
 import com.example.pharmainc.data.network.ApiService
 import com.example.pharmainc.data.network.response.PatientBodyResponse
@@ -28,7 +28,7 @@ class PatientApiDataSource : PatientDataSource {
                                 count++
                                 patientList.add(patient)
                             }
-                            continuation.resumeWith( kotlin.Result.success(patientList))
+                            continuation.resumeWith(kotlin.Result.success(patientList))
                         }
                     }
                 }

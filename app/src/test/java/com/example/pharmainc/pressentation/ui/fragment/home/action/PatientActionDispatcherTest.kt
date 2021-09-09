@@ -1,7 +1,7 @@
 package com.example.pharmainc.pressentation.ui.fragment.home.action
 
-import com.example.pharmainc.presentation.model.Patient
-import com.example.pharmainc.presentation.ui.fragment.home.PatientHandler
+import com.example.pharmainc.data.db.entity.PatientEntity
+import com.example.pharmainc.presentation.ui.PatientHandler
 import com.example.pharmainc.presentation.ui.fragment.home.action.PatientAction
 import com.example.pharmainc.presentation.ui.fragment.home.action.PatientActionDispatcher
 import io.mockk.mockk
@@ -15,7 +15,7 @@ class PatientActionDispatcherTest {
 
     @Test
     fun `Go to Detail when go to detail action is dispatched`() {
-        val patient = mockk<Patient>()
+        val patient = mockk<PatientEntity>()
 
         dispatcher.dispatch(PatientAction.GoToDetail(patient))
 

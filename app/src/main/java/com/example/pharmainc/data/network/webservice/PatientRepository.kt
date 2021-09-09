@@ -1,4 +1,4 @@
-package com.example.pharmainc.data.repository
+package com.example.pharmainc.data.network.webservice
 
 import com.example.pharmainc.domain.model.modelnetworl.Result
 

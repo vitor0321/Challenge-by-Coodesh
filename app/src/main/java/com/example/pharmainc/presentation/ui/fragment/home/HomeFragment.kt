@@ -1,4 +1,4 @@
-package com.example.pharmainc.presentation.ui.fragment.home.view
+package com.example.pharmainc.presentation.ui.fragment.home
 
 import android.os.Bundle
 import android.os.Handler
@@ -11,20 +11,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmainc.R
-import com.example.pharmainc.common.viewModel.observe
+import com.example.pharmainc.data.db.entity.PatientEntity
 import com.example.pharmainc.databinding.FragmentHomeBinding
+import com.example.pharmainc.presentation.common.viewModel.observe
 import com.example.pharmainc.presentation.constants.*
 import com.example.pharmainc.presentation.dataBinding.data.ItemCheckGenderData
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
 import com.example.pharmainc.presentation.eventBus.MessageEventGender
 import com.example.pharmainc.presentation.eventBus.MessageEventSearch
-import com.example.pharmainc.presentation.model.Patient
+import com.example.pharmainc.presentation.ui.PatientHandler
 import com.example.pharmainc.presentation.ui.fragment.base.BaseFragment
 import com.example.pharmainc.presentation.ui.fragment.detail.DetailFragment
-import com.example.pharmainc.presentation.ui.fragment.home.PatientHandler
 import com.example.pharmainc.presentation.ui.fragment.home.action.PatientActionDispatcher
 import com.example.pharmainc.presentation.ui.fragment.home.data.PatientsDataDispatcher
-import com.example.pharmainc.presentation.ui.fragment.home.viewModel.HomeViewModel
 import com.example.photoday.ui.toast.Toast.toast
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -70,7 +69,7 @@ class HomeFragment : BaseFragment(), PatientHandler {
         initRecycleView()
     }
 
-    override fun goToDetail(data: Patient) {
+    override fun goToDetail(data: PatientEntity) {
         itemPatientData.setItemPatientData(data)
         activity?.let { activity ->
             DetailFragment.newInstance().apply {
@@ -80,7 +79,7 @@ class HomeFragment : BaseFragment(), PatientHandler {
         }
     }
 
-    override fun bindData(data: List<Patient>) {
+    override fun bindData(data: List<PatientEntity>) {
         adapterHome.submitList(data)
         Handler(Looper.getMainLooper()).postDelayed({
             setView(GONE, CHILD_SECOND, GONE, TRUE)
@@ -93,7 +92,7 @@ class HomeFragment : BaseFragment(), PatientHandler {
 
     override fun showError() {
         setView(GONE, CHILD_SECOND, VISIBLE, FALSE)
-        messageToast(R.string.error_api_401)
+        toast(getString(R.string.error_api_401))
     }
 
     private fun setView(loading: Int, child: Int,error: Int, statusBar: Boolean) {
@@ -161,10 +160,6 @@ class HomeFragment : BaseFragment(), PatientHandler {
             menu = TRUE_MENU,
             barColor = R.color.light_blue
         )
-    }
-
-    private fun messageToast(message: Int) {
-        toast(getString(message))
     }
 
     override fun onStop() {

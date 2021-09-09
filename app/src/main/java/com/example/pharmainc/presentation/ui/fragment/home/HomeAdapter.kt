@@ -1,4 +1,4 @@
-package com.example.pharmainc.presentation.ui.fragment.home.view
+package com.example.pharmainc.presentation.ui.fragment.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmainc.databinding.ItemHomeFragmentBinding
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
-import com.example.pharmainc.presentation.model.Patient
+import com.example.pharmainc.data.db.entity.PatientEntity
 
 class HomeAdapter(
-    var onClickListener: (patient: Patient) -> Unit = {}
-) : ListAdapter<Patient, HomeAdapter.PatientViewHolder>(DIFF_CALLBACK) {
+    var onClickListener: (patient: PatientEntity) -> Unit = {}
+) : ListAdapter<PatientEntity, HomeAdapter.PatientViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PatientViewHolder {
         return PatientViewHolder.create(parent)
@@ -25,7 +25,7 @@ class HomeAdapter(
         private val itemBinding: ItemHomeFragmentBinding
     ) : RecyclerView.ViewHolder(itemBinding.root) {
 
-        fun bind(patient: Patient, onClickListener: (Patient) -> Unit) {
+        fun bind(patient: PatientEntity, onClickListener: (PatientEntity) -> Unit) {
             itemBinding.run {
                 itemHome = PatientData(patient)
                 cardView.setOnClickListener {
@@ -44,17 +44,17 @@ class HomeAdapter(
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Patient>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PatientEntity>() {
             override fun areItemsTheSame(
-                oldItem: Patient,
-                newItem: Patient
+                oldItem: PatientEntity,
+                newItem: PatientEntity
             ): Boolean {
                 return oldItem.idIdentification == newItem.idIdentification
             }
 
             override fun areContentsTheSame(
-                oldItem: Patient,
-                newItem: Patient
+                oldItem: PatientEntity,
+                newItem: PatientEntity
             ): Boolean {
                 return oldItem == newItem
             }

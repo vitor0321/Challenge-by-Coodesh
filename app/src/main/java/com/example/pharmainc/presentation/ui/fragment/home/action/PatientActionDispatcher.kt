@@ -1,7 +1,7 @@
 package com.example.pharmainc.presentation.ui.fragment.home.action
 
-import com.example.pharmainc.common.viewModel.Dispatcher
-import com.example.pharmainc.presentation.ui.fragment.home.PatientHandler
+import com.example.pharmainc.presentation.common.viewModel.Dispatcher
+import com.example.pharmainc.presentation.ui.PatientHandler
 
 class PatientActionDispatcher(private val handler: PatientHandler) : Dispatcher<PatientAction> {
 

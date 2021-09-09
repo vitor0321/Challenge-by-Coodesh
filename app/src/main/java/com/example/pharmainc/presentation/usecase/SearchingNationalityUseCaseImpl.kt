@@ -1,22 +1,22 @@
 package com.example.pharmainc.presentation.usecase
 
 import com.example.pharmainc.presentation.constants.EMPTY
-import com.example.pharmainc.presentation.model.Patient
+import com.example.pharmainc.data.db.entity.PatientEntity
 import kotlin.coroutines.suspendCoroutine
 
 class SearchingNationalityUseCaseImpl : SearchingNationalityUseCase {
 
     override suspend fun searchingNationality(
-        listPatient: List<Patient>,
+        listPatient: List<PatientEntity>,
         searching: String,
-    ): List<Patient> {
+    ): List<PatientEntity> {
         return suspendCoroutine { continuation ->
             continuation.resumeWith(Result.success(searchingList(searching, listPatient)))
         }
     }
 
-    private fun searchingList(searching: String, listPatient: List<Patient>): List<Patient> {
-        val listFilter: MutableList<Patient> = mutableListOf()
+    private fun searchingList(searching: String, listPatient: List<PatientEntity>): List<PatientEntity> {
+        val listFilter: MutableList<PatientEntity> = mutableListOf()
         return when (searching) {
             EMPTY -> listPatient
             else -> {

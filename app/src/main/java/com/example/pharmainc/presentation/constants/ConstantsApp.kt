@@ -1,5 +1,7 @@
 package com.example.pharmainc.presentation.constants
 
+import com.example.pharmainc.presentation.ui.fragment.home.HomeViewModel
+
 /*Toast*/
 const val EMPTY = ""
 
@@ -21,17 +23,14 @@ const val SPLASH_TIME_OUT_SECOND: Long = 3500
 const val GENDER_DIALOG = "GENDER_DIALOG"
 
 /*Home View Model*/
-const val ERROR_400 = 17563753
-const val ERROR_401 = 49884420
-const val ERROR_500 = 83356478
 const val LOADING_TIME_OUT: Long = 1500
+val TAG_HOME_VIEW_MODEL: String = HomeViewModel::class.java.simpleName
 const val ACTIVE = true
 const val INACTIVE = false
 
 /*Home Fragment*/
 const val FEMALE = "female"
 const val MALE = "male"
-const val FALSE_GENDER = false
 const val TRUE_GENDER = true
 
 /*Bottom Sheet*/

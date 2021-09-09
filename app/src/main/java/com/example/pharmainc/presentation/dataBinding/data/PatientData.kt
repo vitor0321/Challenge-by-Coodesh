@@ -1,10 +1,10 @@
 package com.example.pharmainc.presentation.dataBinding.data
 
 import androidx.lifecycle.MutableLiveData
-import com.example.pharmainc.presentation.model.Patient
+import com.example.pharmainc.data.db.entity.PatientEntity
 
 class PatientData(
-    private var patient: Patient = Patient(),
+    private var patient: PatientEntity = PatientEntity(),
     val idName: MutableLiveData<String> = MutableLiveData<String>().also {
         it.value = patient.idIdentification
     },
@@ -51,7 +51,7 @@ class PatientData(
         it.value = patient.country
     }
 ) {
-    fun setItemPatientData(patient: Patient?) {
+    fun setItemPatientData(patient: PatientEntity?) {
         patient?.let { this.patient = patient }
         patient?.idIdentification?.let { idName.postValue(this.patient.idIdentification) }
         patient?.title?.let { title.postValue(this.patient.title) }

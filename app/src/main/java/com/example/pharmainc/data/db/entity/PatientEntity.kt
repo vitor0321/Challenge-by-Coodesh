@@ -1,10 +1,15 @@
-package com.example.pharmainc.presentation.model
+package com.example.pharmainc.data.db.entity
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
+@Entity(tableName = "patientEntity")
 @Parcelize
-data class Patient(
+data class PatientEntity(
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
     val idIdentification: String? = "",
     val title: String = "",
     val name: String = "",

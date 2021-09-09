@@ -1,4 +1,4 @@
-package com.example.pharmainc.common.test
+package com.example.pharmainc.presentation.common.test
 
 import androidx.lifecycle.Observer
 

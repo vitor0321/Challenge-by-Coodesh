@@ -1,12 +1,12 @@
 package com.example.pharmainc.pressentation.ui.fragment.home.viewModel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.pharmainc.common.test.TestObserver
+import com.example.pharmainc.presentation.common.test.TestObserver
 import com.example.pharmainc.domain.mapper.ResultMapperUseCase
-import com.example.pharmainc.domain.usecase.GetPatientUseCase
-import com.example.pharmainc.presentation.model.Patient
+import com.example.pharmainc.domain.usecase.network.GetResultUseCase
+import com.example.pharmainc.data.db.entity.PatientEntity
 import com.example.pharmainc.presentation.ui.fragment.home.action.PatientAction
-import com.example.pharmainc.presentation.ui.fragment.home.viewModel.HomeViewModel
+import com.example.pharmainc.presentation.ui.fragment.home.HomeViewModel
 import com.example.pharmainc.presentation.usecase.ClickedCheckBoxUseCase
 import com.example.pharmainc.presentation.usecase.SearchingNationalityUseCase
 import io.mockk.mockk
@@ -37,7 +37,7 @@ class HomeViewModelTest {
     private lateinit var mapper: ResultMapperUseCase
 
     @Mock
-    private lateinit var getPatientUseCase: GetPatientUseCase
+    private lateinit var getPatientUseCase: GetResultUseCase
 
     @Mock
     private lateinit var searchingNationality: SearchingNationalityUseCase
@@ -67,7 +67,7 @@ class HomeViewModelTest {
     @Test
     fun `On product detail clicked, go to product detail is emitted`() {
         runBlockingTest {
-            val patient = mockk<Patient>()
+            val patient = mockk<PatientEntity>()
             val testObserver = TestObserver<PatientAction>()
 
             viewModel.actions.observeForever(testObserver)

@@ -1,4 +1,4 @@
-package com.example.pharmainc.common.viewModel
+package com.example.pharmainc.presentation.common.viewModel
 
 import android.util.Log
 import androidx.annotation.MainThread
