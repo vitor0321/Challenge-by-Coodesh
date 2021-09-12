@@ -7,5 +7,5 @@ import retrofit2.http.Query
 
 interface RandomPatientService {
     @GET("api/")
-    fun getPatient(@Query("results") results: Int = 50): Call<PatientBodyResponse>
+    fun getResult(@Query("results") results: Int = 50): Call<PatientBodyResponse>
 }

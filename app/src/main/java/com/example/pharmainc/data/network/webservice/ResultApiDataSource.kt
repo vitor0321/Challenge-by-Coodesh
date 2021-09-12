@@ -2,17 +2,17 @@ package com.example.pharmainc.data.network.webservice
 
 import com.example.pharmainc.data.network.ApiService
 import com.example.pharmainc.data.network.response.PatientBodyResponse
-import com.example.pharmainc.domain.model.modelnetworl.Result
+import com.example.pharmainc.domain.model.modelnetwork.Result
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import kotlin.coroutines.suspendCoroutine
 
-class PatientApiDataSource : PatientDataSource {
+class ResultApiDataSource : ResultDataSource {
 
-    override suspend fun getPatient(): List<Result> {
+    override suspend fun getResult(): List<Result> {
         return suspendCoroutine { continuation ->
-            ApiService.service.getPatient().enqueue(object : Callback<PatientBodyResponse> {
+            ApiService.service.getResult().enqueue(object : Callback<PatientBodyResponse> {
 
                 override fun onResponse(
                     call: Call<PatientBodyResponse>,

@@ -1,8 +1,8 @@
 package com.example.pharmainc.presentation.usecase
 
-import com.example.pharmainc.data.db.entity.PatientEntity
+import com.example.pharmainc.presentation.model.Patient
 
 interface ClickedCheckBoxUseCase {
 
-    suspend fun onClickedCheckBox(listPatient: List<PatientEntity>): List<PatientEntity>
+    suspend fun onClickedCheckBox(listPatient: List<Patient>): List<Patient>
 }

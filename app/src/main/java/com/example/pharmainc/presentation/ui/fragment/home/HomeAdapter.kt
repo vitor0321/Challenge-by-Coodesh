@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmainc.databinding.ItemHomeFragmentBinding
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
-import com.example.pharmainc.data.db.entity.PatientEntity
+import com.example.pharmainc.presentation.model.Patient
 
 class HomeAdapter(
-    var onClickListener: (patient: PatientEntity) -> Unit = {}
-) : ListAdapter<PatientEntity, HomeAdapter.PatientViewHolder>(DIFF_CALLBACK) {
+    var onClickListener: (patient: Patient) -> Unit = {}
+) : ListAdapter<Patient, HomeAdapter.PatientViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PatientViewHolder {
         return PatientViewHolder.create(parent)
@@ -25,7 +25,7 @@ class HomeAdapter(
         private val itemBinding: ItemHomeFragmentBinding
     ) : RecyclerView.ViewHolder(itemBinding.root) {
 
-        fun bind(patient: PatientEntity, onClickListener: (PatientEntity) -> Unit) {
+        fun bind(patient: Patient, onClickListener: (Patient) -> Unit) {
             itemBinding.run {
                 itemHome = PatientData(patient)
                 cardView.setOnClickListener {
@@ -44,17 +44,17 @@ class HomeAdapter(
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PatientEntity>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Patient>() {
             override fun areItemsTheSame(
-                oldItem: PatientEntity,
-                newItem: PatientEntity
+                oldItem: Patient,
+                newItem: Patient
             ): Boolean {
                 return oldItem.idIdentification == newItem.idIdentification
             }
 
             override fun areContentsTheSame(
-                oldItem: PatientEntity,
-                newItem: PatientEntity
+                oldItem: Patient,
+                newItem: Patient
             ): Boolean {
                 return oldItem == newItem
             }

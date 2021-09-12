@@ -5,14 +5,14 @@ import com.example.pharmainc.presentation.constants.MALE
 import com.example.pharmainc.presentation.constants.NULL
 import com.example.pharmainc.presentation.constants.TRUE_GENDER
 import com.example.pharmainc.presentation.dataBinding.data.ItemCheckGenderData
-import com.example.pharmainc.data.db.entity.PatientEntity
+import com.example.pharmainc.presentation.model.Patient
 import kotlin.coroutines.suspendCoroutine
 
 class ClickedCheckBoxUseCaseImpl(
     private val checkGenderData: ItemCheckGenderData
 ) : ClickedCheckBoxUseCase {
 
-    override suspend fun onClickedCheckBox(listPatient: List<PatientEntity>): List<PatientEntity> {
+    override suspend fun onClickedCheckBox(listPatient: List<Patient>): List<Patient> {
         return suspendCoroutine { continuation ->
             val checkGender = checkGenderData.getCheckGenderData()
             checkGender?.let {
@@ -33,10 +33,10 @@ class ClickedCheckBoxUseCaseImpl(
     }
 
     private fun checkList(
-        listPatient: List<PatientEntity>,
+        listPatient: List<Patient>,
         gender: String?
-    ): MutableList<PatientEntity> {
-        val listMutable: MutableList<PatientEntity> = mutableListOf()
+    ): MutableList<Patient> {
+        val listMutable: MutableList<Patient> = mutableListOf()
         when (gender) {
             NULL -> listMutable
             else -> listPatient.map { patient ->

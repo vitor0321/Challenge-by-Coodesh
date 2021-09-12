@@ -1,6 +1,5 @@
 package com.example.pharmainc.presentation.common.viewModel
 
-import android.util.Log
 import androidx.annotation.MainThread
 import androidx.annotation.Nullable
 import androidx.lifecycle.LifecycleOwner
@@ -15,10 +14,6 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
     @MainThread
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
 
-        if (hasActiveObservers()) {
-            Log.w(TAG, "Multiple observers registered but only one will be notified of changes.")
-        }
-
         // Observe the internal MutableLiveData
         super.observe(owner, Observer<T> { t ->
             if (mPending.compareAndSet(true, false)) {
@@ -31,14 +26,6 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
     override fun setValue(@Nullable t: T?) {
         mPending.set(true)
         super.setValue(t)
-    }
-
-    /**
-     * Used for cases where T is Void, to make calls cleaner.
-     */
-    @MainThread
-    fun call() {
-        value = null
     }
 
     companion object {

@@ -1,7 +1,7 @@
 package com.example.pharmainc.presentation
 
 import android.app.Application
-import com.example.pharmainc.presentation.di.appModules
+import com.example.pharmainc.presentation.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -18,7 +18,13 @@ class PharmaIncApp : Application() {
             androidLogger(Level.NONE)
             androidContext(this@PharmaIncApp)
 
-            modules(appModules)
+            modules(
+                navModule,
+                viewModelModule,
+                uiModule,
+                dataBindingModule,
+                useCaseModule,
+            )
         }
     }
 }

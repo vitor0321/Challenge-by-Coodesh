@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmainc.R
-import com.example.pharmainc.data.db.entity.PatientEntity
+import com.example.pharmainc.presentation.model.Patient
 import com.example.pharmainc.databinding.FragmentHomeBinding
 import com.example.pharmainc.presentation.common.viewModel.observe
 import com.example.pharmainc.presentation.constants.*
@@ -69,7 +69,7 @@ class HomeFragment : BaseFragment(), PatientHandler {
         initRecycleView()
     }
 
-    override fun goToDetail(data: PatientEntity) {
+    override fun goToDetail(data: Patient) {
         itemPatientData.setItemPatientData(data)
         activity?.let { activity ->
             DetailFragment.newInstance().apply {
@@ -79,7 +79,7 @@ class HomeFragment : BaseFragment(), PatientHandler {
         }
     }
 
-    override fun bindData(data: List<PatientEntity>) {
+    override fun bindData(data: List<Patient>) {
         adapterHome.submitList(data)
         Handler(Looper.getMainLooper()).postDelayed({
             setView(GONE, CHILD_SECOND, GONE, TRUE)
