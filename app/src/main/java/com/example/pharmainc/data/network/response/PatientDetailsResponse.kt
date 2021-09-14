@@ -1,5 +1,6 @@
 package com.example.pharmainc.data.network.response
 
+import com.example.pharmainc.domain.model.modelnetwork.Result
 import com.example.pharmainc.domain.model.modelnetwork.*
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -26,14 +27,14 @@ data class  PatientDetailsResponse(
     val nat: String
 ) {
     fun getPatientModel() = Result(
-        gender = this.gender,
-        name = this.name,
-        location = this.location,
-        email = this.email,
-        dob = this.dob,
-        phone = this.phone,
-        id = this.id,
-        picture = this.picture,
-        nat = this.nat
+        gender = gender,
+        name = name,
+        location = location,
+        email = email,
+        dob = dob,
+        phone = phone,
+        id = id,
+        picture = picture,
+        nat = nat
     )
 }

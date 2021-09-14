@@ -1,12 +1,13 @@
 package com.example.pharmainc.pressentation.ui.fragment.home.viewModel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.example.pharmainc.domain.mapper.dao.PatientEntityMapperUseCase
+import com.example.pharmainc.domain.mapper.network.ResultMapperUseCase
+import com.example.pharmainc.domain.repository.usecase.PatientRepositoryUseCase
 import com.example.pharmainc.presentation.common.test.TestObserver
-import com.example.pharmainc.domain.mapper.ResultMapperUseCase
-import com.example.pharmainc.data.network.usecase.GetResultUseCase
 import com.example.pharmainc.presentation.model.Patient
-import com.example.pharmainc.presentation.ui.fragment.home.action.PatientAction
 import com.example.pharmainc.presentation.ui.fragment.home.HomeViewModel
+import com.example.pharmainc.presentation.ui.fragment.home.dispatcher.action.HomeAction
 import com.example.pharmainc.presentation.usecase.ClickedCheckBoxUseCase
 import com.example.pharmainc.presentation.usecase.SearchingNationalityUseCase
 import io.mockk.mockk
@@ -34,16 +35,19 @@ class HomeViewModelTest {
     private lateinit var viewModel: HomeViewModel
 
     @Mock
-    private lateinit var mapper: ResultMapperUseCase
+    private lateinit var resultMapperUseCase: ResultMapperUseCase
 
     @Mock
-    private lateinit var getPatientUseCase: GetResultUseCase
+    private lateinit var clickedCheckBoxUseCase: ClickedCheckBoxUseCase
 
     @Mock
-    private lateinit var searchingNationality: SearchingNationalityUseCase
+    private lateinit var patientRepositoryUseCase: PatientRepositoryUseCase
 
     @Mock
-    private lateinit var clickedCheckBox: ClickedCheckBoxUseCase
+    private lateinit var patientEntityMapperUseCase: PatientEntityMapperUseCase
+
+    @Mock
+    private lateinit var searchingNationalityUseCase: SearchingNationalityUseCase
 
     @ExperimentalCoroutinesApi
     private val dispatcher = TestCoroutineDispatcher()
@@ -54,7 +58,13 @@ class HomeViewModelTest {
         Dispatchers.setMain(dispatcher)
         MockitoAnnotations.initMocks(this)
         this.viewModel =
-            HomeViewModel(getPatientUseCase, mapper, searchingNationality, clickedCheckBox)
+            HomeViewModel(
+                resultMapperUseCase,
+                clickedCheckBoxUseCase,
+                patientRepositoryUseCase,
+                patientEntityMapperUseCase,
+                searchingNationalityUseCase
+            )
     }
 
     @ExperimentalCoroutinesApi
@@ -68,13 +78,13 @@ class HomeViewModelTest {
     fun `On product detail clicked, go to product detail is emitted`() {
         runBlockingTest {
             val patient = mockk<Patient>()
-            val testObserver = TestObserver<PatientAction>()
+            val testObserver = TestObserver<HomeAction>()
 
             viewModel.actions.observeForever(testObserver)
 
             viewModel.goToDetail(patient)
 
-            assertEquals(PatientAction.GoToDetail(patient), testObserver.lastValue())
+            assertEquals(HomeAction.GoToDetail(patient), testObserver.lastValue())
         }
     }
 }

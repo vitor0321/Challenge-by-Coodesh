@@ -19,11 +19,11 @@ import com.example.pharmainc.presentation.dataBinding.data.ItemCheckGenderData
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
 import com.example.pharmainc.presentation.eventBus.MessageEventGender
 import com.example.pharmainc.presentation.eventBus.MessageEventSearch
-import com.example.pharmainc.presentation.ui.PatientHandler
 import com.example.pharmainc.presentation.ui.fragment.base.BaseFragment
 import com.example.pharmainc.presentation.ui.fragment.detail.DetailFragment
-import com.example.pharmainc.presentation.ui.fragment.home.action.PatientActionDispatcher
-import com.example.pharmainc.presentation.ui.fragment.home.data.PatientsDataDispatcher
+import com.example.pharmainc.presentation.ui.fragment.home.dispatcher.HomeHandler
+import com.example.pharmainc.presentation.ui.fragment.home.dispatcher.action.HomeActionDispatcher
+import com.example.pharmainc.presentation.ui.fragment.home.dispatcher.data.HomeDataDispatcher
 import com.example.photoday.ui.toast.Toast.toast
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -34,7 +34,7 @@ import org.koin.core.parameter.parametersOf
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
 
-class HomeFragment : BaseFragment(), PatientHandler {
+class HomeFragment : BaseFragment(), HomeHandler {
 
     private var _viewDataBinding: FragmentHomeBinding? = null
     private val viewDataBinding get() = _viewDataBinding!!
@@ -52,9 +52,8 @@ class HomeFragment : BaseFragment(), PatientHandler {
     ): View {
         _viewDataBinding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        viewModel.actions.observe(viewLifecycleOwner, PatientActionDispatcher(this))
-        viewModel.data.observe(viewLifecycleOwner, PatientsDataDispatcher(this))
-
+        viewModel.actions.observe(viewLifecycleOwner, HomeActionDispatcher(this))
+        viewModel.data.observe(viewLifecycleOwner, HomeDataDispatcher(this))
         return viewDataBinding.root
     }
 
@@ -156,7 +155,7 @@ class HomeFragment : BaseFragment(), PatientHandler {
         statusAppBarNavigationBase(
             appBar = statusBar,
             bottomNavigation = statusBar,
-            actionBar = FALSE,
+            screenState = FALSE,
             menu = TRUE_MENU,
             barColor = R.color.light_blue
         )

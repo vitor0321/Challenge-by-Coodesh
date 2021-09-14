@@ -1,9 +1,13 @@
 package com.example.pharmainc.domain.model.modelnetwork
 
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.pharmainc.domain.model.modelnetwork.*
 import com.google.gson.annotations.SerializedName
 import retrofit2.http.Url
 
+@Entity(tableName = "resultEntity")
 data class Result(
     @Url
     @SerializedName("gender")

@@ -1,14 +1,15 @@
-package com.example.pharmainc.domain.mapper
+package com.example.pharmainc.domain.mapper.network
 
 import android.annotation.SuppressLint
-import com.example.pharmainc.presentation.model.Patient
+import com.example.pharmainc.data.db.entity.PatientEntity
 import com.example.pharmainc.domain.model.modelnetwork.Result
 import java.text.SimpleDateFormat
 
-class ResultMapperUseCaseImpl : ResultMapper<Result, Patient>, ResultMapperUseCase {
-    override fun mapFromEntityApi(entityApi: Result): Patient {
+class ResultMapperUseCaseImpl : ResultMapper<Result, PatientEntity>, ResultMapperUseCase {
+
+    override fun mapFromEntityApi(entityApi: Result): PatientEntity {
         val valueDate: String = changeDate(entityApi.dob.date)
-        return Patient(
+        return PatientEntity(
             idIdentification = entityApi.id.value,
             title = entityApi.name.title,
             name = entityApi.name.first,
@@ -27,7 +28,7 @@ class ResultMapperUseCaseImpl : ResultMapper<Result, Patient>, ResultMapperUseCa
         )
     }
 
-    override fun fromEntityApiList(initial: List<Result>): List<Patient> {
+    override fun fromEntityApiList(initial: List<Result>): List<PatientEntity> {
         return initial.map { mapFromEntityApi(it) }
     }
 

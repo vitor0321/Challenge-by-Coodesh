@@ -11,9 +11,11 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.pharmainc.R
 import com.example.pharmainc.databinding.ActivityPharmaBinding
+import com.example.pharmainc.presentation.common.viewModel.observe
 import com.example.pharmainc.presentation.constants.GENDER_DIALOG
 import com.example.pharmainc.presentation.dataBinding.data.ItemComponentsData
 import com.example.pharmainc.presentation.eventBus.MessageEventSearch
+import com.example.pharmainc.presentation.ui.activity.dispatcher.action.PharmaActionDispatcher
 import com.example.pharmainc.presentation.ui.dialog.GenderDialog
 import com.example.photoday.ui.toast.Toast.toast
 import org.greenrobot.eventbus.EventBus
@@ -21,7 +23,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class PharmaActivity : AppCompatActivity() {
+class PharmaActivity : AppCompatActivity(), PharmaHandler {
 
     private var _viewDataBinding: ActivityPharmaBinding? = null
     private val viewDataBinding get() = _viewDataBinding!!
@@ -40,25 +42,29 @@ class PharmaActivity : AppCompatActivity() {
         viewDataBinding.lifecycleOwner = this
         viewDataBinding.components = itemComponentsData
         setContentView(viewDataBinding.root)
+
+        viewModel.actions.observe(this, PharmaActionDispatcher(this))
+
         init()
+    }
+
+    override fun screenItems() {
+        supportActionBar?.show()
+    }
+
+    override fun screenFull() {
+        supportActionBar?.hide()
+    }
+
+    override fun filterGender() {
+        initGenderDialog()
     }
 
     private fun init() {
         initializeControl()
-        initObserve()
         filterGenderPatient()
         filterNationality()
     }
-
-    private fun initObserve() {
-        viewModel.showActionBarLiveData.observe(this, { showActionBar() })
-        viewModel.hideActionBarLiveData.observe(this, { hideActionBar() })
-        viewModel.filterGenderLiveData.observe(this, { initGenderDialog() })
-    }
-
-    private fun showActionBar() = supportActionBar?.show()
-
-    private fun hideActionBar() = supportActionBar?.hide()
 
     private fun initializeControl() {
         viewDataBinding.apply {

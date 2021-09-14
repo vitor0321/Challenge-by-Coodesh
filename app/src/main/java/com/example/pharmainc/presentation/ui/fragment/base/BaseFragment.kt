@@ -12,7 +12,7 @@ open class BaseFragment : Fragment() {
     protected fun statusAppBarNavigationBase(
         appBar: Boolean,
         bottomNavigation: Boolean,
-        actionBar: Boolean,
+        screenState: Boolean,
         menu: Boolean,
         barColor: Int
     ) {
@@ -20,7 +20,7 @@ open class BaseFragment : Fragment() {
         /*show OptionsMenu when inflate*/
         setHasOptionsMenu(menu)
 
-        photoDayViewModel.switchComponent = ItemComponents(appBar, bottomNavigation, actionBar)
+        photoDayViewModel.switchComponent = ItemComponents(appBar, bottomNavigation, screenState)
 
         /*change color statusBar*/
         activity?.window?.statusBarColor = ContextCompat.getColor(requireContext(), barColor)

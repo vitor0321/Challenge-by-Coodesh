@@ -24,7 +24,8 @@ const val GENDER_DIALOG = "GENDER_DIALOG"
 
 /*Home View Model*/
 const val LOADING_TIME_OUT: Long = 1500
-val TAG_HOME_VIEW_MODEL: String = HomeViewModel::class.java.simpleName
+val TAG_API_VIEW_MODEL: String = HomeViewModel::class.java.simpleName
+val TAG_DAO_VIEW_MODEL: String = HomeViewModel::class.java.simpleName
 const val ACTIVE = true
 const val INACTIVE = false
 
