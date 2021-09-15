@@ -4,11 +4,11 @@ import com.example.pharmainc.data.db.entity.PatientEntity
 import com.example.pharmainc.presentation.model.Patient
 
 class PatientEntityMapperUseCaseImpl :
-    PatientEntityMapper<PatientEntity, Patient>,
+    PatientEntityMapper<Patient, PatientEntity>,
     PatientEntityMapperUseCase {
 
-    override fun mapFromEntityDao(entityDao: PatientEntity): Patient {
-        return Patient(
+    override fun mapFromEntityDao(entityDao: Patient): PatientEntity {
+        return PatientEntity(
             idIdentification = entityDao.idIdentification,
             title = entityDao.title,
             name = entityDao.name,
@@ -27,7 +27,7 @@ class PatientEntityMapperUseCaseImpl :
         )
     }
 
-    override fun fromEntityDaoList(initial: List<PatientEntity>): List<Patient> {
+    override fun fromEntityDaoList(initial: List<Patient>): List<PatientEntity> {
         return initial.map { mapFromEntityDao(it) }
     }
 }

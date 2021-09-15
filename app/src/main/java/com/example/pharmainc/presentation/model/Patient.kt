@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Patient(
+    val id:Long = 0L,
     val idIdentification: String? = "",
     val title: String = "",
     val name: String = "",
@@ -16,7 +17,7 @@ data class Patient(
     val phone: String = "",
     val nationality: String = "",
     val street: String = "",
-    val numberHouse: Int? = null,
+    var numberHouse: Int = 0,
     val city: String = "",
     val state: String = "",
     val country: String = "",

@@ -10,6 +10,7 @@ import com.example.pharmainc.data.usecase.PatientEntityDaoUseCaseImpl
 import com.example.pharmainc.data.usecase.ResultNetworkUseCase
 import com.example.pharmainc.data.usecase.ResultNetworkUseCaseImpl
 import com.example.pharmainc.domain.error.ErrorHandler
+import com.example.pharmainc.domain.mapper.dao.EntityPatientMapperUseCase
 import com.example.pharmainc.domain.mapper.dao.PatientEntityMapperUseCase
 import com.example.pharmainc.domain.mapper.dao.PatientEntityMapperUseCaseImpl
 import com.example.pharmainc.domain.mapper.network.ResultMapperUseCase
@@ -31,13 +32,16 @@ val useCaseModule = module {
     single<ResultNetworkUseCase> {
         ResultNetworkUseCaseImpl(
             get<PatientRepository>(),
-            get<ErrorHandler>()
+            get<ErrorHandler>(),
+            get<ResultMapperUseCase>()
         )
     }
     single<PatientEntityDaoUseCase> {
         PatientEntityDaoUseCaseImpl(
             get<PatientDao>(),
-            get<ErrorHandler>()
+            get<ErrorHandler>(),
+            get<PatientEntityMapperUseCase>(),
+            get<EntityPatientMapperUseCase>()
         )
     }
 

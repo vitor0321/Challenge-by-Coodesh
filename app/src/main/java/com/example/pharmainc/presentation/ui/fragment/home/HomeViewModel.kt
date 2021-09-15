@@ -4,10 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.example.pharmainc.data.db.entity.PatientEntity
 import com.example.pharmainc.domain.error.type.ResultType
-import com.example.pharmainc.domain.mapper.dao.PatientEntityMapperUseCase
-import com.example.pharmainc.domain.mapper.network.ResultMapperUseCase
 import com.example.pharmainc.domain.repository.usecase.PatientRepositoryUseCase
 import com.example.pharmainc.presentation.common.viewModel.ActionViewModel
 import com.example.pharmainc.presentation.constants.*
@@ -18,10 +15,8 @@ import com.example.pharmainc.presentation.usecase.SearchingNationalityUseCase
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val resultMapperUseCase: ResultMapperUseCase,
     private val clickedCheckBoxUseCase: ClickedCheckBoxUseCase,
     private val patientRepositoryUseCase: PatientRepositoryUseCase,
-    private val patientEntityMapperUseCase: PatientEntityMapperUseCase,
     private val searchingNationalityUseCase: SearchingNationalityUseCase
 ) : ActionViewModel<HomeAction, Patient>() {
 
@@ -37,13 +32,10 @@ class HomeViewModel(
         patientRepositoryUseCase.getAllPatientDao().apply {
             when (this) {
                 is ResultType.Success -> {
-                    if (this.data.value == null) {
-                        getResultAPI()
-                    } else {
-                        setListAndFilter(this.data.value!!)
-                    }
+                    setListAndFilter(this.data)
                 }
                 is ResultType.Error -> {
+                    getResultAPI()
                     dispatchAction(HomeAction.ShowError)
                     Log.e(TAG_DAO_VIEW_MODEL, this.error.toString())
                 }
@@ -57,9 +49,7 @@ class HomeViewModel(
             patientRepositoryUseCase.getResultApi().apply {
                 when (this) {
                     is ResultType.Success ->
-                        resultMapperUseCase.fromEntityApiList(this.data).apply {
-                            savePatientDao(this)
-                        }
+                        savePatientDao(this.data)
                     is ResultType.Error -> {
                         dispatchAction(HomeAction.ShowError)
                         controlApi = ACTIVE
@@ -70,29 +60,16 @@ class HomeViewModel(
         }
     }
 
-    private fun savePatientDao(patientsEntity: List<PatientEntity>) {
+    private fun savePatientDao(patients: List<Patient>) {
         viewModelScope.launch {
-            patientsEntity.map { patientEntity ->
-                patientRepositoryUseCase.addPatientDao(patientEntity).apply {
-                    when (this) {
-                        is ResultType.Success -> {
-                            Log.i(TAG_DAO_VIEW_MODEL, this.data.toString())
-                        }
-                        is ResultType.Error -> {
-                            Log.e(TAG_DAO_VIEW_MODEL, this.error.toString())
-                        }
-                    }
-                }
-            }
+            patientRepositoryUseCase.addPatientDao(patients)
         }
         getPatientDao()
     }
 
-    private fun setListAndFilter(patientEntity: List<PatientEntity>) {
-        patientEntityMapperUseCase.fromEntityDaoList(patientEntity).apply {
-            setListPatient(this)
-            filterSearching(EMPTY)
-        }
+    private fun setListAndFilter(patient: List<Patient>) {
+        setListPatient(patient)
+        filterSearching(EMPTY)
     }
 
     private fun setListPatient(list: List<Patient>) {

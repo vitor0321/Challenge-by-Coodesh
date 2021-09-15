@@ -22,7 +22,7 @@ abstract class PatientDatabase : RoomDatabase() {
                 var instance: PatientDatabase? = INSTANCE
                 if (instance == null) {
                     instance = Room.databaseBuilder(
-                        context,
+                        context.applicationContext,
                         PatientDatabase::class.java,
                         "patient_database"
                     ).build()
