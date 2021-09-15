@@ -12,6 +12,7 @@ import com.example.pharmainc.presentation.model.Patient
 import com.example.pharmainc.presentation.ui.fragment.home.dispatcher.action.HomeAction
 import com.example.pharmainc.presentation.usecase.ClickedCheckBoxUseCase
 import com.example.pharmainc.presentation.usecase.SearchingNationalityUseCase
+import com.google.android.gms.common.util.CollectionUtils.isEmpty
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
@@ -32,10 +33,13 @@ class HomeViewModel(
         patientRepositoryUseCase.getAllPatientDao().apply {
             when (this) {
                 is ResultType.Success -> {
-                    setListAndFilter(this.data)
+                    if (this.data.isEmpty()) {
+                        getResultAPI()
+                    } else {
+                        setListAndFilter(this.data)
+                    }
                 }
                 is ResultType.Error -> {
-                    getResultAPI()
                     dispatchAction(HomeAction.ShowError)
                     Log.e(TAG_DAO_VIEW_MODEL, this.error.toString())
                 }
@@ -62,7 +66,15 @@ class HomeViewModel(
 
     private fun savePatientDao(patients: List<Patient>) {
         viewModelScope.launch {
-            patientRepositoryUseCase.addPatientDao(patients)
+            patientRepositoryUseCase.addPatientDao(patients).apply {
+                when (this) {
+                    is ResultType.Success ->
+                        Log.e(TAG_API_VIEW_MODEL, this.data.toString())
+                    is ResultType.Error -> {
+                        Log.e(TAG_API_VIEW_MODEL, this.error.toString())
+                    }
+                }
+            }
         }
         getPatientDao()
     }

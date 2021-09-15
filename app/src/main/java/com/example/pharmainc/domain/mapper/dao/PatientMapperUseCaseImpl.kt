@@ -3,9 +3,9 @@ package com.example.pharmainc.domain.mapper.dao
 import com.example.pharmainc.data.db.entity.PatientEntity
 import com.example.pharmainc.presentation.model.Patient
 
-class EntityPatientMapperUseCaseImpl :
-    EntityPatientMapper<PatientEntity, Patient>,
-    EntityPatientMapperUseCase {
+class PatientMapperUseCaseImpl :
+    PatientMapper<PatientEntity, Patient>,
+    PatientMapperUseCase {
 
     override fun mapFromViewPatient(patient: PatientEntity): Patient {
         return Patient(

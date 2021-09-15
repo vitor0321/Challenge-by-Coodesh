@@ -5,7 +5,7 @@ import androidx.room.*
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName = "patient")
+@Entity(tableName = "patientEntity")
 data class PatientEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0L,
     @ColumnInfo(name = "idIdentification")

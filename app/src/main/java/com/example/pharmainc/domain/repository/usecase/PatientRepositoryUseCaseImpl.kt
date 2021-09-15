@@ -1,7 +1,5 @@
 package com.example.pharmainc.domain.repository.usecase
 
-import androidx.lifecycle.LiveData
-import com.example.pharmainc.data.db.entity.PatientEntity
 import com.example.pharmainc.data.usecase.PatientEntityDaoUseCase
 import com.example.pharmainc.data.usecase.ResultNetworkUseCase
 import com.example.pharmainc.domain.error.type.ResultType

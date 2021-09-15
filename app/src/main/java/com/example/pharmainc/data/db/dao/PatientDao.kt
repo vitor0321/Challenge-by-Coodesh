@@ -12,6 +12,6 @@ interface PatientDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(patient: PatientEntity): Long
 
-    @Query("SELECT * FROM patient")
+    @Query("SELECT * FROM patientEntity")
     fun getAll(): LiveData<List<PatientEntity>>
 }
