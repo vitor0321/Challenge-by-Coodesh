@@ -27,8 +27,8 @@ class PharmaViewModel(
 
     private fun stateScreen(itemComponents: ItemComponents) {
         when (itemComponents.screen) {
-            TRUE -> dispatchAction(PharmaAction.ShowActionBar)
-            FALSE -> dispatchAction(PharmaAction.HideActionBar)
+            TRUE -> dispatchAction(PharmaAction.ScreenItems)
+            FALSE -> dispatchAction(PharmaAction.ScreenFull)
         }
     }
 

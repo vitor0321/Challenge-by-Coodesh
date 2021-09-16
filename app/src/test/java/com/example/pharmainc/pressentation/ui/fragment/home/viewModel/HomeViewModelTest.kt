@@ -35,16 +35,10 @@ class HomeViewModelTest {
     private lateinit var viewModel: HomeViewModel
 
     @Mock
-    private lateinit var resultMapperUseCase: ResultMapperUseCase
-
-    @Mock
     private lateinit var clickedCheckBoxUseCase: ClickedCheckBoxUseCase
 
     @Mock
     private lateinit var patientRepositoryUseCase: PatientRepositoryUseCase
-
-    @Mock
-    private lateinit var patientEntityMapperUseCase: PatientEntityMapperUseCase
 
     @Mock
     private lateinit var searchingNationalityUseCase: SearchingNationalityUseCase
@@ -59,10 +53,8 @@ class HomeViewModelTest {
         MockitoAnnotations.initMocks(this)
         this.viewModel =
             HomeViewModel(
-                resultMapperUseCase,
                 clickedCheckBoxUseCase,
                 patientRepositoryUseCase,
-                patientEntityMapperUseCase,
                 searchingNationalityUseCase
             )
     }

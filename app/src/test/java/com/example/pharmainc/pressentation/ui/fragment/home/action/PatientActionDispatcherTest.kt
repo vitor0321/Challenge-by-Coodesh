@@ -21,4 +21,20 @@ class PatientActionDispatcherTest {
 
         verify { handler.goToDetail(patient) }
     }
+
+    @Test
+    fun `ShowLoading when ShowLoading action is dispatched`() {
+
+        dispatcher.dispatch(HomeAction.ShowLoading)
+
+        verify { handler.showLoading() }
+    }
+
+    @Test
+    fun `ShowError when ShowError action is dispatched`() {
+
+        dispatcher.dispatch(HomeAction.ShowError)
+
+        verify { handler.showError() }
+    }
 }
