@@ -24,11 +24,7 @@ class HomeViewModel(
     private var searchingNat: String? = NULL
     private var listPatient: MutableList<Patient> = mutableListOf()
 
-    init {
-        getPatientDao()
-    }
-
-    private fun getPatientDao() = viewModelScope.launch {
+    fun getPatientDao() = viewModelScope.launch {
         patientRepositoryUseCase.getAllPatientDao().apply {
             when (this) {
                 is ResultType.Success -> {
