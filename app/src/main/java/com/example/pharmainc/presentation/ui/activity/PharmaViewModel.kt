@@ -18,18 +18,10 @@ class PharmaViewModel(
         set(value) {
             field = value
             initComponents(value)
-            stateScreen(value)
         }
 
     private fun initComponents(itemComponents: ItemComponents) {
         itemComponentsData.setComponentsData(itemComponents)
-    }
-
-    private fun stateScreen(itemComponents: ItemComponents) {
-        when (itemComponents.screen) {
-            TRUE -> dispatchAction(PharmaAction.ScreenItems)
-            FALSE -> dispatchAction(PharmaAction.ScreenFull)
-        }
     }
 
     fun clickFilterGender() {

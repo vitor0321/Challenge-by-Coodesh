@@ -49,7 +49,7 @@ class HomeAdapter(
                 oldItem: Patient,
                 newItem: Patient
             ): Boolean {
-                return oldItem.idIdentification == newItem.idIdentification
+                return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(

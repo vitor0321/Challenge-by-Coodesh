@@ -14,8 +14,6 @@ class PharmaIncApp : Application() {
         modulesKoin()
     }
 
-
-
     private fun modulesKoin() {
         startKoin {
             androidLogger(Level.NONE)

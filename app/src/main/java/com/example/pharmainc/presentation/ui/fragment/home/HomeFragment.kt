@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmainc.R
-import com.example.pharmainc.presentation.model.Patient
 import com.example.pharmainc.databinding.FragmentHomeBinding
 import com.example.pharmainc.presentation.common.viewModel.observe
 import com.example.pharmainc.presentation.constants.*
@@ -19,12 +18,13 @@ import com.example.pharmainc.presentation.dataBinding.data.ItemCheckGenderData
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
 import com.example.pharmainc.presentation.eventBus.MessageEventGender
 import com.example.pharmainc.presentation.eventBus.MessageEventSearch
+import com.example.pharmainc.presentation.model.Patient
+import com.example.pharmainc.presentation.toast.Toast.toast
 import com.example.pharmainc.presentation.ui.fragment.base.BaseFragment
 import com.example.pharmainc.presentation.ui.fragment.detail.DetailFragment
 import com.example.pharmainc.presentation.ui.fragment.home.dispatcher.HomeHandler
 import com.example.pharmainc.presentation.ui.fragment.home.dispatcher.action.HomeActionDispatcher
 import com.example.pharmainc.presentation.ui.fragment.home.dispatcher.data.HomeDataDispatcher
-import com.example.photoday.ui.toast.Toast.toast
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -91,7 +91,7 @@ class HomeFragment : BaseFragment(), HomeHandler {
     }
 
     override fun showError() {
-        setView(GONE, CHILD_SECOND, VISIBLE, FALSE)
+        setView(GONE, CHILD_FIRST, VISIBLE, FALSE)
         toast(getString(R.string.error_api_401))
     }
 
@@ -156,7 +156,6 @@ class HomeFragment : BaseFragment(), HomeHandler {
         statusAppBarNavigationBase(
             appBar = statusBar,
             bottomNavigation = statusBar,
-            screenState = FALSE,
             menu = TRUE_MENU,
             barColor = R.color.light_blue
         )

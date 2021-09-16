@@ -66,7 +66,6 @@ class SplashFragment : BaseFragment() {
         statusAppBarNavigationBase(
             appBar = FALSE,
             bottomNavigation = FALSE,
-            screenState = FALSE,
             menu = FALSE_MENU,
             barColor = R.color.white
         )

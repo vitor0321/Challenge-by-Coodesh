@@ -130,7 +130,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
 
     //Leak Canary
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+    //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 
     //Test
     testImplementation 'junit:junit:4.13.2'

@@ -10,5 +10,4 @@ class HomeActionDispatcher(private val handler: HomeHandler) : Dispatcher<HomeAc
         HomeAction.ShowLoading -> handler.showLoading()
         HomeAction.ShowError -> handler.showError()
     }
-
 }

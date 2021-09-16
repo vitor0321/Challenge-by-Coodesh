@@ -19,6 +19,10 @@
     <string name="error_api_401">Error API 401</string>
     <string name="error_api_500_generic">Error API 500 Generic</string>
 
+    <!-- Detail Fragment  -->
+    <string name="personal_data">Personal Data:</string>
+    <string name="location">Location:</string>
+
     <!-- Navigation  -->
     <string name="fragment_home">Fragment Home</string>
     <string name="fragment_splash">Fragment Splash</string>
@@ -37,6 +41,4 @@
     <!-- View Error -->
     <string name="error_api">Ahhhh Too bad!!\nSomething annoying happened, try again.</string>
     <string name="title_data">Data</string>
-
-
 </resources>

@@ -6,8 +6,7 @@ import com.example.pharmainc.presentation.ui.activity.PharmaHandler
 class PharmaActionDispatcher(private val pharmaHandler: PharmaHandler) : Dispatcher<PharmaAction> {
 
     override fun dispatch(item: PharmaAction) = when (item) {
-        is PharmaAction.ScreenItems -> pharmaHandler.screenItems()
-        PharmaAction.ScreenFull -> pharmaHandler.screenFull()
-        PharmaAction.FilterGender -> pharmaHandler.filterGender()
+        is PharmaAction.FilterGender -> pharmaHandler.filterGender()
+        else -> {}
     }
 }

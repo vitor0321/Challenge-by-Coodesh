@@ -4,7 +4,7 @@ import androidx.lifecycle.Observer
 
 class TestObserver<T> : Observer<T> {
 
-    val values = mutableListOf<T>()
+    private val values = mutableListOf<T>()
 
     override fun onChanged(value: T) {
         values.add(value)

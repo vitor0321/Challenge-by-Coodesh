@@ -1,4 +1,4 @@
-package com.example.photoday.ui.toast
+package com.example.pharmainc.presentation.toast
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -11,21 +11,21 @@ import com.example.pharmainc.databinding.ItemToastConstumBinding
 
 object Toast {
     @SuppressLint("StaticFieldLeak")
-    private var _viewDataBinding: ItemToastConstumBinding? = null
-    private val viewDataBinding get() = _viewDataBinding!!
+    private var dataBinding: ItemToastConstumBinding? = null
+    private val viewDataBinding get() = dataBinding!!
 
     fun Fragment.toast(message: String, time: Int = Toast.LENGTH_SHORT) {
         when {
             message != EMPTY -> Toast(context).apply {
                 val layoutToast =
                     LayoutInflater.from(context).inflate(R.layout.item_toast_constum, null)
-                _viewDataBinding = ItemToastConstumBinding.bind(layoutToast)
+                dataBinding = ItemToastConstumBinding.bind(layoutToast)
                 viewDataBinding.itemToast = ItemToast(message)
                 duration = time
                 view = layoutToast
             }.show()
         }
-        _viewDataBinding = null
+        dataBinding = null
     }
 
     fun Activity.toast(message: String, time: Int = Toast.LENGTH_SHORT) {
@@ -33,12 +33,12 @@ object Toast {
             message != EMPTY -> Toast(this).apply {
                 val layoutToast = LayoutInflater.from(this@toast)
                     .inflate(R.layout.item_toast_constum, null)
-                _viewDataBinding = ItemToastConstumBinding.bind(layoutToast)
+                dataBinding = ItemToastConstumBinding.bind(layoutToast)
                 viewDataBinding.itemToast = ItemToast(message)
                 duration = time
                 view = layoutToast
             }.show()
         }
-        _viewDataBinding = null
+        dataBinding = null
     }
 }

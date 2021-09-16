@@ -15,9 +15,9 @@ import com.example.pharmainc.presentation.common.viewModel.observe
 import com.example.pharmainc.presentation.constants.GENDER_DIALOG
 import com.example.pharmainc.presentation.dataBinding.data.ItemComponentsData
 import com.example.pharmainc.presentation.eventBus.MessageEventSearch
+import com.example.pharmainc.presentation.toast.Toast.toast
 import com.example.pharmainc.presentation.ui.activity.dispatcher.action.PharmaActionDispatcher
 import com.example.pharmainc.presentation.ui.dialog.GenderDialog
-import com.example.photoday.ui.toast.Toast.toast
 import org.greenrobot.eventbus.EventBus
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -46,14 +46,6 @@ class PharmaActivity : AppCompatActivity(), PharmaHandler {
         viewModel.actions.observe(this, PharmaActionDispatcher(this))
 
         init()
-    }
-
-    override fun screenItems() {
-        supportActionBar?.show()
-    }
-
-    override fun screenFull() {
-        supportActionBar?.hide()
     }
 
     override fun filterGender() {

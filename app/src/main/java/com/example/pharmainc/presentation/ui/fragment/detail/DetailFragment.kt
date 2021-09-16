@@ -14,7 +14,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-
 class DetailFragment : BottomSheetDialogFragment() {
 
     private var _viewDataBinding: FragmentDetailBinding? = null

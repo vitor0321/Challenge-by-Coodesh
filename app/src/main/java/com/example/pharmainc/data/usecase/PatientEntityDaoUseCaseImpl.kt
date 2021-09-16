@@ -6,9 +6,7 @@ import com.example.pharmainc.domain.error.type.ResultType
 import com.example.pharmainc.domain.mapper.dao.PatientEntityMapperUseCase
 import com.example.pharmainc.domain.mapper.dao.PatientMapperUseCase
 import com.example.pharmainc.presentation.model.Patient
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.single
 
 class PatientEntityDaoUseCaseImpl(
     private val patientDAO: PatientDao,

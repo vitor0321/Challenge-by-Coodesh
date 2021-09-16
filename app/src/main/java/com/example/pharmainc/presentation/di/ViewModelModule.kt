@@ -12,9 +12,9 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel<HomeViewModel> {
         HomeViewModel(
-            clickedCheckBoxUseCase = get<ClickedCheckBoxUseCase>(),
-            patientRepositoryUseCase = get<PatientRepositoryUseCase>(),
-            searchingNationalityUseCase = get<SearchingNationalityUseCase>()
+            get<ClickedCheckBoxUseCase>(),
+            get<PatientRepositoryUseCase>(),
+            get<SearchingNationalityUseCase>()
         )
     }
     viewModel<PharmaViewModel> { PharmaViewModel(get<ItemComponentsData>()) }

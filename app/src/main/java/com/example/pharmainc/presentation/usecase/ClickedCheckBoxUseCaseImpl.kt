@@ -37,14 +37,11 @@ class ClickedCheckBoxUseCaseImpl(
         gender: String?
     ): MutableList<Patient> {
         val listMutable: MutableList<Patient> = mutableListOf()
-        when (gender) {
-            NULL -> listMutable
-            else -> listPatient.map { patient ->
-                if (gender == patient.gender) {
-                    listMutable.add(patient)
-                }
-            }
-        }
+         listPatient.map { patient ->
+             if (gender == patient.gender) {
+                 listMutable.add(patient)
+             }
+         }
         return listMutable
     }
 }

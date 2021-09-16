@@ -12,8 +12,8 @@ abstract class ActionViewModel<Action, Data> : ViewModel() {
     val actions: LiveData<Action> = actionsMutableLiveData
     val data: LiveData<List<Data>> = dataMutableLiveData
 
-    fun dispatchAction(action: Action) {
-        action?.let { action ->
+    fun dispatchAction(actions: Action) {
+        actions?.let { action ->
             actionsMutableLiveData.value = action
         }
     }
