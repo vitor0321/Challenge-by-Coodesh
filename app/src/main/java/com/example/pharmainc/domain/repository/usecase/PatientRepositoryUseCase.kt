@@ -9,5 +9,5 @@ interface PatientRepositoryUseCase {
 
     suspend fun addPatientDao(patient: List<Patient>):ResultType<Long>
 
-    suspend fun getAllPatientDao(): ResultType<List<Patient>>
+    suspend fun getAllPatientDao(): ResultType<MutableList<Patient>>
 }

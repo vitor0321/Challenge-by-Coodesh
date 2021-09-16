@@ -9,6 +9,7 @@ class PatientEntityMapperUseCaseImpl :
 
     override fun mapFromEntityDao(entityDao: Patient): PatientEntity {
         return PatientEntity(
+            id = entityDao.id,
             idIdentification = entityDao.idIdentification,
             title = entityDao.title,
             name = entityDao.name,

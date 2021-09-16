@@ -1,12 +1,14 @@
 package com.example.pharmainc.data.usecase
 
 import com.example.pharmainc.data.db.dao.PatientDao
-import com.example.pharmainc.data.network.webservice.PatientRepository
 import com.example.pharmainc.domain.error.ErrorHandler
 import com.example.pharmainc.domain.error.type.ResultType
-import com.example.pharmainc.domain.mapper.dao.PatientMapperUseCase
 import com.example.pharmainc.domain.mapper.dao.PatientEntityMapperUseCase
+import com.example.pharmainc.domain.mapper.dao.PatientMapperUseCase
 import com.example.pharmainc.presentation.model.Patient
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.single
 
 class PatientEntityDaoUseCaseImpl(
     private val patientDAO: PatientDao,
@@ -30,22 +32,20 @@ class PatientEntityDaoUseCaseImpl(
         }
     }
 
-    override suspend fun getAllPatient(): ResultType<List<Patient>> {
-        try {
-            patientDAO.getAll().run {
-                val listPatient: MutableList<Patient> = mutableListOf()
-                if (this.value != null){
-                    entityPatientMapperUseCase.fromViewList(this.value!!).apply {
-                        this.map { patient ->
-                            listPatient.add(patient)
-                        }
+    override suspend fun getAllPatient(): ResultType<MutableList<Patient>> {
+        return try {
+            val listPatient: MutableList<Patient> = mutableListOf()
+            patientDAO.getAll().apply{
+                entityPatientMapperUseCase.fromViewList(this.first()).apply {
+                    this.map { patient ->
+                        listPatient.add(patient)
                     }
                 }
-                return ResultType.Success(listPatient)
             }
+            ResultType.Success(listPatient)
         } catch (throwable: Throwable) {
             val error = errorHandler.getError(throwable)
-            return ResultType.Error(error)
+            ResultType.Error(error)
         }
     }
 }

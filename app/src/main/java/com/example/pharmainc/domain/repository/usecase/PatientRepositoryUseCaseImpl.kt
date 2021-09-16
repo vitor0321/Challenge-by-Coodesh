@@ -18,7 +18,7 @@ class PatientRepositoryUseCaseImpl(
         return patientDaoUseCase.addPatient(patient)
     }
 
-    override suspend fun getAllPatientDao(): ResultType<List<Patient>> {
+    override suspend fun getAllPatientDao(): ResultType<MutableList<Patient>> {
         return patientDaoUseCase.getAllPatient()
     }
 }

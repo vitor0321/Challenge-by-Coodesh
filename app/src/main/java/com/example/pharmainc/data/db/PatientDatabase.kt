@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.pharmainc.data.db.dao.PatientDao
 import com.example.pharmainc.data.db.entity.PatientEntity
 
-@Database(entities = [PatientEntity::class], version = 1)
+@Database(entities = [PatientEntity::class], version = 3)
 abstract class PatientDatabase : RoomDatabase() {
 
     abstract val patientDao: PatientDao
@@ -24,7 +24,7 @@ abstract class PatientDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         PatientDatabase::class.java,
-                        "patient_database"
+                        "patientDB"
                     ).build()
                 }
                 return instance

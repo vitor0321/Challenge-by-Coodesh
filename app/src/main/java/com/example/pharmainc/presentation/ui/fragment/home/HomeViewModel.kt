@@ -12,13 +12,12 @@ import com.example.pharmainc.presentation.model.Patient
 import com.example.pharmainc.presentation.ui.fragment.home.dispatcher.action.HomeAction
 import com.example.pharmainc.presentation.usecase.ClickedCheckBoxUseCase
 import com.example.pharmainc.presentation.usecase.SearchingNationalityUseCase
-import com.google.android.gms.common.util.CollectionUtils.isEmpty
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val clickedCheckBoxUseCase: ClickedCheckBoxUseCase,
     private val patientRepositoryUseCase: PatientRepositoryUseCase,
-    private val searchingNationalityUseCase: SearchingNationalityUseCase
+    private val searchingNationalityUseCase: SearchingNationalityUseCase,
 ) : ActionViewModel<HomeAction, Patient>() {
 
     private var controlApi: Boolean = ACTIVE
@@ -40,7 +39,7 @@ class HomeViewModel(
                     }
                 }
                 is ResultType.Error -> {
-                    dispatchAction(HomeAction.ShowError)
+                    dispatchAction(HomeAction.ShowLoading)
                     Log.e(TAG_DAO_VIEW_MODEL, this.error.toString())
                 }
             }
@@ -52,8 +51,7 @@ class HomeViewModel(
             controlApi = INACTIVE
             patientRepositoryUseCase.getResultApi().apply {
                 when (this) {
-                    is ResultType.Success ->
-                        savePatientDao(this.data)
+                    is ResultType.Success -> savePatientDao(this.data)
                     is ResultType.Error -> {
                         dispatchAction(HomeAction.ShowError)
                         controlApi = ACTIVE
@@ -68,15 +66,11 @@ class HomeViewModel(
         viewModelScope.launch {
             patientRepositoryUseCase.addPatientDao(patients).apply {
                 when (this) {
-                    is ResultType.Success ->
-                        Log.e(TAG_API_VIEW_MODEL, this.data.toString())
-                    is ResultType.Error -> {
-                        Log.e(TAG_API_VIEW_MODEL, this.error.toString())
-                    }
+                    is ResultType.Success -> getPatientDao()
+                    is ResultType.Error -> Log.e(TAG_API_VIEW_MODEL, this.error.toString())
                 }
             }
         }
-        getPatientDao()
     }
 
     private fun setListAndFilter(patient: List<Patient>) {

@@ -7,5 +7,5 @@ interface PatientEntityDaoUseCase {
 
     suspend fun addPatient(patient: List<Patient>): ResultType<Long>
 
-    suspend fun getAllPatient(): ResultType<List<Patient>>
+    suspend fun getAllPatient(): ResultType<MutableList<Patient>>
 }
