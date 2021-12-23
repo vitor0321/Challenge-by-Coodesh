@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
 }
+apply from: '../config/detekt/detekt.gradle'
 
 android {
     compileSdkVersion 30

@@ -2,6 +2,7 @@
 buildscript {
     ext.kotlin_version = "1.5.21"
     ext.nav_version = "2.3.5"
+    ext.detekt_version = '1.19.0'
 
     repositories {
         google()
@@ -13,6 +14,9 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
     }
+}
+plugins {
+    id("io.gitlab.arturbosch.detekt").version("$detekt_version")
 }
 
 allprojects {
