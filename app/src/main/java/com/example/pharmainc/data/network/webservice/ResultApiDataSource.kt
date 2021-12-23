@@ -22,7 +22,7 @@ class ResultApiDataSource : ResultDataSource {
                         val patientList: MutableList<Result> = mutableListOf()
                         var count = 0
                         response.body()?.let { patientBodyResponse ->
-                            for (result in patientBodyResponse.patientResults) {
+                            patientBodyResponse.patientResults.map {
                                 val patient =
                                     patientBodyResponse.patientResults[count].getPatientModel()
                                 count++

@@ -9,7 +9,7 @@ import com.example.pharmainc.R
 import com.example.pharmainc.presentation.constants.EMPTY
 import com.example.pharmainc.databinding.ItemToastConstumBinding
 
-object Toast {
+object ToastMessage {
     @SuppressLint("StaticFieldLeak")
     private var dataBinding: ItemToastConstumBinding? = null
     private val viewDataBinding get() = dataBinding!!

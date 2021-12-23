@@ -1,8 +1,10 @@
 package com.example.pharmainc.presentation.ui.activity
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -15,13 +17,14 @@ import com.example.pharmainc.presentation.common.viewModel.observe
 import com.example.pharmainc.presentation.constants.GENDER_DIALOG
 import com.example.pharmainc.presentation.dataBinding.data.ItemComponentsData
 import com.example.pharmainc.presentation.eventBus.MessageEventSearch
-import com.example.pharmainc.presentation.toast.Toast.toast
+import com.example.pharmainc.presentation.toast.ToastMessage.toast
 import com.example.pharmainc.presentation.ui.activity.dispatcher.action.PharmaActionDispatcher
 import com.example.pharmainc.presentation.ui.dialog.GenderDialog
 import org.greenrobot.eventbus.EventBus
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import java.io.IOException
 
 class PharmaActivity : AppCompatActivity(), PharmaHandler {
 
@@ -71,8 +74,9 @@ class PharmaActivity : AppCompatActivity(), PharmaHandler {
                     title = null
                 }
                 bottomNavMainActivity.setupWithNavController(controller)
-            } catch (e: Exception) {
+            } catch (e: IOException) {
                 messageToast(R.string.failure_initialize_control)
+                Log.e(TAG, e.toString())
             }
         }
     }

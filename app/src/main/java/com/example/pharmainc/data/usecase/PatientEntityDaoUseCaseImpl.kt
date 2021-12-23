@@ -7,6 +7,7 @@ import com.example.pharmainc.domain.mapper.dao.PatientEntityMapperUseCase
 import com.example.pharmainc.domain.mapper.dao.PatientMapperUseCase
 import com.example.pharmainc.presentation.model.Patient
 import kotlinx.coroutines.flow.first
+import okio.IOException
 
 class PatientEntityDaoUseCaseImpl(
     private val patientDAO: PatientDao,
@@ -24,7 +25,7 @@ class PatientEntityDaoUseCaseImpl(
                 }
                 return ResultType.Success(id)
             }
-        } catch (throwable: Throwable) {
+        } catch (throwable: IOException) {
             val error = errorHandler.getError(throwable)
             return ResultType.Error(error)
         }
@@ -41,7 +42,7 @@ class PatientEntityDaoUseCaseImpl(
                 }
             }
             ResultType.Success(listPatient)
-        } catch (throwable: Throwable) {
+        } catch (throwable: IOException) {
             val error = errorHandler.getError(throwable)
             ResultType.Error(error)
         }

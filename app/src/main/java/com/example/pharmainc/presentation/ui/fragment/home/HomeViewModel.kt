@@ -7,7 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.pharmainc.domain.error.type.ResultType
 import com.example.pharmainc.domain.repository.usecase.PatientRepositoryUseCase
 import com.example.pharmainc.presentation.common.viewModel.ActionViewModel
-import com.example.pharmainc.presentation.constants.*
+import com.example.pharmainc.presentation.constants.ACTIVE
+import com.example.pharmainc.presentation.constants.INACTIVE
+import com.example.pharmainc.presentation.constants.NULL
+import com.example.pharmainc.presentation.constants.TAG_DAO_VIEW_MODEL
+import com.example.pharmainc.presentation.constants.TAG_API_VIEW_MODEL
+import com.example.pharmainc.presentation.constants.LOADING_TIME_OUT
+import com.example.pharmainc.presentation.constants.EMPTY
 import com.example.pharmainc.presentation.model.Patient
 import com.example.pharmainc.presentation.ui.fragment.home.dispatcher.action.HomeAction
 import com.example.pharmainc.presentation.usecase.ClickedCheckBoxUseCase

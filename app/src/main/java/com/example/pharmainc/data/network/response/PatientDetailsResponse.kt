@@ -1,7 +1,11 @@
 package com.example.pharmainc.data.network.response
 
 import com.example.pharmainc.domain.model.modelnetwork.Result
-import com.example.pharmainc.domain.model.modelnetwork.*
+import com.example.pharmainc.domain.model.modelnetwork.Name
+import com.example.pharmainc.domain.model.modelnetwork.Location
+import com.example.pharmainc.domain.model.modelnetwork.Dob
+import com.example.pharmainc.domain.model.modelnetwork.Id
+import com.example.pharmainc.domain.model.modelnetwork.Picture
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

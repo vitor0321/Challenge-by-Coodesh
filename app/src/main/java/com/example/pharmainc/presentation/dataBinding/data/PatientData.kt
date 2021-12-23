@@ -3,6 +3,7 @@ package com.example.pharmainc.presentation.dataBinding.data
 import androidx.lifecycle.MutableLiveData
 import com.example.pharmainc.presentation.model.Patient
 
+@Suppress("LongParameterList")
 class PatientData(
     private var patient: Patient = Patient(),
     val idName: MutableLiveData<String> = MutableLiveData<String>().also {
@@ -51,6 +52,7 @@ class PatientData(
         it.value = patient.country
     }
 ) {
+    @Suppress("ComplexMethod")
     fun setItemPatientData(patient: Patient?) {
         patient?.let { this.patient = patient }
         patient?.idIdentification?.let { idName.postValue(this.patient.idIdentification) }

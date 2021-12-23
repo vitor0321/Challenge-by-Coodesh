@@ -13,13 +13,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmainc.R
 import com.example.pharmainc.databinding.FragmentHomeBinding
 import com.example.pharmainc.presentation.common.viewModel.observe
-import com.example.pharmainc.presentation.constants.*
+import com.example.pharmainc.presentation.constants.CHILD_FIRST
+import com.example.pharmainc.presentation.constants.BOTTOM_SHEET
+import com.example.pharmainc.presentation.constants.EMPTY
+import com.example.pharmainc.presentation.constants.TRUE_MENU
+import com.example.pharmainc.presentation.constants.LOADING_TIME_OUT
+import com.example.pharmainc.presentation.constants.CHILD_SECOND
 import com.example.pharmainc.presentation.dataBinding.data.ItemCheckGenderData
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
 import com.example.pharmainc.presentation.eventBus.MessageEventGender
 import com.example.pharmainc.presentation.eventBus.MessageEventSearch
 import com.example.pharmainc.presentation.model.Patient
-import com.example.pharmainc.presentation.toast.Toast.toast
+import com.example.pharmainc.presentation.toast.ToastMessage.toast
 import com.example.pharmainc.presentation.ui.fragment.base.BaseFragment
 import com.example.pharmainc.presentation.ui.fragment.detail.DetailFragment
 import com.example.pharmainc.presentation.ui.fragment.home.dispatcher.HomeHandler
@@ -34,6 +39,7 @@ import org.koin.core.parameter.parametersOf
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
 
+@Suppress("TooManyFunctions")
 class HomeFragment : BaseFragment(), HomeHandler {
 
     private var _viewDataBinding: FragmentHomeBinding? = null

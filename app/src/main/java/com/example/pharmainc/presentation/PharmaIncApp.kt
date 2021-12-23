@@ -1,7 +1,12 @@
 package com.example.pharmainc.presentation
 
 import android.app.Application
-import com.example.pharmainc.presentation.di.*
+import com.example.pharmainc.presentation.di.navModule
+import com.example.pharmainc.presentation.di.viewModelModule
+import com.example.pharmainc.presentation.di.useCaseModule
+import com.example.pharmainc.presentation.di.uiModule
+import com.example.pharmainc.presentation.di.daoModule
+import com.example.pharmainc.presentation.di.dataBindingModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

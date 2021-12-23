@@ -5,6 +5,7 @@ import com.example.pharmainc.domain.error.ErrorHandler
 import com.example.pharmainc.domain.error.type.ResultType
 import com.example.pharmainc.domain.mapper.network.ResultMapperUseCase
 import com.example.pharmainc.presentation.model.Patient
+import java.io.IOException
 
 class ResultNetworkUseCaseImpl(
     private val patientRepository: PatientRepository,
@@ -19,7 +20,7 @@ class ResultNetworkUseCaseImpl(
                     return ResultType.Success(this)
                 }
             }
-        } catch (throwable: Throwable) {
+        } catch (throwable: IOException) {
             val error = errorHandler.getError(throwable)
             return ResultType.Error(error)
         }

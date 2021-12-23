@@ -188,7 +188,7 @@ empty-blocks:
     active: true
   EmptyFunctionBlock:
     active: true
-    ignoreOverridden: false
+    ignoreOverridden: true
   EmptyIfBlock:
     active: true
   EmptyInitBlock:
@@ -704,7 +704,7 @@ style:
   NestedClassesVisibility:
     active: true
   NewLineAtEndOfFile:
-    active: true
+    active: false
   NoTabs:
     active: false
   ObjectLiteralToLambda:
@@ -727,7 +727,7 @@ style:
     active: false
   ReturnCount:
     active: true
-    max: 2
+    max: 3
     excludedFunctions: 'equals'
     excludeLabeled: false
     excludeReturnFromLambda: true

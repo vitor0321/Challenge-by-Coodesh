@@ -9,7 +9,11 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.pharmainc.R
 import com.example.pharmainc.databinding.FragmentSplashBinding
-import com.example.pharmainc.presentation.constants.*
+import com.example.pharmainc.presentation.constants.CHILD_FIRST_SPLASH
+import com.example.pharmainc.presentation.constants.CHILD_SECOND_SPLASH
+import com.example.pharmainc.presentation.constants.SPLASH_TIME_OUT
+import com.example.pharmainc.presentation.constants.SPLASH_TIME_OUT_SECOND
+import com.example.pharmainc.presentation.constants.FALSE_MENU
 import com.example.pharmainc.presentation.navigation.Navigation
 import com.example.pharmainc.presentation.ui.fragment.base.BaseFragment
 import org.koin.android.ext.android.inject
