@@ -1,2 +1,3 @@
 rootProject.name = "PharmaInc"
 include ':app'
+include ':core'
