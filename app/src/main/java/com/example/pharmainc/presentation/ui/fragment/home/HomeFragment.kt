@@ -69,7 +69,7 @@ class HomeFragment : BaseFragment(), HomeHandler {
     }
 
     private fun init() {
-        viewModel.getPatientDao()
+        viewModel.getResultAPI()
         setView(GONE, CHILD_FIRST, GONE, TRUE)
         initEventBus()
         initRecycleView()

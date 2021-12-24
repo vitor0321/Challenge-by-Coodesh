@@ -30,46 +30,17 @@ class HomeViewModel(
     private var searchingNat: String? = NULL
     private var listPatient: MutableList<Patient> = mutableListOf()
 
-    fun getPatientDao() = viewModelScope.launch {
-        patientRepositoryUseCase.getAllPatientDao().apply {
-            when (this) {
-                is ResultType.Success -> {
-                    if (this.data.isEmpty()) {
-                        getResultAPI()
-                    } else {
-                        setListAndFilter(this.data)
-                    }
-                }
-                is ResultType.Error -> {
-                    dispatchAction(HomeAction.ShowLoading)
-                    Log.e(TAG_DAO_VIEW_MODEL, this.error.toString())
-                }
-            }
-        }
-    }
-
-    private fun getResultAPI() = viewModelScope.launch {
+    fun getResultAPI() = viewModelScope.launch {
         if (controlApi) {
             controlApi = INACTIVE
             patientRepositoryUseCase.getResultApi().apply {
                 when (this) {
-                    is ResultType.Success -> savePatientDao(this.data)
+                    is ResultType.Success -> setListAndFilter(this.data)
                     is ResultType.Error -> {
                         dispatchAction(HomeAction.ShowError)
                         controlApi = ACTIVE
                         Log.e(TAG_API_VIEW_MODEL, this.error.toString())
                     }
-                }
-            }
-        }
-    }
-
-    private fun savePatientDao(patients: List<Patient>) {
-        viewModelScope.launch {
-            patientRepositoryUseCase.addPatientDao(patients).apply {
-                when (this) {
-                    is ResultType.Success -> getPatientDao()
-                    is ResultType.Error -> Log.e(TAG_API_VIEW_MODEL, this.error.toString())
                 }
             }
         }
