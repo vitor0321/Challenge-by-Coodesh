@@ -1,6 +1,6 @@
 package com.example.pharmainc.presentation.usecase
 
-import com.example.pharmainc.presentation.model.Patient
+import com.example.core.domain.model.Patient
 
 interface ClickedCheckBoxUseCase {
 

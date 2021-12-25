@@ -1,11 +1,9 @@
 package com.example.pharmainc.pressentation.ui.fragment.home.viewModel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.pharmainc.domain.mapper.dao.PatientEntityMapperUseCase
-import com.example.pharmainc.domain.mapper.network.ResultMapperUseCase
 import com.example.pharmainc.domain.repository.usecase.PatientRepositoryUseCase
 import com.example.pharmainc.presentation.common.test.TestObserver
-import com.example.pharmainc.presentation.model.Patient
+import com.example.core.domain.model.Patient
 import com.example.pharmainc.presentation.ui.fragment.home.HomeViewModel
 import com.example.pharmainc.presentation.ui.fragment.home.dispatcher.action.HomeAction
 import com.example.pharmainc.presentation.usecase.ClickedCheckBoxUseCase

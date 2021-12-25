@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmainc.databinding.ItemHomeFragmentBinding
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
-import com.example.pharmainc.presentation.model.Patient
+import com.example.core.domain.model.Patient
 
 class HomeAdapter(
     var onClickListener: (patient: Patient) -> Unit = {}

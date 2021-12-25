@@ -1,7 +1,7 @@
 package com.example.pharmainc.data.network.webservice
 
-import com.example.pharmainc.domain.error.ErrorHandler
-import com.example.pharmainc.domain.error.type.ErrorType
+import com.example.core.domain.error.ErrorHandler
+import com.example.core.domain.error.type.ErrorType
 
 class GeneralErrorHandlerImpl : ErrorHandler {
 

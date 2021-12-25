@@ -1,5 +1,6 @@
 package com.example.pharmainc.data.network.webservice
 
+import com.example.pharmainc.data.network.response.ResultDataSource
 import com.example.pharmainc.domain.model.modelnetwork.Result
 
 class PatientRepository(private val patientDataSource: ResultDataSource) {

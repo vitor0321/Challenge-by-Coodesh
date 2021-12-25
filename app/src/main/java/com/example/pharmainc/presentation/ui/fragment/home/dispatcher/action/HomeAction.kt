@@ -1,6 +1,6 @@
 package com.example.pharmainc.presentation.ui.fragment.home.dispatcher.action
 
-import com.example.pharmainc.presentation.model.Patient
+import com.example.core.domain.model.Patient
 
 sealed class HomeAction {
 

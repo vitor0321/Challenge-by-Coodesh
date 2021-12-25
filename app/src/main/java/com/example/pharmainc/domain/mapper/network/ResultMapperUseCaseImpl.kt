@@ -2,7 +2,7 @@ package com.example.pharmainc.domain.mapper.network
 
 import android.annotation.SuppressLint
 import com.example.pharmainc.domain.model.modelnetwork.Result
-import com.example.pharmainc.presentation.model.Patient
+import com.example.core.domain.model.Patient
 import java.text.SimpleDateFormat
 
 class ResultMapperUseCaseImpl : ResultMapper<Result, Patient>, ResultMapperUseCase {

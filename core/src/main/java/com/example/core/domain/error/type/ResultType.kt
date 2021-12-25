@@ -1,4 +1,4 @@
-package com.example.pharmainc.domain.error.type
+package com.example.core.domain.error.type
 
 sealed class ResultType<T>{
     data class Success<T>(val data: T): ResultType<T>()

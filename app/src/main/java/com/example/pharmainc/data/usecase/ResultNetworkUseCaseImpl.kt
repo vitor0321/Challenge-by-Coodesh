@@ -1,10 +1,11 @@
 package com.example.pharmainc.data.usecase
 
+import com.example.core.data.repository.ResultNetworkUseCase
 import com.example.pharmainc.data.network.webservice.PatientRepository
-import com.example.pharmainc.domain.error.ErrorHandler
-import com.example.pharmainc.domain.error.type.ResultType
+import com.example.core.domain.error.ErrorHandler
+import com.example.core.domain.error.type.ResultType
 import com.example.pharmainc.domain.mapper.network.ResultMapperUseCase
-import com.example.pharmainc.presentation.model.Patient
+import com.example.core.domain.model.Patient
 import java.io.IOException
 
 class ResultNetworkUseCaseImpl(

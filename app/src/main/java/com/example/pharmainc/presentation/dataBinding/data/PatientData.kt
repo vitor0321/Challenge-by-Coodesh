@@ -1,7 +1,7 @@
 package com.example.pharmainc.presentation.dataBinding.data
 
 import androidx.lifecycle.MutableLiveData
-import com.example.pharmainc.presentation.model.Patient
+import com.example.core.domain.model.Patient
 
 @Suppress("LongParameterList")
 class PatientData(

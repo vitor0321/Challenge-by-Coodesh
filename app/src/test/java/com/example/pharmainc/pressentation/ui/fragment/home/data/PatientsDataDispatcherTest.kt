@@ -1,6 +1,6 @@
 package com.example.pharmainc.pressentation.ui.fragment.home.data
 
-import com.example.pharmainc.presentation.model.Patient
+import com.example.core.domain.model.Patient
 import com.example.pharmainc.presentation.ui.fragment.home.dispatcher.HomeHandler
 import com.example.pharmainc.presentation.ui.fragment.home.dispatcher.data.HomeDataDispatcher
 import io.mockk.mockk

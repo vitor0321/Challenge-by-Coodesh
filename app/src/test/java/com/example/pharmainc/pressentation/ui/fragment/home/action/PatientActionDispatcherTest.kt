@@ -1,6 +1,6 @@
 package com.example.pharmainc.pressentation.ui.fragment.home.action
 
-import com.example.pharmainc.presentation.model.Patient
+import com.example.core.domain.model.Patient
 import com.example.pharmainc.presentation.ui.fragment.home.dispatcher.HomeHandler
 import com.example.pharmainc.presentation.ui.fragment.home.dispatcher.action.HomeAction
 import com.example.pharmainc.presentation.ui.fragment.home.dispatcher.action.HomeActionDispatcher

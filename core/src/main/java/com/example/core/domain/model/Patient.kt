@@ -1,9 +1,5 @@
-package com.example.pharmainc.presentation.model
+package com.example.core.domain.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
 data class Patient(
     val id:Long = 0L,
     val idIdentification: String? = "",
@@ -21,4 +17,4 @@ data class Patient(
     val city: String = "",
     val state: String = "",
     val country: String = "",
-): Parcelable
+)

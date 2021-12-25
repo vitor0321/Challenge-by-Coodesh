@@ -23,7 +23,7 @@ import com.example.pharmainc.presentation.dataBinding.data.ItemCheckGenderData
 import com.example.pharmainc.presentation.dataBinding.data.PatientData
 import com.example.pharmainc.presentation.eventBus.MessageEventGender
 import com.example.pharmainc.presentation.eventBus.MessageEventSearch
-import com.example.pharmainc.presentation.model.Patient
+import com.example.core.domain.model.Patient
 import com.example.pharmainc.presentation.toast.ToastMessage.toast
 import com.example.pharmainc.presentation.ui.fragment.base.BaseFragment
 import com.example.pharmainc.presentation.ui.fragment.detail.DetailFragment

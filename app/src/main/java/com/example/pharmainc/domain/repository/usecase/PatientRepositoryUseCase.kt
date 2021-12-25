@@ -1,7 +1,7 @@
 package com.example.pharmainc.domain.repository.usecase
 
-import com.example.pharmainc.domain.error.type.ResultType
-import com.example.pharmainc.presentation.model.Patient
+import com.example.core.domain.error.type.ResultType
+import com.example.core.domain.model.Patient
 
 interface PatientRepositoryUseCase {
 

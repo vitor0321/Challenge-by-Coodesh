@@ -2,12 +2,10 @@ package com.example.pharmainc.presentation.ui.activity
 
 import com.example.pharmainc.presentation.common.viewModel.ActionViewModel
 import com.example.pharmainc.presentation.constants.EMPTY
-import com.example.pharmainc.presentation.constants.TRUE
 import com.example.pharmainc.presentation.dataBinding.data.ItemComponentsData
 import com.example.pharmainc.presentation.model.ItemComponents
-import com.example.pharmainc.presentation.model.Patient
+import com.example.core.domain.model.Patient
 import com.example.pharmainc.presentation.ui.activity.dispatcher.action.PharmaAction
-import java.lang.Boolean.FALSE
 
 class PharmaViewModel(
     private val itemComponentsData: ItemComponentsData,

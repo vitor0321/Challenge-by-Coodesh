@@ -1,7 +1,7 @@
 package com.example.pharmainc.presentation.usecase
 
 import com.example.pharmainc.presentation.constants.EMPTY
-import com.example.pharmainc.presentation.model.Patient
+import com.example.core.domain.model.Patient
 import kotlin.coroutines.suspendCoroutine
 
 class SearchingNationalityUseCaseImpl : SearchingNationalityUseCase {

@@ -3,10 +3,10 @@ package com.example.pharmainc.presentation.di
 import com.example.pharmainc.data.network.webservice.GeneralErrorHandlerImpl
 import com.example.pharmainc.data.network.webservice.PatientRepository
 import com.example.pharmainc.data.network.webservice.ResultApiDataSource
-import com.example.pharmainc.data.network.webservice.ResultDataSource
-import com.example.pharmainc.data.usecase.ResultNetworkUseCase
+import com.example.pharmainc.data.network.response.ResultDataSource
+import com.example.core.data.repository.ResultNetworkUseCase
 import com.example.pharmainc.data.usecase.ResultNetworkUseCaseImpl
-import com.example.pharmainc.domain.error.ErrorHandler
+import com.example.core.domain.error.ErrorHandler
 import com.example.pharmainc.domain.mapper.network.ResultMapperUseCase
 import com.example.pharmainc.domain.mapper.network.ResultMapperUseCaseImpl
 import com.example.pharmainc.domain.repository.usecase.PatientRepositoryUseCase
