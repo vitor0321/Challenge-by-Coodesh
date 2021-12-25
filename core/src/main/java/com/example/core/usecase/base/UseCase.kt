@@ -7,14 +7,14 @@ import kotlinx.coroutines.flow.flow
 
 abstract class UseCase<in P, R> {
 
-    operator fun invoke(params: P): Flow<ResultStatus<R>> = flow {
-        emit(ResultStatus.Loading)
+    operator fun invoke(params: P): Flow<PatientStatus<R>> = flow {
+        emit(PatientStatus.Loading)
         emit(doWork(params))
     }.catch { throwable ->
-        emit(ResultStatus.Error(throwable))
+        emit(PatientStatus.Error(throwable))
     }
 
-    protected abstract suspend fun doWork(params: P): ResultStatus<R>
+    protected abstract suspend fun doWork(params: P): PatientStatus<R>
 }
 
 abstract class PagingUseCase<in P, R : Any> {

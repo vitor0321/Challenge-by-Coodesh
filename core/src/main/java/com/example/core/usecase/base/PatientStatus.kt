@@ -1,10 +1,10 @@
 package com.example.core.usecase.base
 
-sealed class ResultStatus<out T> {
+sealed class PatientStatus<out T> {
 
-    object Loading : ResultStatus<Nothing>()
-    data class Success<out T>(val data: T) : ResultStatus<T>()
-    data class Error(val throwable: Throwable) : ResultStatus<Nothing>()
+    object Loading : PatientStatus<Nothing>()
+    data class Success<out T>(val data: T) : PatientStatus<T>()
+    data class Error(val throwable: Throwable) : PatientStatus<Nothing>()
 
 
     override fun toString(): String {

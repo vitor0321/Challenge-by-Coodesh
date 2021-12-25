@@ -1,7 +1,8 @@
-package com.example.pharmainc.data.usecase
+package com.example.pharmainc.framework.usecase
 
-import com.example.core.data.repository.ResultNetworkUseCase
-import com.example.pharmainc.data.network.webservice.PatientRepository
+import com.example.core.data.repository.PatientRemoteDataSource
+import com.example.core.data.repository.PatientRepository
+import com.example.pharmainc.framework.network.webservice.PatientRepository
 import com.example.core.domain.error.ErrorHandler
 import com.example.core.domain.error.type.ResultType
 import com.example.pharmainc.domain.mapper.network.ResultMapperUseCase
@@ -12,7 +13,7 @@ class ResultNetworkUseCaseImpl(
     private val patientRepository: PatientRepository,
     private val errorHandler: ErrorHandler,
     private val resultMapperUseCase: ResultMapperUseCase,
-) : ResultNetworkUseCase {
+) : PatientRemoteDataSource {
 
     override suspend fun invoke(): ResultType<List<Patient>> {
         try {

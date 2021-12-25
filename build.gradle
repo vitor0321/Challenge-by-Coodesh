@@ -5,6 +5,7 @@ buildscript {
     ext.detekt_version = '1.19.0'
     ext.paging_version = '3.0.1'
     ext.coroutines_version = "1.5.1"
+    ext.hilt_version = '2.37'
 
     repositories {
         google()
@@ -14,6 +15,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:7.0.2'
         classpath "com.android.databinding:compiler:3.1.4"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
     }
 }

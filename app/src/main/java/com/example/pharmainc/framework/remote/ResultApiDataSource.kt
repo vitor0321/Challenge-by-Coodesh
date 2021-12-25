@@ -1,19 +1,18 @@
-package com.example.pharmainc.data.network.webservice
+package com.example.pharmainc.framework.remote
 
-import com.example.pharmainc.data.network.response.ResultDataSource
-import com.example.pharmainc.data.network.ApiService
-import com.example.pharmainc.data.network.response.PatientBodyResponse
+import com.example.core.data.repository.PatientRemoteDataSource
+import com.example.pharmainc.framework.network.response.PatientBodyResponse
 import com.example.pharmainc.domain.model.modelnetwork.Result
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import kotlin.coroutines.suspendCoroutine
 
-class ResultApiDataSource : ResultDataSource {
+class ResultApiDataSource : PatientRemoteDataSource<Result> {
 
-    override suspend fun getResult(): List<Result> {
+    override suspend fun fetchCharacter(queries: Map<String, String>): Result {
         return suspendCoroutine { continuation ->
-            ApiService.service.getResult().enqueue(object : Callback<PatientBodyResponse> {
+            RetrofitApiService.service.getResult().enqueue(object : Callback<PatientBodyResponse> {
 
                 override fun onResponse(
                     call: Call<PatientBodyResponse>,

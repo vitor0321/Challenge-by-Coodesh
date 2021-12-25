@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
 }
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'kotlin-parcelize'
 apply from: '../config/detekt/detekt.gradle'
 
 android {
@@ -112,6 +114,10 @@ dependencies {
     def koin_version = '3.1.2'
     implementation "io.insert-koin:koin-core:$koin_version"
     implementation "io.insert-koin:koin-android:$koin_version"
+
+    // Dagger Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     //Material Dialogs
     implementation 'com.afollestad.material-dialogs:datetime:3.3.0'
